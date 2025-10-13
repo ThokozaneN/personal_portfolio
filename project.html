@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details - Thokozane Nxumalo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-sun theme-icon active" id="lightIcon"></i>
+        <i class="fas fa-moon theme-icon" id="darkIcon"></i>
+    </div>
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Thokozane Nxumalo - Home">
+                <i class="fas fa-code" aria-hidden="true"></i>
+            </a>
+            <nav aria-label="Main navigation">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html#home" class="mobile-nav-link">Home</a></li>
+            <li><a href="index.html#about" class="mobile-nav-link">About</a></li>
+            <li><a href="index.html#projects" class="mobile-nav-link">Projects</a></li>
+            <li><a href="index.html#contact" class="mobile-nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Project Hero Section -->
+    <section class="project-hero" id="project-hero">
+        <div class="container">
+            <div class="project-hero-content">
+                <nav class="project-breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html#projects" class="breadcrumb-link">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Projects
+                    </a>
+                </nav>
+                <div class="project-meta">
+                    <span class="project-category" id="projectCategory">E-Commerce</span>
+                    <span class="project-year" id="projectYear">2024</span>
+                </div>
+                <h1 class="project-title" id="projectTitle">E-Commerce Platform</h1>
+                <p class="project-subtitle" id="projectSubtitle">A modern e-commerce solution with real-time inventory, AI-powered recommendations, and seamless payment integration.</p>
+                <div class="project-hero-actions">
+                    <a href="#project-overview" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        View Project
+                    </a>
+                    <a href="#" class="btn btn-secondary" id="liveDemoBtn">
+                        <i class="fas fa-external-link-alt"></i>
+                        Live Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Project Overview -->
+        <section class="project-section" id="project-overview">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Project Overview</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="project-overview-grid">
+                    <div class="overview-content">
+                        <div class="overview-text">
+                            <h3>The Challenge</h3>
+                            <p>Modern e-commerce demands more than just a shopping cart. Businesses need intelligent systems that understand customer behavior, manage inventory in real-time, and provide seamless payment experiences across all devices.</p>
+                            
+                            <h3>The Solution</h3>
+                            <p>I built a comprehensive e-commerce platform that combines cutting-edge technology with user-centered design. The platform features AI-driven product recommendations, real-time inventory management, and a frictionless checkout process that converts visitors into loyal customers.</p>
+                        </div>
+                        <div class="overview-stats">
+                            <div class="stat-card">
+                                <div class="stat-number">+45%</div>
+                                <div class="stat-label">Conversion Rate</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">2.1s</div>
+                                <div class="stat-label">Avg. Load Time</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">99.8%</div>
+                                <div class="stat-label">Uptime</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overview-image">
+                        <div class="project-feature-img" style="background: linear-gradient(135deg, var(--chart-1), var(--chart-2)); height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; border-radius: var(--radius);">
+                            <i class="fas fa-shopping-bag"></i> E-Commerce Dashboard Preview
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="project-section project-section-alt" id="technology">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Technology Stack</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="tech-stack-grid">
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">
+                            <i class="fas fa-desktop"></i>
+                            Frontend
+                        </h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-icon">⚛️</span>
+                                <span class="tech-name">Next.js 14</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-icon">🎨</span>
+                                <span class="tech-name">Tailwind CSS</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-icon">📱</span>
+                                <span class="tech-name">TypeScript</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">
+                            <i class="fas fa-server"></i>
+                            Backend
+                        </h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-icon">🟢</span>
+                                <span class="tech-name">Node.js</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-icon">🍃</span>
+                                <span class="tech-name">MongoDB</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-icon">🔗</span>
+                                <span class="tech-name">GraphQL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">
+                            <i class="fas fa-cloud"></i>
+                            Services
+                        </h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-icon">💳</span>
+                                <span class="tech-name">Stripe</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-icon">🤖</span>
+                                <span class="tech-name">OpenAI</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-icon">☁️</span>
+                                <span class="tech-name">Vercel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features -->
+        <section class="project-section" id="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Key Features</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">AI-Powered Recommendations</h3>
+                        <p class="feature-description">Machine learning algorithms analyze user behavior to suggest products they're most likely to purchase, increasing average order value by 35%.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="feature-title">Real-time Inventory</h3>
+                        <p class="feature-description">Live inventory tracking prevents overselling and provides accurate stock levels across all sales channels in real-time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Progressive Web App</h3>
+                        <p class="feature-description">Offline functionality, push notifications, and app-like experience drive 3x higher mobile conversion rates.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Enterprise Security</h3>
+                        <p class="feature-description">PCI-DSS compliant payment processing, encrypted data storage, and regular security audits protect customer information.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Gallery -->
+        <section class="project-section project-section-alt" id="gallery">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Project Gallery</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item gallery-item-large">
+                        <div style="background: linear-gradient(135deg, var(--chart-3), var(--chart-4)); height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                            <i class="fas fa-home"></i> Modern Homepage Design
+                        </div>
+                        <div class="gallery-caption">Modern Homepage Design</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, var(--chart-5), var(--chart-1)); height: 190px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem;">
+                            <i class="fas fa-tag"></i> Product Page
+                        </div>
+                        <div class="gallery-caption">Product Detail Page</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, var(--chart-2), var(--chart-3)); height: 190px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem;">
+                            <i class="fas fa-shopping-cart"></i> Checkout
+                        </div>
+                        <div class="gallery-caption">Streamlined Checkout</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, var(--chart-4), var(--chart-5)); height: 190px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem;">
+                            <i class="fas fa-chart-bar"></i> Dashboard
+                        </div>
+                        <div class="gallery-caption">Admin Dashboard</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Process -->
+        <section class="project-section" id="process">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Development Process</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="process-timeline">
+                    <div class="process-phase">
+                        <div class="phase-number">01</div>
+                        <div class="phase-content">
+                            <h3 class="phase-title">Discovery & Planning</h3>
+                            <p class="phase-description">Conducted user research, defined project requirements, and created detailed user stories. Established technical architecture and project timeline.</p>
+                            <div class="phase-duration">2 weeks</div>
+                        </div>
+                    </div>
+                    <div class="process-phase">
+                        <div class="phase-number">02</div>
+                        <div class="phase-content">
+                            <h3 class="phase-title">UI/UX Design</h3>
+                            <p class="phase-description">Created wireframes, prototypes, and high-fidelity mockups. Conducted usability testing and iterated based on feedback.</p>
+                            <div class="phase-duration">3 weeks</div>
+                        </div>
+                    </div>
+                    <div class="process-phase">
+                        <div class="phase-number">03</div>
+                        <div class="phase-content">
+                            <h3 class="phase-title">Development</h3>
+                            <p class="phase-description">Implemented frontend and backend features using agile methodology. Conducted code reviews and continuous integration.</p>
+                            <div class="phase-duration">8 weeks</div>
+                        </div>
+                    </div>
+                    <div class="process-phase">
+                        <div class="phase-number">04</div>
+                        <div class="phase-content">
+                            <h3 class="phase-title">Testing & Launch</h3>
+                            <p class="phase-description">Performed comprehensive testing, deployed to production, and monitored performance. Provided post-launch support.</p>
+                            <div class="phase-duration">2 weeks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="project-cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Ready to Build Something Amazing?</h2>
+                    <p class="cta-description">Let's discuss how we can bring your project to life with the same level of craftsmanship and attention to detail.</p>
+                    <div class="cta-actions">
+                        <a href="index.html#contact" class="btn btn-primary btn-large">
+                            <i class="fas fa-paper-plane"></i>
+                            Start a Project
+                        </a>
+                        <a href="index.html#projects" class="btn btn-secondary btn-large">
+                            <i class="fas fa-code"></i>
+                            View All Projects
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fas fa-code" aria-hidden="true"></i>
+                Thokozane Nxumalo
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/ThokozaneN" class="icon-link" aria-label="Visit my GitHub profile">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/thokozane-nxumalo?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="icon-link" aria-label="Visit my LinkedIn profile">
+                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                </a>
+                <a href="https://twitter.com/ThokozaneN" class="icon-link" aria-label="Visit my Twitter profile">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </div>
+            <p class="copyright">© <span id="currentYear"></span> Thokozane Nxumalo</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="script.js"></script>
+    <script src="project.js"></script>
+</body>
+</html>

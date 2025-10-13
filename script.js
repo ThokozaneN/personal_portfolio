@@ -195,6 +195,29 @@ Best regards,
         });
 }
 
+// Resume request function
+function requestResume() {
+    const subject = 'Resume Request - Thokozane Nxumalo Portfolio';
+    const body = `Hello Thokozane,
+
+I came across your portfolio and would like to request a copy of your resume.
+
+Could you please share your resume with me? I'm interested in learning more about your experience and skills.
+
+Best regards,
+[Your Name]
+[Your Company/Organization - Optional]
+[Your Email/Phone - Optional]`;
+    
+    sendEmail(subject, body)
+        .then(() => {
+            showToast('Opening email client to request resume...', 'success');
+        })
+        .catch(() => {
+            showToast('Failed to open email client. Please email dev@thokozane.co.za directly.', 'error');
+        });
+}
+
 // Theme Toggle
 const themeToggle = document.getElementById('themeToggle');
 const lightIcon = document.getElementById('lightIcon');
@@ -533,6 +556,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add scroll event listeners
     window.addEventListener('scroll', handleScrollAnimations);
     window.addEventListener('scroll', setActiveNavLink);
+    window.addEventListener('scroll', updateScrollProgress);
     
     // Add mailto links to any elements with class 'mailto-link'
     document.querySelectorAll('.mailto-link').forEach(link => {
@@ -550,4 +574,34 @@ document.addEventListener('DOMContentLoaded', function() {
             quickContact();
         });
     }
+    
+    // Add resume button event listener
+    const resumeBtn = document.getElementById('resumeBtn');
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', requestResume);
+    }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (mobileMenu.classList.contains('active') && 
+            !e.target.closest('.mobile-menu') && 
+            !e.target.closest('.hamburger')) {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Handle escape key to close mobile menu
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = 'auto';
+        }
+    });
 });
