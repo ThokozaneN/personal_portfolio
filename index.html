@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thokozane Nxumalo | Fullstack Web Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-sun theme-icon active" id="lightIcon"></i>
+        <i class="fas fa-moon theme-icon" id="darkIcon"></i>
+    </div>
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo" aria-label="Thokozane Nxumalo - Home">
+                <i class="fas fa-code" aria-hidden="true"></i>
+                Thokozane
+            </a>
+            <nav aria-label="Main navigation">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="nav-link active" aria-current="page">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true">
+        <ul class="mobile-nav-links">
+            <li><a href="#home" class="mobile-nav-link" aria-current="page">Home</a></li>
+            <li><a href="#about" class="mobile-nav-link">About</a></li>
+            <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
+            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background" aria-hidden="true">
+            <div class="gradient-bg"></div>
+            <div class="floating-particles" id="floatingParticles"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Thokozane Nxumalo</h1>
+                <h2 class="hero-subtitle">
+                    <span class="typing-text" id="typingText" aria-live="polite"></span>
+                </h2>
+                <div class="hero-location">
+                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                    <span>Based in South Africa | <span id="currentTime" aria-live="polite"></span></span>
+                </div>
+                <p class="hero-description">I craft digital experiences that blend cutting-edge technology with intuitive design, creating solutions that drive real business impact.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-rocket" aria-hidden="true"></i>
+                        View My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About Me</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Crafting Digital Excellence</h3>
+                        <p>I've grown from a curious tech enthusiast into a seasoned fullstack web developer passionate about crafting seamless digital experiences. My journey has taken me across startups, agencies, and enterprise environments, shaping my skills and approach along the way.</p>
+                        <p>I believe in the power of clean code, intuitive design, and user-centered development. Every project is an opportunity to solve complex problems with elegant solutions that stand the test of time.</p>
+                        <div class="skills">
+                            <div class="tech-pill">React & Next.js</div>
+                            <div class="tech-pill">Node.js & Express</div>
+                            <div class="tech-pill">TypeScript</div>
+                            <div class="tech-pill">MongoDB & PostgreSQL</div>
+                            <div class="tech-pill">UI/UX Design</div>
+                            <div class="tech-pill">Azure AI</div>
+                            <div class="tech-pill">GraphQL</div>
+                            <div class="tech-pill">Python & Django</div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/thokozane.jpg" alt="Thokozane Nxumalo - Fullstack Web Developer" class="profile-img" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section" id="projects">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Featured Projects</h2>
+                </div>
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-img" aria-hidden="true">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>E-Commerce Platform</h3>
+                            <p>A modern e-commerce solution with real-time inventory, AI-powered recommendations, and seamless payment integration.</p>
+                            <div class="project-tags">
+                                <span class="tag">Next.js</span>
+                                <span class="tag">Node.js</span>
+                                <span class="tag">MongoDB</span>
+                                <span class="tag">Stripe</span>
+                            </div>
+                            <a href="#" class="project-link" aria-label="Learn more about E-Commerce Platform project">View Details</a>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-img" aria-hidden="true">
+                            <i class="fas fa-chart-network"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Analytics Dashboard</h3>
+                            <p>Interactive data visualization platform that transforms complex datasets into actionable insights with real-time updates.</p>
+                            <div class="project-tags">
+                                <span class="tag">React</span>
+                                <span class="tag">D3.js</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">PostgreSQL</span>
+                            </div>
+                            <a href="#" class="project-link" aria-label="Learn more about Analytics Dashboard project">View Details</a>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-img" aria-hidden="true">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Health & Fitness App</h3>
+                            <p>Comprehensive mobile application for fitness tracking, meal planning, and community engagement.</p>
+                            <div class="project-tags">
+                                <span class="tag">React Native</span>
+                                <span class="tag">Firebase</span>
+                                <span class="tag">Node.js</span>
+                                <span class="tag">ML</span>
+                            </div>
+                            <a href="#" class="project-link" aria-label="Learn more about Health & Fitness App project">View Details</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Get In Touch</h2>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Let's Build Something Amazing</h3>
+                        <p>I'm currently available for freelance projects and full-time opportunities. Whether you have a project in mind or just want to chat about tech, I'd love to hear from you.</p>
+                        
+                        <div class="contact-card">
+                            <div class="contact-details">
+                                <div class="contact-detail">
+                                    <div class="contact-detail-icon" aria-hidden="true">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-detail-text">
+                                        <h4>Email</h4>
+                                        <a href="mailto:dev@thokozane.co.za">dev@thokozane.co.za</a>
+                                    </div>
+                                </div>
+                                <div class="contact-detail">
+                                    <div class="contact-detail-icon" aria-hidden="true">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="contact-detail-text">
+                                        <h4>Phone</h4>
+                                        <a href="tel:+27698077866">069 807 7866</a>
+                                    </div>
+                                </div>
+                                <div class="contact-detail">
+                                    <div class="contact-detail-icon" aria-hidden="true">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="contact-detail-text">
+                                        <h4>Location</h4>
+                                        <p>Johannesburg, South Africa</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-social">
+                                <a href="https://facebook.com" class="social-icon" aria-label="Visit my Facebook profile">
+                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://linkedin.com" class="social-icon" aria-label="Visit my LinkedIn profile">
+                                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://github.com" class="social-icon" aria-label="Visit my GitHub profile">
+                                    <i class="fab fa-github" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm" novalidate>
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" class="form-control" required aria-required="true">
+                                <span class="error-message" id="nameError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" required aria-required="true">
+                                <span class="error-message" id="emailError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Project Type</label>
+                                <input type="text" id="subject" class="form-control" required aria-required="true">
+                                <span class="error-message" id="subjectError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Project Details</label>
+                                <textarea id="message" class="form-control" placeholder="Tell me about your project, timeline, and budget..." required aria-required="true"></textarea>
+                                <span class="error-message" id="messageError"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fas fa-code" aria-hidden="true"></i>
+                Thokozane Nxumalo
+            </div>
+            <div class="social-links">
+                <a href="https://github.com" class="icon-link" aria-label="Visit my GitHub profile">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+                <a href="https://linkedin.com" class="icon-link" aria-label="Visit my LinkedIn profile">
+                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                </a>
+                <a href="https://twitter.com" class="icon-link" aria-label="Visit my Twitter profile">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+                <a href="https://dribbble.com" class="icon-link" aria-label="Visit my Dribbble profile">
+                    <i class="fab fa-dribbble" aria-hidden="true"></i>
+                </a>
+            </div>
+            <p class="copyright">© <span id="currentYear"></span> Thokozane Nxumalo. Crafted with passion.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
