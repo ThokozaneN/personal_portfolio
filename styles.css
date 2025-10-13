@@ -82,10 +82,18 @@
     box-sizing: border-box;
 }
 
-/* Improved focus styles for accessibility */
+/* Improved focus styles for accessibility - Remove from nav elements */
 *:focus {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
+}
+
+/* Remove focus outlines specifically from navigation elements */
+.nav-link:focus,
+.mobile-nav-link:focus,
+.hamburger:focus,
+.theme-toggle:focus {
+    outline: none !important;
 }
 
 /* Remove tap highlight on mobile */
