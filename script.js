@@ -68,7 +68,7 @@ function handleScrollAnimations() {
 
 // Typing Animation
 const typingText = document.getElementById('typingText');
-const texts = ['Fullstack Developer', 'UI/UX Designer', 'Problem Solver', 'Tech Enthusiast'];
+const texts = ['Fullstack Web Dev', 'UI/UX Designer', 'Problem Solver', 'Tech Enthusiast'];
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;

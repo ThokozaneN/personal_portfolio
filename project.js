@@ -69,10 +69,10 @@
                 const projects = {
                     ecommerce: {
                         title: 'E-Commerce Platform',
-                        subtitle: 'A modern e-commerce solution with real-time inventory, AI-powered recommendations, and seamless payment integration.',
+                        subtitle: 'A modern e-commerce solution for a sportswear store with real-time inventory, AI-powered recommendations, and seamless payment integration.',
                         category: 'E-Commerce',
-                        year: '2024',
-                        demoUrl: '#',
+                        year: '2025',
+                        demoUrl: 'https://thokozanen.github.io/mzansi-fits/#',
                         stats: {
                             conversion: '+45%',
                             loadTime: '2.1s',
