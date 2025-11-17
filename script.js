@@ -344,7 +344,7 @@ function initSmoothScroll() {
     });
 }
 
-// Form Submission - OPTIMIZED
+// Form Submission with FormSubmit.co
 const contactForm = document.getElementById('contactForm');
 const toastContainer = document.getElementById('toastContainer');
 
@@ -359,6 +359,7 @@ if (contactForm) {
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitButton.disabled = true;
         
+        // Validate form
         if (!validateForm()) {
             showToast('Please fix the form errors before submitting.', 'error');
             submitButton.innerHTML = originalButtonText;
@@ -366,44 +367,45 @@ if (contactForm) {
             return;
         }
         
-        const formData = new FormData(this);
-        const name = formData.get('name') || document.getElementById('name').value;
-        const email = formData.get('email') || document.getElementById('email').value;
-        const service = formData.get('service') || document.getElementById('service').value;
-        const message = formData.get('message') || document.getElementById('message').value;
-        
-        const emailSubject = `New Project Inquiry: ${service}`;
-        const emailBody = `Hello Thokozane,
-
-I would like to discuss a ${service} project.
-
-Details:
-• Name: ${name}
-• Email: ${email}
-
-Project Details:
-${message}
-
-Best regards,
-${name}`;
-        
         try {
-            await sendEmail(emailSubject, emailBody);
-            showToast('Email client opening! Please send the message.', 'success');
+            // Get form data
+            const formData = new FormData(this);
             
-            setTimeout(() => {
-                this.reset();
-                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-                document.querySelectorAll('.form-control').forEach(el => el.classList.remove('error'));
-            }, 1500);
+            // Show sending toast
+            showToast('Sending your message...', 'info');
+            
+            // Submit the form using Fetch API
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                showToast('Message sent successfully! I\'ll get back to you soon.', 'success');
+                
+                // Reset form after success
+                setTimeout(() => {
+                    this.reset();
+                    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                    document.querySelectorAll('.form-control').forEach(el => el.classList.remove('error'));
+                }, 2000);
+                
+            } else {
+                throw new Error('Form submission failed');
+            }
             
         } catch (error) {
-            showToast('Failed to open email client. Please email dev@thokozane.co.za directly.', 'error');
+            console.error('Form submission error:', error);
+            showToast('Failed to send message. Please email me directly at dev@thokozane.co.za', 'error');
         } finally {
+            // Re-enable submit button
             setTimeout(() => {
                 submitButton.innerHTML = originalButtonText;
                 submitButton.disabled = false;
-            }, 2000);
+            }, 3000);
         }
     });
 }
