@@ -344,69 +344,42 @@ function initSmoothScroll() {
     });
 }
 
-// Form Submission with FormSubmit.co
+// Form Submission with FormSubmit.co - BEST SOLUTION
 const contactForm = document.getElementById('contactForm');
-const toastContainer = document.getElementById('toastContainer');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
+    contactForm.addEventListener('submit', function(e) {
         const submitButton = this.querySelector('button[type="submit"]');
         const originalButtonText = submitButton.innerHTML;
         
-        // Disable submit button
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitButton.disabled = true;
-        
-        // Validate form
+        // Validate form before allowing submission
         if (!validateForm()) {
+            e.preventDefault();
             showToast('Please fix the form errors before submitting.', 'error');
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
             return;
         }
         
-        try {
-            // Get form data
-            const formData = new FormData(this);
-            
-            // Show sending toast
-            showToast('Sending your message...', 'info');
-            
-            // Submit the form using Fetch API
-            const response = await fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            
-            if (response.ok) {
-                showToast('Message sent successfully! I\'ll get back to you soon.', 'success');
-                
-                // Reset form after success
-                setTimeout(() => {
-                    this.reset();
-                    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-                    document.querySelectorAll('.form-control').forEach(el => el.classList.remove('error'));
-                }, 2000);
-                
-            } else {
-                throw new Error('Form submission failed');
-            }
-            
-        } catch (error) {
-            console.error('Form submission error:', error);
-            showToast('Failed to send message. Please email me directly at dev@thokozane.co.za', 'error');
-        } finally {
-            // Re-enable submit button
-            setTimeout(() => {
+        // Show loading state but allow natural form submission
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitButton.disabled = true;
+        
+        showToast('Sending your message...', 'info');
+        
+        // Form will submit naturally to FormSubmit
+        // Since we're not preventing default, the form will submit normally
+        // FormSubmit will process and redirect, but we handle the UX with toasts
+        
+        // Fallback: if still on page after 5 seconds (in case FormSubmit fails), reset button
+        setTimeout(() => {
+            if (submitButton.disabled) {
                 submitButton.innerHTML = originalButtonText;
                 submitButton.disabled = false;
-            }, 3000);
-        }
+                showToast('Submission taking longer than expected. Please try again.', 'info');
+            }
+        }, 5000);
+        
+        // Success is handled by FormSubmit's redirect, but we show immediate feedback
+        // The page will reload on successful submission, so no need to manually reset
     });
 }
 
@@ -469,6 +442,7 @@ function validateField(field) {
 
 // Toast system - OPTIMIZED
 function showToast(message, type = 'success') {
+    const toastContainer = document.getElementById('toastContainer');
     if (!toastContainer) return;
     
     // Remove existing toasts
