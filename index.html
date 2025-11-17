@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HHNDTQC7LV"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <!--Preload critical resources-->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!--DNS preconnect for external domains-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
 
-    gtag('config', 'G-HHNDTQC7LV');
+    <!--Google-->
+    <script>
+        // Load Google Analytics after page load
+        window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HHNDTQC7LV';
+            script.async = true;
+            document.head.appendChild(script);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-HHNDTQC7LV');
+        });
     </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thokozane Nxumalo | Fullstack Web Developer</title>
@@ -17,17 +34,18 @@
     <meta name="keywords" content="fullstack developer, web developer, Johannesburg, South Africa, React, Node.js, TypeScript, MongoDB, PostgreSQL, UI/UX design">
     <meta name="author" content="Thokozane Nxumalo">
     
-    <!--Open Graph Meta Tags for Social Sharing-->
+    <!--Open Graph Meta Tags-->
     <meta property="og:title" content="Thokozane Nxumalo | Fullstack Web Developer">
     <meta property="og:description" content="Fullstack Web Developer based in Secunda, South Africa. Crafting digital experiences with cutting-edge technology.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thokozane.co.za">
+    <meta property="og:image" content="https://thokozane.co.za/images/thokozane.jpg">
     
     <!--Canonical URL-->
     <link rel="canonical" href="https://thokozane.co.za">
     
-    <!--Schema.org Structured Data-->
-    <script type="application/ld+json">
+    <!--Schema.org Structured Data - Move to bottom or load async -->
+    <script type="application/ld+json" id="structured-data">
     {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -53,25 +71,167 @@
       "knowsAbout": ["React", "Node.js", "TypeScript", "MongoDB", "PostgreSQL", "UI/UX Design", "Azure AI", "GraphQL", "Python", "Django"]
     }
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
 
+    <!--Critical CSS-->
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+        --background: oklch(1 0 0);
+        --foreground: oklch(0.1450 0 0);
+        --primary: oklch(0.2050 0 0);
+        --primary-foreground: oklch(0.9850 0 0);
+        --secondary: oklch(0.9700 0 0);
+        --border: oklch(0.9220 0 0);
+        --card: oklch(1 0 0);
+        --radius: 0.625rem;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark {
+        --background: oklch(0.1450 0 0);
+        --foreground: oklch(0.9850 0 0);
+        --primary: oklch(0.9220 0 0);
+        --primary-foreground: oklch(0.2050 0 0);
+        --secondary: oklch(0.2690 0 0);
+        --border: oklch(0.2750 0 0);
+        --card: oklch(0.2050 0 0);
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--background);
+        color: var(--foreground);
+        transition: var(--transition);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    /* Critical layout components */
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: var(--background);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        z-index: 100;
+        transition: var(--transition);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+    }
+
+    /* Critical hero section */
+    .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        background: var(--background);
+    }
+
+    .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        margin-bottom: 20px;
+        color: var(--foreground);
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        margin-bottom: 30px;
+        color: var(--foreground);
+        font-weight: 400;
+        min-height: 1.5em;
+    }
+
+    /* Mobile menu critical state */
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: var(--background);
+        z-index: 99;
+        transition: right 0.4s ease;
+    }
+
+    .mobile-menu.active {
+        right: 0;
+    }
+
+    .hamburger {
+        display: none;
+        cursor: pointer;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 18px;
+        z-index: 101;
+        background: none;
+        border: none;
+    }
+
+    /* Above-the-fold content visibility */
+    section {
+        padding: 70px 0;
+        position: relative;
+    }
+
+    /* Loading optimization */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    </style>
+
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <!-- Optimized Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    
+    <!-- Favicon optimized -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-    <!--Modern browsers and high-DPI displays-->
-    <link rel="icon" type="image/png" sizes="32x32" href="images/close.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/close.png">
-
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="images/close.png">
-
-    <!-- Android Chrome -->
-    <link rel="icon" type="image/png" sizes="192x192" href="images/close.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="images/close.png">
-
-    <!-- Web App Manifest -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Preload hero image if you have one -->
+    <link rel="preload" href="images/thokozane.jpg" as="image">
 </head>
 <body>
     <!-- Scroll Progress Bar -->
@@ -313,9 +473,17 @@
                                 <span class="error-message" id="emailError"></span>
                             </div>
                             <div class="form-group">
-                                <label for="subject">Project Type</label>
-                                <input type="text" id="subject" class="form-control" required aria-required="true">
-                                <span class="error-message" id="subjectError"></span>
+                                <label for="service">Service Needed</label>
+                                <select id="service" class="form-control" required aria-required="true">
+                                    <option value="">Select a service</option>
+                                    <option value="Website Development">Website Development</option>
+                                    <option value="Web Application">Web Application</option>
+                                    <option value="Website Redesign">Website Redesign</option>
+                                    <option value="UI/UX Design">UI/UX Design</option>
+                                    <option value="Consultation">Development Consultation</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span class="error-message" id="serviceError"></span>
                             </div>
                             <div class="form-group">
                                 <label for="message">Project Details</label>
@@ -357,7 +525,6 @@
 
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
-
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

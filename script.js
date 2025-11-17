@@ -1,80 +1,134 @@
-// Create floating particles for hero background
+// Performance optimizations
+let scrollTimeout;
+let animationFrameId;
+
+// Debounced scroll handler
+function debounce(func, wait) {
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(scrollTimeout);
+            func(...args);
+        };
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(later, wait);
+    };
+}
+
+// Throttled scroll handler for better performance
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// Create floating particles for hero background - OPTIMIZED
 function createParticles() {
     const particlesContainer = document.getElementById('floatingParticles');
-    const particleCount = 15;
+    if (!particlesContainer) return;
+    
+    const particleCount = 12; // Reduced for mobile performance
+    const fragment = document.createDocumentFragment();
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
 
-        // Random properties
-        const size = Math.random() * 40 + 10;
+        // Optimized random properties
+        const size = Math.random() * 30 + 8; // Smaller particles
         const left = Math.random() * 100;
-        const animationDuration = Math.random() * 30 + 20;
-        const animationDelay = Math.random() * 5;
-        const opacity = Math.random() * 0.1 + 0.05;
+        const animationDuration = Math.random() * 25 + 15; // Faster animations
+        const animationDelay = Math.random() * 3;
+        const opacity = Math.random() * 0.08 + 0.03; // More subtle
 
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${left}%`;
-        particle.style.animationDuration = `${animationDuration}s`;
-        particle.style.animationDelay = `${animationDelay}s`;
-        particle.style.opacity = opacity;
+        particle.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${left}%;
+            animation-duration: ${animationDuration}s;
+            animation-delay: ${animationDelay}s;
+            opacity: ${opacity};
+            will-change: transform, opacity;
+        `;
 
-        particlesContainer.appendChild(particle);
+        fragment.appendChild(particle);
     }
+    
+    particlesContainer.appendChild(fragment);
 }
 
-// Scroll progress bar
+// Scroll progress bar - OPTIMIZED
 function updateScrollProgress() {
     const scrollProgress = document.getElementById('scrollProgress');
+    if (!scrollProgress) return;
+    
     const scrollTop = document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollPercentage = (scrollTop / scrollHeight) * 100;
-    scrollProgress.style.width = `${scrollPercentage}%`;
-}
-
-// Scroll-triggered animations
-function handleScrollAnimations() {
-    const elements = document.querySelectorAll('.section-title, .about-text, .about-image, .tech-pill, .project-card, .contact-info, .contact-card, .contact-detail, .social-icon, .contact-form, .form-group');
     
-    elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add('visible');
-            
-            // Stagger animations for tech pills
-            if (element.classList.contains('tech-pill')) {
-                const index = Array.from(element.parentElement.children).indexOf(element);
-                element.style.transitionDelay = `${index * 0.1}s`;
-            }
-            
-            // Stagger animations for contact details
-            if (element.classList.contains('contact-detail')) {
-                const index = Array.from(element.parentElement.children).indexOf(element);
-                element.style.transitionDelay = `${index * 0.2}s`;
-            }
-            
-            // Stagger animations for form groups
-            if (element.classList.contains('form-group')) {
-                const index = Array.from(element.parentElement.children).indexOf(element);
-                element.style.transitionDelay = `${index * 0.1}s`;
-            }
-        }
-    });
+    // Use transform for better performance
+    scrollProgress.style.transform = `scaleX(${scrollPercentage / 100})`;
 }
 
-// Typing Animation
+// Intersection Observer for scroll animations - REPLACES handleScrollAnimations
+function initIntersectionObserver() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                element.classList.add('visible');
+                
+                // Stagger animations
+                if (element.classList.contains('tech-pill')) {
+                    const index = Array.from(element.parentElement.children).indexOf(element);
+                    element.style.transitionDelay = `${index * 0.08}s`;
+                }
+                
+                if (element.classList.contains('contact-detail')) {
+                    const index = Array.from(element.parentElement.children).indexOf(element);
+                    element.style.transitionDelay = `${index * 0.15}s`;
+                }
+                
+                if (element.classList.contains('form-group')) {
+                    const index = Array.from(element.parentElement.children).indexOf(element);
+                    element.style.transitionDelay = `${index * 0.08}s`;
+                }
+                
+                // Unobserve after animation
+                observer.unobserve(element);
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements
+    const animatedElements = document.querySelectorAll(
+        '.section-title, .about-text, .about-image, .tech-pill, .project-card, .contact-info, .contact-card, .contact-detail, .social-icon, .contact-form, .form-group'
+    );
+    
+    animatedElements.forEach(el => observer.observe(el));
+}
+
+// Optimized Typing Animation
 const typingText = document.getElementById('typingText');
 const texts = ['Fullstack Web Dev', 'UI/UX Designer', 'Problem Solver', 'Tech Enthusiast'];
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 let typingSpeed = 100;
+let typingTimeout;
 
 function type() {
+    if (!typingText) return;
+    
     const currentText = texts[textIndex];
     
     if (isDeleting) {
@@ -89,93 +143,98 @@ function type() {
 
     if (!isDeleting && charIndex === currentText.length) {
         isDeleting = true;
-        typingSpeed = 1000; // Pause at end
+        typingSpeed = 1000;
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         textIndex = (textIndex + 1) % texts.length;
-        typingSpeed = 500; // Pause before starting next text
+        typingSpeed = 500;
     }
 
-    setTimeout(type, typingSpeed);
+    typingTimeout = setTimeout(type, typingSpeed);
 }
 
-// Form validation
+// Stop typing animation when not visible
+function stopTypingAnimation() {
+    if (typingTimeout) {
+        clearTimeout(typingTimeout);
+    }
+}
+
+// Form validation - OPTIMIZED
 function validateForm() {
     let isValid = true;
     
-    // Clear previous errors
-    document.querySelectorAll('.error-message').forEach(error => {
-        error.textContent = '';
+    // Use requestAnimationFrame for better performance
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+    }
+    
+    animationFrameId = requestAnimationFrame(() => {
+        // Clear previous errors
+        document.querySelectorAll('.error-message').forEach(error => {
+            error.textContent = '';
+        });
+        
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.classList.remove('error');
+        });
+
+        // Validate name
+        const name = document.getElementById('name');
+        if (!name.value.trim()) {
+            document.getElementById('nameError').textContent = 'Full name is required';
+            name.classList.add('error');
+            isValid = false;
+        }
+
+        // Validate email
+        const email = document.getElementById('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim()) {
+            document.getElementById('emailError').textContent = 'Email address is required';
+            email.classList.add('error');
+            isValid = false;
+        } else if (!emailRegex.test(email.value)) {
+            document.getElementById('emailError').textContent = 'Please enter a valid email address';
+            email.classList.add('error');
+            isValid = false;
+        }
+
+        // Validate service
+        const service = document.getElementById('service');
+        if (!service.value) {
+            document.getElementById('serviceError').textContent = 'Service selection is required';
+            service.classList.add('error');
+            isValid = false;
+        }
+
+        // Validate message
+        const message = document.getElementById('message');
+        if (!message.value.trim()) {
+            document.getElementById('messageError').textContent = 'Project details are required';
+            message.classList.add('error');
+            isValid = false;
+        } else if (message.value.trim().length < 10) {
+            document.getElementById('messageError').textContent = 'Please provide more details (at least 10 characters)';
+            message.classList.add('error');
+            isValid = false;
+        }
     });
     
-    document.querySelectorAll('.form-control').forEach(input => {
-        input.classList.remove('error');
-    });
-
-    // Validate name
-    const name = document.getElementById('name');
-    if (!name.value.trim()) {
-        document.getElementById('nameError').textContent = 'Full name is required';
-        name.classList.add('error');
-        isValid = false;
-    }
-
-    // Validate email
-    const email = document.getElementById('email');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.value.trim()) {
-        document.getElementById('emailError').textContent = 'Email address is required';
-        email.classList.add('error');
-        isValid = false;
-    } else if (!emailRegex.test(email.value)) {
-        document.getElementById('emailError').textContent = 'Please enter a valid email address';
-        email.classList.add('error');
-        isValid = false;
-    }
-
-    // Validate project type
-    const subject = document.getElementById('subject');
-    if (!subject.value.trim()) {
-        document.getElementById('subjectError').textContent = 'Project type is required';
-        subject.classList.add('error');
-        isValid = false;
-    }
-
-    // Validate message
-    const message = document.getElementById('message');
-    if (!message.value.trim()) {
-        document.getElementById('messageError').textContent = 'Project details are required';
-        message.classList.add('error');
-        isValid = false;
-    } else if (message.value.trim().length < 10) {
-        document.getElementById('messageError').textContent = 'Please provide more details about your project (at least 10 characters)';
-        message.classList.add('error');
-        isValid = false;
-    }
-
     return isValid;
 }
 
-// Mailto function that doesn't navigate away
+// Optimized mailto function
 function sendEmail(subject = '', body = '') {
     return new Promise((resolve) => {
         const email = 'dev@thokozane.co.za';
         const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         
-        // Create a temporary anchor element to trigger mailto
-        const anchor = document.createElement('a');
-        anchor.href = mailtoLink;
-        anchor.style.display = 'none';
-        document.body.appendChild(anchor);
+        // Use window.location for better compatibility
+        window.location.href = mailtoLink;
         
-        // Trigger click
-        anchor.click();
-        
-        // Clean up
-        document.body.removeChild(anchor);
-        
-        // Always resolve as success since we can't reliably detect if email client opened
-        resolve(true);
+        // Fallback timeout
+        setTimeout(() => resolve(true), 100);
     });
 }
 
@@ -191,7 +250,7 @@ Best regards,
     
     sendEmail(subject, body)
         .then(() => {
-            showToast('Email client opened successfully! Please send your message to dev@thokozane.co.za', 'success');
+            showToast('Email client opened! Please send your message to dev@thokozane.co.za', 'success');
         });
 }
 
@@ -202,210 +261,176 @@ function requestResume() {
 
 I came across your portfolio and would like to request a copy of your resume.
 
-Could you please share your resume with me? I'm interested in learning more about your experience and skills.
-
 Best regards,
-[Your Name]
-[Your Company/Organization - Optional]
-[Your Email/Phone - Optional]`;
+[Your Name]`;
     
     sendEmail(subject, body)
         .then(() => {
             showToast('Opening email client to request resume...', 'success');
-        })
-        .catch(() => {
-            showToast('Failed to open email client. Please email dev@thokozane.co.za directly.', 'error');
         });
 }
 
-// Theme Toggle
+// Theme Toggle - OPTIMIZED
 const themeToggle = document.getElementById('themeToggle');
 const lightIcon = document.getElementById('lightIcon');
 const darkIcon = document.getElementById('darkIcon');
-const body = document.body;
 
-// Check for saved theme preference or default to light
-const currentTheme = localStorage.getItem('theme') || 'light';
-if (currentTheme === 'dark') {
-    body.classList.add('dark');
-    lightIcon.classList.remove('active');
-    darkIcon.classList.add('active');
+function initTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.body.classList.toggle('dark', currentTheme === 'dark');
+    lightIcon.classList.toggle('active', currentTheme === 'light');
+    darkIcon.classList.toggle('active', currentTheme === 'dark');
 }
 
-themeToggle.addEventListener('click', () => {
-    if (body.classList.contains('dark')) {
-        body.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-        lightIcon.classList.add('active');
-        darkIcon.classList.remove('active');
-    } else {
-        body.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-        lightIcon.classList.remove('active');
-        darkIcon.classList.add('active');
-    }
-});
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        lightIcon.classList.toggle('active', !isDark);
+        darkIcon.classList.toggle('active', isDark);
+    });
+}
 
-// Mobile Navigation Toggle
+// Mobile Navigation Toggle - OPTIMIZED
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 
-hamburger.addEventListener('click', () => {
+function toggleMobileMenu() {
     const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
     hamburger.setAttribute('aria-expanded', !isExpanded);
     mobileMenu.setAttribute('aria-hidden', isExpanded);
     
     hamburger.classList.toggle('active');
     mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+}
+
+if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', toggleMobileMenu);
     
-    // Prevent body scroll when menu is open
-    if (mobileMenu.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = 'auto';
+    // Close mobile menu when clicking on links
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
     });
-});
+}
 
-// Navbar scroll effect
+// Navbar scroll effect - OPTIMIZED with throttle
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-    
-    updateScrollProgress();
-    handleScrollAnimations();
-});
+function handleNavbarScroll() {
+    if (!navbar) return;
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+}
 
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+// Smooth Scrolling - OPTIMIZED
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
 
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: 'smooth'
-            });
-        }
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
-});
+}
 
-// Form Submission with Validation and Toast Feedback
+// Form Submission - OPTIMIZED
 const contactForm = document.getElementById('contactForm');
 const toastContainer = document.getElementById('toastContainer');
-const submitButton = contactForm.querySelector('button[type="submit"]');
 
-contactForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Disable submit button to prevent multiple submissions
-    const originalButtonText = submitButton.innerHTML;
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
-    submitButton.disabled = true;
-    
-    // Validate form
-    if (!validateForm()) {
-        showToast('Please fix the errors in the form before submitting.', 'error');
-        submitButton.innerHTML = originalButtonText;
-        submitButton.disabled = false;
-        return;
-    }
-    
-    // Get form data
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const projectType = document.getElementById('subject').value.trim();
-    const message = document.getElementById('message').value.trim();
-    
-    // Create email content
-    const emailSubject = `New Project Inquiry: ${projectType}`;
-    const emailBody = `Hello Thokozane,
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.innerHTML;
+        
+        // Disable submit button
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitButton.disabled = true;
+        
+        if (!validateForm()) {
+            showToast('Please fix the form errors before submitting.', 'error');
+            submitButton.innerHTML = originalButtonText;
+            submitButton.disabled = false;
+            return;
+        }
+        
+        const formData = new FormData(this);
+        const name = formData.get('name') || document.getElementById('name').value;
+        const email = formData.get('email') || document.getElementById('email').value;
+        const service = formData.get('service') || document.getElementById('service').value;
+        const message = formData.get('message') || document.getElementById('message').value;
+        
+        const emailSubject = `New Project Inquiry: ${service}`;
+        const emailBody = `Hello Thokozane,
 
-I would like to discuss a ${projectType} project with you.
+I would like to discuss a ${service} project.
 
-Here are my details:
+Details:
 • Name: ${name}
 • Email: ${email}
 
 Project Details:
 ${message}
 
-I look forward to hearing from you.
-
 Best regards,
 ${name}`;
-    
-    try {
-        // Use mailto function
-        await sendEmail(emailSubject, emailBody);
         
-        // Show success toast
-        showToast('Your email client is opening! Please send the pre-filled message to complete your inquiry.', 'success');
-        
-        // Reset form after a short delay
-        setTimeout(() => {
-            contactForm.reset();
-            // Clear any error states
-            document.querySelectorAll('.form-control').forEach(input => {
-                input.classList.remove('error');
-            });
-            document.querySelectorAll('.error-message').forEach(error => {
-                error.textContent = '';
-            });
-        }, 2000);
-        
-    } catch (error) {
-        // Show error toast
-        showToast('Failed to open email client. Please email us directly at dev@thokozane.co.za', 'error');
-    } finally {
-        // Re-enable submit button after a delay
-        setTimeout(() => {
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
-        }, 2000);
-    }
-});
-
-// Real-time form validation
-document.querySelectorAll('.form-control').forEach(input => {
-    input.addEventListener('blur', function() {
-        validateField(this);
-    });
-    
-    input.addEventListener('input', function() {
-        // Clear error when user starts typing
-        if (this.classList.contains('error')) {
-            const fieldName = this.id;
-            document.getElementById(fieldName + 'Error').textContent = '';
-            this.classList.remove('error');
+        try {
+            await sendEmail(emailSubject, emailBody);
+            showToast('Email client opening! Please send the message.', 'success');
+            
+            setTimeout(() => {
+                this.reset();
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                document.querySelectorAll('.form-control').forEach(el => el.classList.remove('error'));
+            }, 1500);
+            
+        } catch (error) {
+            showToast('Failed to open email client. Please email dev@thokozane.co.za directly.', 'error');
+        } finally {
+            setTimeout(() => {
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            }, 2000);
         }
     });
-});
+}
+
+// Real-time form validation - OPTIMIZED
+function initFormValidation() {
+    document.querySelectorAll('.form-control').forEach(input => {
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+            if (this.classList.contains('error')) {
+                const errorElement = document.getElementById(this.id + 'Error');
+                if (errorElement) errorElement.textContent = '';
+                this.classList.remove('error');
+            }
+        });
+    });
+}
 
 function validateField(field) {
     const value = field.value.trim();
-    const fieldName = field.id;
-    const errorElement = document.getElementById(fieldName + 'Error');
-    
-    switch(fieldName) {
+    const errorElement = document.getElementById(field.id + 'Error');
+    if (!errorElement) return;
+
+    switch(field.id) {
         case 'name':
             if (!value) {
                 errorElement.textContent = 'Full name is required';
@@ -422,9 +447,9 @@ function validateField(field) {
                 field.classList.add('error');
             }
             break;
-        case 'subject':
+        case 'service':
             if (!value) {
-                errorElement.textContent = 'Project type is required';
+                errorElement.textContent = 'Service selection is required';
                 field.classList.add('error');
             }
             break;
@@ -433,72 +458,73 @@ function validateField(field) {
                 errorElement.textContent = 'Project details are required';
                 field.classList.add('error');
             } else if (value.length < 10) {
-                errorElement.textContent = 'Please provide more details about your project (at least 10 characters)';
+                errorElement.textContent = 'Please provide more details (at least 10 characters)';
                 field.classList.add('error');
             }
             break;
     }
 }
 
+// Toast system - OPTIMIZED
 function showToast(message, type = 'success') {
+    if (!toastContainer) return;
+    
     // Remove existing toasts
-    const existingToasts = toastContainer.querySelectorAll('.toast');
-    existingToasts.forEach(toast => {
-        toast.remove();
-    });
+    toastContainer.querySelectorAll('.toast').forEach(toast => toast.remove());
     
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.setAttribute('role', 'alert');
     toast.setAttribute('aria-live', 'assertive');
+    
+    const icons = {
+        success: 'check',
+        error: 'exclamation-circle',
+        info: 'info-circle'
+    };
+    
     toast.innerHTML = `
         <div class="toast-icon">
-            <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation-circle' : type === 'info' ? 'info-circle' : 'exclamation-triangle'}"></i>
+            <i class="fas fa-${icons[type] || 'info-circle'}"></i>
         </div>
         <div class="toast-message">${message}</div>
-        <button class="toast-close" onclick="this.parentElement.remove()" aria-label="Close notification">
+        <button class="toast-close" aria-label="Close notification">
             <i class="fas fa-times"></i>
         </button>
     `;
     
     toastContainer.appendChild(toast);
     
-    // Show toast with animation
-    setTimeout(() => {
-        toast.classList.add('show');
-    }, 100);
+    // Add event listener for close button
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+        toast.remove();
+    });
     
-    // Auto-hide toast after 8 seconds (longer for important messages)
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Auto-remove after 6 seconds
     setTimeout(() => {
         if (toast.parentElement) {
             toast.classList.remove('show');
-            setTimeout(() => {
-                if (toast.parentElement) {
-                    toast.remove();
-                }
-            }, 500);
+            setTimeout(() => toast.remove(), 300);
         }
-    }, 8000);
+    }, 6000);
 }
 
-// Update current time for South Africa
+// Time and date functions - OPTIMIZED
 function updateTime() {
-    const now = new Date();
-    const options = { 
-        timeZone: 'Africa/Johannesburg',
-        hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    };
-    const timeString = now.toLocaleTimeString('en-ZA', options);
     const timeElement = document.getElementById('currentTime');
     if (timeElement) {
-        timeElement.textContent = timeString;
+        const now = new Date();
+        timeElement.textContent = now.toLocaleTimeString('en-ZA', {
+            timeZone: 'Africa/Johannesburg',
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit'
+        });
     }
 }
 
-// Update current year in footer
 function updateCurrentYear() {
     const yearElement = document.getElementById('currentYear');
     if (yearElement) {
@@ -506,102 +532,124 @@ function updateCurrentYear() {
     }
 }
 
-// Set active nav link based on scroll position
-function setActiveNavLink() {
+// Active nav link - OPTIMIZED with Intersection Observer
+function initActiveNavObserver() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
     
-    let currentSection = '';
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const currentSection = entry.target.getAttribute('id');
+                
+                navLinks.forEach(link => {
+                    const isActive = link.getAttribute('href') === `#${currentSection}`;
+                    link.classList.toggle('active', isActive);
+                    link.toggleAttribute('aria-current', isActive);
+                });
+            }
+        });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => observer.observe(section));
+}
+
+// Contact interactions for copy functionality
+function initContactInteractions() {
+    const contactLinks = document.querySelectorAll('.contact-detail-text a[href^="mailto:"], .contact-detail-text a[href^="tel:"]');
     
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-            currentSection = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSection}`) {
-            link.classList.add('active');
-            link.setAttribute('aria-current', 'page');
-        } else {
-            link.removeAttribute('aria-current');
-        }
+    contactLinks.forEach(link => {
+        // Create tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'copy-tooltip';
+        tooltip.textContent = 'Click to copy';
+        link.parentElement.style.position = 'relative';
+        link.parentElement.appendChild(tooltip);
+        
+        // Show tooltip on hover
+        link.addEventListener('mouseenter', () => tooltip.classList.add('show'));
+        link.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+        
+        // Copy to clipboard on click
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const textToCopy = link.textContent.trim();
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                tooltip.textContent = 'Copied!';
+                tooltip.classList.add('show');
+                
+                setTimeout(() => {
+                    tooltip.textContent = 'Click to copy';
+                    tooltip.classList.remove('show');
+                    // Open the link after copy
+                    window.location.href = link.getAttribute('href');
+                }, 1500);
+            }).catch(() => {
+                // Fallback: just open the link
+                window.location.href = link.getAttribute('href');
+            });
+        });
     });
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', function() {
-    // Create particles
-    createParticles();
+// Initialize everything - OPTIMIZED
+function init() {
+    // Set initial theme
+    initTheme();
     
-    // Start typing animation
+    // Initialize components
+    createParticles();
+    initIntersectionObserver();
+    initSmoothScroll();
+    initFormValidation();
+    initActiveNavObserver();
+    initContactInteractions();
+    
+    // Start animations
     setTimeout(type, 1000);
     
-    // Start time update
+    // Initialize time
     updateTime();
-    setInterval(updateTime, 1000);
-    
-    // Update current year
     updateCurrentYear();
+    setInterval(updateTime, 30000); // Update every 30 seconds instead of 1
     
-    // Initial scroll animations check
-    handleScrollAnimations();
+    // Event listeners with optimizations
+    window.addEventListener('scroll', throttle(handleNavbarScroll, 100));
+    window.addEventListener('scroll', throttle(updateScrollProgress, 16));
     
-    // Set initial active nav link
-    setActiveNavLink();
-    
-    // Add scroll event listeners
-    window.addEventListener('scroll', handleScrollAnimations);
-    window.addEventListener('scroll', setActiveNavLink);
-    window.addEventListener('scroll', updateScrollProgress);
-    
-    // Add mailto links to any elements with class 'mailto-link'
-    document.querySelectorAll('.mailto-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            quickContact();
-        });
-    });
-    
-    // Add click event to email in contact details
-    const emailLink = document.querySelector('a[href="mailto:dev@thokozane.co.za"]');
-    if (emailLink) {
-        emailLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            quickContact();
-        });
-    }
-    
-    // Add resume button event listener
+    // Resume button
     const resumeBtn = document.getElementById('resumeBtn');
     if (resumeBtn) {
         resumeBtn.addEventListener('click', requestResume);
     }
     
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (mobileMenu.classList.contains('active') && 
+    // Close mobile menu handlers
+    document.addEventListener('click', (e) => {
+        if (mobileMenu?.classList.contains('active') && 
             !e.target.closest('.mobile-menu') && 
             !e.target.closest('.hamburger')) {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            mobileMenu.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = 'auto';
+            toggleMobileMenu();
         }
     });
 
-    // Handle escape key to close mobile menu
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            mobileMenu.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = 'auto';
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
+            toggleMobileMenu();
         }
     });
+}
+
+// Load when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+
+// Cleanup on page hide/unload
+window.addEventListener('beforeunload', () => {
+    stopTypingAnimation();
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
 });
