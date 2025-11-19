@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--Preload critical resources-->
+    <!-- Preload critical resources -->
     <link rel="preload" href="styles.css" as="style">
     <link rel="preload" href="script.js" as="script">
     
-    <!--DNS preconnect for external domains-->
+    <!-- DNS preconnect for external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://www.googletagmanager.com">
 
-    <!--Google-->
+    <!-- Google Analytics -->
     <script>
-        // Load Google Analytics after page load
         window.addEventListener('load', function() {
             var script = document.createElement('script');
             script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HHNDTQC7LV';
@@ -34,17 +32,17 @@
     <meta name="keywords" content="fullstack developer, web developer, Johannesburg, South Africa, React, Node.js, TypeScript, MongoDB, PostgreSQL, UI/UX design">
     <meta name="author" content="Thokozane Nxumalo">
     
-    <!--Open Graph Meta Tags-->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Thokozane Nxumalo | Fullstack Web Developer">
     <meta property="og:description" content="Fullstack Web Developer based in Secunda, South Africa. Crafting digital experiences with cutting-edge technology.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thokozane.co.za">
     <meta property="og:image" content="https://thokozane.co.za/images/thokozane.jpg">
     
-    <!--Canonical URL-->
+    <!-- Canonical URL -->
     <link rel="canonical" href="https://thokozane.co.za">
     
-    <!--Schema.org Structured Data - Move to bottom or load async -->
+    <!-- Schema.org Structured Data -->
     <script type="application/ld+json" id="structured-data">
     {
       "@context": "https://schema.org",
@@ -72,7 +70,7 @@
     }
     </script>
 
-    <!--Critical CSS-->
+    <!-- Critical CSS -->
     <style>
     * {
         margin: 0;
@@ -82,25 +80,36 @@
     }
 
     :root {
-        --background: oklch(1 0 0);
-        --foreground: oklch(0.1450 0 0);
-        --primary: oklch(0.2050 0 0);
-        --primary-foreground: oklch(0.9850 0 0);
-        --secondary: oklch(0.9700 0 0);
-        --border: oklch(0.9220 0 0);
-        --card: oklch(1 0 0);
-        --radius: 0.625rem;
+        --color-acapulco-50: #f5f8f7;
+        --color-acapulco-100: #ddeae3;
+        --color-acapulco-200: #bad5c8;
+        --color-acapulco-300: #80ae99;
+        --color-acapulco-400: #689983;
+        --color-acapulco-500: #4e7e6a;
+        --color-acapulco-600: #3d6454;
+        --color-acapulco-700: #345146;
+        --color-acapulco-800: #2c433a;
+        --color-acapulco-900: #283933;
+        --color-acapulco-950: #13201b;
+        
+        --bg-primary: var(--color-acapulco-50);
+        --bg-secondary: #ffffff;
+        --text-primary: var(--color-acapulco-950);
+        --text-secondary: var(--color-acapulco-700);
+        --accent: var(--color-acapulco-500);
+        --border: var(--color-acapulco-200);
+        --shadow: rgba(0, 0, 0, 0.1);
         --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .dark {
-        --background: oklch(0.1450 0 0);
-        --foreground: oklch(0.9850 0 0);
-        --primary: oklch(0.9220 0 0);
-        --primary-foreground: oklch(0.2050 0 0);
-        --secondary: oklch(0.2690 0 0);
-        --border: oklch(0.2750 0 0);
-        --card: oklch(0.2050 0 0);
+    [data-theme="dark"] {
+        --bg-primary: var(--color-acapulco-950);
+        --bg-secondary: var(--color-acapulco-900);
+        --text-primary: var(--color-acapulco-50);
+        --text-secondary: var(--color-acapulco-200);
+        --accent: var(--color-acapulco-400);
+        --border: var(--color-acapulco-800);
+        --shadow: rgba(0, 0, 0, 0.3);
     }
 
     html {
@@ -109,8 +118,8 @@
 
     body {
         font-family: 'Inter', sans-serif;
-        background-color: var(--background);
-        color: var(--foreground);
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
         transition: var(--transition);
         line-height: 1.6;
         overflow-x: hidden;
@@ -129,9 +138,9 @@
         top: 0;
         left: 0;
         width: 100%;
-        background: var(--background);
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        z-index: 100;
+        background: var(--bg-primary);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
         transition: var(--transition);
         border-bottom: 1px solid var(--border);
     }
@@ -150,7 +159,7 @@
         align-items: center;
         position: relative;
         overflow: hidden;
-        background: var(--background);
+        background: var(--bg-primary);
     }
 
     .hero-content {
@@ -162,13 +171,14 @@
     .hero-title {
         font-size: clamp(2rem, 5vw, 3.5rem);
         margin-bottom: 20px;
-        color: var(--foreground);
+        color: var(--text-primary);
+        font-weight: 700;
     }
 
     .hero-subtitle {
         font-size: clamp(1.2rem, 3vw, 1.5rem);
         margin-bottom: 30px;
-        color: var(--foreground);
+        color: var(--text-secondary);
         font-weight: 400;
         min-height: 1.5em;
     }
@@ -180,9 +190,10 @@
         right: -100%;
         width: 100%;
         height: 100vh;
-        background: var(--background);
+        background: var(--bg-primary);
         z-index: 99;
         transition: right 0.4s ease;
+        backdrop-filter: blur(10px);
     }
 
     .mobile-menu.active {
@@ -201,9 +212,36 @@
         border: none;
     }
 
+    .bar {
+        width: 100%;
+        height: 2px;
+        background: var(--text-primary);
+        transition: var(--transition);
+    }
+
+    /* Theme toggle critical positioning */
+    .theme-toggle {
+        position: fixed;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: var(--transition);
+    }
+
     /* Above-the-fold content visibility */
     section {
-        padding: 70px 0;
+        padding: 100px 0;
         position: relative;
     }
 
@@ -211,6 +249,23 @@
     img {
         max-width: 100%;
         height: auto;
+    }
+
+    /* Skip link for accessibility */
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: var(--accent);
+        color: white;
+        padding: 8px;
+        text-decoration: none;
+        z-index: 10000;
+        transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+        top: 6px;
     }
     </style>
 
@@ -229,19 +284,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-
-    <!-- Preload hero image if you have one -->
-    <link rel="preload" href="images/thokozane.jpg" as="image">
 </head>
 <body>
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- Theme Toggle -->
-    <div class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
         <i class="fas fa-sun theme-icon active" id="lightIcon"></i>
         <i class="fas fa-moon theme-icon" id="darkIcon"></i>
-    </div>
+    </button>
 
     <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -251,13 +303,15 @@
         <div class="container">
             <a href="#home" class="logo" aria-label="Thokozane Nxumalo - Home">
                 <i class="fas fa-code" aria-hidden="true"></i>
+                <span class="logo-text">TN</span>
             </a>
             <nav aria-label="Main navigation">
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home" class="nav-link active" aria-current="page">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#about" class="nav-link">Story</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
                     <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#contact" class="nav-link">Connect</a></li>
                 </ul>
             </nav>
             <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -272,27 +326,30 @@
     <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true">
         <ul class="mobile-nav-links">
             <li><a href="#home" class="mobile-nav-link" aria-current="page">Home</a></li>
-            <li><a href="#about" class="mobile-nav-link">About</a></li>
+            <li><a href="#about" class="mobile-nav-link">Story</a></li>
+            <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
             <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
-            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+            <li><a href="#contact" class="mobile-nav-link">Connect</a></li>
         </ul>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-background" aria-hidden="true">
-            <div class="gradient-bg"></div>
-            <div class="floating-particles" id="floatingParticles"></div>
-        </div>
+        <div class="animated-bg"></div>
+        <div class="floating-particles" id="floatingParticles"></div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Thokozane Nxumalo</h1>
+                <h1 class="hero-title">
+                    Thokozane <span class="text-gradient">Nxumalo</span>
+                </h1>
                 <h2 class="hero-subtitle">
                     <span class="typing-text" id="typingText" aria-live="polite"></span>
                 </h2>
-                <div class="hero-location">
-                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                    <span>Based in South Africa | <span id="currentTime" aria-live="polite"></span></span>
+                <div class="hero-info">
+                    <div class="info-glass">
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        <span>Based in South Africa | <span id="currentTime" aria-live="polite"></span></span>
+                    </div>
                 </div>
                 <p class="hero-description">I craft digital experiences that blend cutting-edge technology with intuitive design, creating solutions that drive real business impact.</p>
                 <div class="hero-buttons">
@@ -311,7 +368,7 @@
 
     <!-- Main Content -->
     <main id="main-content">
-        <!-- About Section -->
+        <!-- About Me Section -->
         <section class="section" id="about">
             <div class="container">
                 <div class="section-title">
@@ -334,13 +391,41 @@
                         </div>
                     </div>
                     <div class="about-image">
-                        <img src="images/thokozane.jpg" alt="Thokozane Nxumalo - Fullstack Web Developer" class="profile-img" loading="lazy">
+                        <div class="profile-img-placeholder">
+                            <img src="images/tk2.png" alt="thokozane">
+                        </div>
                         <div class="resume-button-container">
                             <button class="btn btn-resume" id="resumeBtn">
                                 <i class="fas fa-file-download" aria-hidden="true"></i>
                                 Request My Resume
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section" id="skills">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Tech Arsenal</h2>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-card animate-on-scroll">
+                        <div class="skill-icon"><i class="fas fa-bolt"></i></div>
+                        <h3>Frontend</h3>
+                        <p>React, Vue, JavaScript, TypeScript, HTML5, CSS3, Next.js</p>
+                    </div>
+                    <div class="skill-card animate-on-scroll">
+                        <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+                        <h3>Backend</h3>
+                        <p>Node.js, Python, Express, MongoDB, PostgreSQL, Django</p>
+                    </div>
+                    <div class="skill-card animate-on-scroll">
+                        <div class="skill-icon"><i class="fas fa-palette"></i></div>
+                        <h3>Design & Tools</h3>
+                        <p>UI/UX Design, Responsive Design, Animation, Figma, Git</p>
                     </div>
                 </div>
             </div>
@@ -353,7 +438,7 @@
                     <h2>Featured Projects</h2>
                 </div>
                 <div class="projects-grid">
-                    <article class="project-card">
+                    <article class="project-card animate-on-scroll">
                         <div class="project-img" aria-hidden="true">
                             <i class="fas fa-shopping-bag"></i>
                         </div>
@@ -363,15 +448,15 @@
                             <div class="project-tags">
                                 <span class="tag">Next.js</span>
                                 <span class="tag">Node.js</span>
-                                <span class="tag">Shopify</span>
+                                <span class="tag">MongoDB</span>
                                 <span class="tag">In development</span>
                             </div>
-                            <a href="project.html?project=ecommerce" class="project-link" aria-label="Learn more about E-Commerce Platform project">View Details</a>
+                            <a href="#contact" class="project-link" aria-label="Learn more about E-Commerce Platform project">Discuss Project</a>
                         </div>
                     </article>
-                    <article class="project-card">
+                    <article class="project-card animate-on-scroll">
                         <div class="project-img" aria-hidden="true">
-                            <i class="fas fa-chart-network"></i>
+                            <i class="fas fa-chart-line"></i>
                         </div>
                         <div class="project-info">
                             <h3>Analytics Dashboard</h3>
@@ -382,10 +467,10 @@
                                 <span class="tag">Python</span>
                                 <span class="tag">PostgreSQL</span> 
                             </div>
-                            <a href="project.html?project=analytics" class="project-link" aria-label="Learn more about Analytics Dashboard project">View Details</a>
+                            <a href="#contact" class="project-link" aria-label="Learn more about Analytics Dashboard project">Discuss Project</a>
                         </div>
                     </article>
-                    <article class="project-card">
+                    <article class="project-card animate-on-scroll">
                         <div class="project-img" aria-hidden="true">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
@@ -398,7 +483,7 @@
                                 <span class="tag">Node.js</span>
                                 <span class="tag">ML</span>
                             </div>
-                            <a href="project.html?project=health" class="project-link" aria-label="Learn more about Health & Fitness App project">View Details</a>
+                            <a href="#contact" class="project-link" aria-label="Learn more about Health & Fitness App project">Discuss Project</a>
                         </div>
                     </article>
                 </div>
@@ -409,12 +494,12 @@
         <section class="section" id="contact">
             <div class="container">
                 <div class="section-title">
-                    <h2>Get In Touch</h2>
+                    <h2>Let's Create Together</h2>
                 </div>
                 <div class="contact-container">
                     <div class="contact-info">
-                        <h3>Let's Build Something Amazing</h3>
-                        <p>I'm currently available for freelance projects and full-time opportunities. Whether you have a project in mind or just want to chat about tech, I'd love to hear from you.</p>
+                        <h3>Ready to Start Your Project?</h3>
+                        <p>I'm currently available for freelance projects and full-time opportunities. Let's discuss how we can bring your ideas to life with cutting-edge technology.</p>
                         
                         <div class="contact-card">
                             <div class="contact-details">
@@ -448,7 +533,7 @@
                             </div>
                             
                             <div class="contact-social">
-                                <a href="https://www.linkedin.com/in/thokozane-nxumalo?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon" aria-label="Visit my LinkedIn profile">
+                                <a href="https://www.linkedin.com/in/thokozane-nxumalo" class="social-icon" aria-label="Visit my LinkedIn profile">
                                     <i class="fab fa-linkedin-in" aria-hidden="true"></i>
                                 </a>
                                 <a href="https://github.com/ThokozaneN" class="social-icon" aria-label="Visit my GitHub profile">
@@ -462,7 +547,6 @@
                     </div>
                     <div class="contact-form">
                         <form id="contactForm" action="https://formsubmit.co/dev@thokozane.co.za" method="POST" novalidate>
-                            <!-- Add these hidden fields -->
                             <input type="hidden" name="_subject" value="New Project Inquiry from Portfolio">
                             <input type="hidden" name="_template" value="table">
                             <input type="hidden" name="_captcha" value="false">
@@ -510,27 +594,25 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-logo">
-                <i class="fas fa-code" aria-hidden="true"></i>
-                Thokozane Nxumalo
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <i class="fas fa-code" aria-hidden="true"></i>
+                        Thokozane Nxumalo
+                    </div>
+                    <p class="copyright">© <span id="currentYear"></span> Thokozane Nxumalo. All rights reserved.</p>
+                </div>
+                <div class="footer-contact">
+                    <a href="mailto:dev@thokozane.co.za" class="contact-link">dev@thokozane.co.za</a>
+                    <a href="tel:+27698077866" class="contact-link">069 807 7866</a>
+                </div>
             </div>
-            <div class="social-links">
-                <a href="https://github.com/ThokozaneN" class="icon-link" aria-label="Visit my GitHub profile">
-                    <i class="fab fa-github" aria-hidden="true"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/thokozane-nxumalo?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="icon-link" aria-label="Visit my LinkedIn profile">
-                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-                </a>
-                <a href="https://facebook.com/innocent.t.khumalo" class="icon-link" aria-label="Visit my Facebook profile">
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </div>
-            <p class="copyright">© <span id="currentYear"></span> Thokozane Nxumalo</p>
         </div>
     </footer>
 
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
     <script src="script.js" defer></script>
 </body>
 </html>

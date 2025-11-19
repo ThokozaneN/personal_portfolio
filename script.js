@@ -1,631 +1,1075 @@
-// Performance optimizations
-let scrollTimeout;
-let animationFrameId;
-
-// Debounced scroll handler
-function debounce(func, wait) {
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(scrollTimeout);
-            func(...args);
-        };
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(later, wait);
-    };
-}
-
-// Throttled scroll handler for better performance
-function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-// Create floating particles for hero background - OPTIMIZED
-function createParticles() {
-    const particlesContainer = document.getElementById('floatingParticles');
-    if (!particlesContainer) return;
-    
-    const particleCount = 12; // Reduced for mobile performance
-    const fragment = document.createDocumentFragment();
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-
-        // Optimized random properties
-        const size = Math.random() * 30 + 8; // Smaller particles
-        const left = Math.random() * 100;
-        const animationDuration = Math.random() * 25 + 15; // Faster animations
-        const animationDelay = Math.random() * 3;
-        const opacity = Math.random() * 0.08 + 0.03; // More subtle
-
-        particle.style.cssText = `
-            width: ${size}px;
-            height: ${size}px;
-            left: ${left}%;
-            animation-duration: ${animationDuration}s;
-            animation-delay: ${animationDelay}s;
-            opacity: ${opacity};
-            will-change: transform, opacity;
-        `;
-
-        fragment.appendChild(particle);
-    }
-    
-    particlesContainer.appendChild(fragment);
-}
-
-// Scroll progress bar - OPTIMIZED
-function updateScrollProgress() {
-    const scrollProgress = document.getElementById('scrollProgress');
-    if (!scrollProgress) return;
-    
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollPercentage = (scrollTop / scrollHeight) * 100;
-    
-    // Use transform for better performance
-    scrollProgress.style.transform = `scaleX(${scrollPercentage / 100})`;
-}
-
-// Intersection Observer for scroll animations - REPLACES handleScrollAnimations
-function initIntersectionObserver() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const element = entry.target;
-                element.classList.add('visible');
-                
-                // Stagger animations
-                if (element.classList.contains('tech-pill')) {
-                    const index = Array.from(element.parentElement.children).indexOf(element);
-                    element.style.transitionDelay = `${index * 0.08}s`;
-                }
-                
-                if (element.classList.contains('contact-detail')) {
-                    const index = Array.from(element.parentElement.children).indexOf(element);
-                    element.style.transitionDelay = `${index * 0.15}s`;
-                }
-                
-                if (element.classList.contains('form-group')) {
-                    const index = Array.from(element.parentElement.children).indexOf(element);
-                    element.style.transitionDelay = `${index * 0.08}s`;
-                }
-                
-                // Unobserve after animation
-                observer.unobserve(element);
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements
-    const animatedElements = document.querySelectorAll(
-        '.section-title, .about-text, .about-image, .tech-pill, .project-card, .contact-info, .contact-card, .contact-detail, .social-icon, .contact-form, .form-group'
-    );
-    
-    animatedElements.forEach(el => observer.observe(el));
-}
-
-// Optimized Typing Animation
-const typingText = document.getElementById('typingText');
-const texts = ['Fullstack Web Dev', 'UI/UX Designer', 'Problem Solver', 'Tech Enthusiast'];
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-let typingSpeed = 100;
-let typingTimeout;
-
-function type() {
-    if (!typingText) return;
-    
-    const currentText = texts[textIndex];
-    
-    if (isDeleting) {
-        typingText.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-        typingSpeed = 50;
-    } else {
-        typingText.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-        typingSpeed = 100;
+class PortfolioApp {
+    constructor() {
+        this.init();
     }
 
-    if (!isDeleting && charIndex === currentText.length) {
-        isDeleting = true;
-        typingSpeed = 1000;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        typingSpeed = 500;
+    init() {
+        this.setupTheme();
+        this.setupNavigation();
+        this.setupScrollAnimations();
+        this.setupScrollProgress();
+        this.setupForm();
+        this.setupLocationTime();
+        this.setupCopyright();
+        this.setupToastSystem();
+        this.setupTypingAnimation();
+        this.setupParticles();
+        this.setupResumeButton();
+        this.setupAnimations();
+        this.setupSmoothScrolling();
+        this.setupPerformanceOptimizations();
+        this.setupErrorHandling();
     }
 
-    typingTimeout = setTimeout(type, typingSpeed);
-}
-
-// Stop typing animation when not visible
-function stopTypingAnimation() {
-    if (typingTimeout) {
-        clearTimeout(typingTimeout);
-    }
-}
-
-// Form validation - OPTIMIZED
-function validateForm() {
-    let isValid = true;
-    
-    // Use requestAnimationFrame for better performance
-    if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-    }
-    
-    animationFrameId = requestAnimationFrame(() => {
-        // Clear previous errors
-        document.querySelectorAll('.error-message').forEach(error => {
-            error.textContent = '';
-        });
+    // Theme Management
+    setupTheme() {
+        const themeToggle = document.getElementById('themeToggle');
+        const lightIcon = document.getElementById('lightIcon');
+        const darkIcon = document.getElementById('darkIcon');
+        const savedTheme = localStorage.getItem('theme') || 'light';
         
-        document.querySelectorAll('.form-control').forEach(input => {
-            input.classList.remove('error');
-        });
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        this.updateThemeIcons(lightIcon, darkIcon, savedTheme);
 
-        // Validate name
-        const name = document.getElementById('name');
-        if (!name.value.trim()) {
-            document.getElementById('nameError').textContent = 'Full name is required';
-            name.classList.add('error');
-            isValid = false;
-        }
-
-        // Validate email
-        const email = document.getElementById('email');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email.value.trim()) {
-            document.getElementById('emailError').textContent = 'Email address is required';
-            email.classList.add('error');
-            isValid = false;
-        } else if (!emailRegex.test(email.value)) {
-            document.getElementById('emailError').textContent = 'Please enter a valid email address';
-            email.classList.add('error');
-            isValid = false;
-        }
-
-        // Validate service
-        const service = document.getElementById('service');
-        if (!service.value) {
-            document.getElementById('serviceError').textContent = 'Service selection is required';
-            service.classList.add('error');
-            isValid = false;
-        }
-
-        // Validate message
-        const message = document.getElementById('message');
-        if (!message.value.trim()) {
-            document.getElementById('messageError').textContent = 'Project details are required';
-            message.classList.add('error');
-            isValid = false;
-        } else if (message.value.trim().length < 10) {
-            document.getElementById('messageError').textContent = 'Please provide more details (at least 10 characters)';
-            message.classList.add('error');
-            isValid = false;
-        }
-    });
-    
-    return isValid;
-}
-
-// Optimized mailto function
-function sendEmail(subject = '', body = '') {
-    return new Promise((resolve) => {
-        const email = 'dev@thokozane.co.za';
-        const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // Use window.location for better compatibility
-        window.location.href = mailtoLink;
-        
-        // Fallback timeout
-        setTimeout(() => resolve(true), 100);
-    });
-}
-
-// Quick contact function
-function quickContact() {
-    const subject = 'Website Inquiry - Potential Project';
-    const body = `Hello Thokozane,
-
-I came across your portfolio and would like to discuss a potential project.
-
-Best regards,
-[Your Name]`;
-    
-    sendEmail(subject, body)
-        .then(() => {
-            showToast('Email client opened! Please send your message to dev@thokozane.co.za', 'success');
-        });
-}
-
-// Resume request function
-function requestResume() {
-    const subject = 'Resume Request - Thokozane Nxumalo Portfolio';
-    const body = `Hello Thokozane,
-
-I came across your portfolio and would like to request a copy of your resume.
-
-Best regards,
-[Your Name]`;
-    
-    sendEmail(subject, body)
-        .then(() => {
-            showToast('Opening email client to request resume...', 'success');
-        });
-}
-
-// Theme Toggle - OPTIMIZED
-const themeToggle = document.getElementById('themeToggle');
-const lightIcon = document.getElementById('lightIcon');
-const darkIcon = document.getElementById('darkIcon');
-
-function initTheme() {
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    document.body.classList.toggle('dark', currentTheme === 'dark');
-    lightIcon.classList.toggle('active', currentTheme === 'light');
-    darkIcon.classList.toggle('active', currentTheme === 'dark');
-}
-
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const isDark = document.body.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        lightIcon.classList.toggle('active', !isDark);
-        darkIcon.classList.toggle('active', isDark);
-    });
-}
-
-// Mobile Navigation Toggle - OPTIMIZED
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-
-function toggleMobileMenu() {
-    const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', !isExpanded);
-    mobileMenu.setAttribute('aria-hidden', isExpanded);
-    
-    hamburger.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-}
-
-if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', toggleMobileMenu);
-    
-    // Close mobile menu when clicking on links
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (mobileMenu.classList.contains('active')) {
-                toggleMobileMenu();
-            }
-        });
-    });
-}
-
-// Navbar scroll effect - OPTIMIZED with throttle
-const navbar = document.getElementById('navbar');
-function handleNavbarScroll() {
-    if (!navbar) return;
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-}
-
-// Smooth Scrolling - OPTIMIZED
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                e.preventDefault();
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// Form Submission with FormSubmit.co - BEST SOLUTION
-const contactForm = document.getElementById('contactForm');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        const submitButton = this.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.innerHTML;
-        
-        // Validate form before allowing submission
-        if (!validateForm()) {
-            e.preventDefault();
-            showToast('Please fix the form errors before submitting.', 'error');
-            return;
-        }
-        
-        // Show loading state but allow natural form submission
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitButton.disabled = true;
-        
-        showToast('Sending your message...', 'info');
-        
-        // Form will submit naturally to FormSubmit
-        // Since we're not preventing default, the form will submit normally
-        // FormSubmit will process and redirect, but we handle the UX with toasts
-        
-        // Fallback: if still on page after 5 seconds (in case FormSubmit fails), reset button
-        setTimeout(() => {
-            if (submitButton.disabled) {
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
-                showToast('Submission taking longer than expected. Please try again.', 'info');
-            }
-        }, 5000);
-        
-        // Success is handled by FormSubmit's redirect, but we show immediate feedback
-        // The page will reload on successful submission, so no need to manually reset
-    });
-}
-
-// Real-time form validation - OPTIMIZED
-function initFormValidation() {
-    document.querySelectorAll('.form-control').forEach(input => {
-        input.addEventListener('blur', function() {
-            validateField(this);
-        });
-        
-        input.addEventListener('input', function() {
-            if (this.classList.contains('error')) {
-                const errorElement = document.getElementById(this.id + 'Error');
-                if (errorElement) errorElement.textContent = '';
-                this.classList.remove('error');
-            }
-        });
-    });
-}
-
-function validateField(field) {
-    const value = field.value.trim();
-    const errorElement = document.getElementById(field.id + 'Error');
-    if (!errorElement) return;
-
-    switch(field.id) {
-        case 'name':
-            if (!value) {
-                errorElement.textContent = 'Full name is required';
-                field.classList.add('error');
-            }
-            break;
-        case 'email':
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!value) {
-                errorElement.textContent = 'Email address is required';
-                field.classList.add('error');
-            } else if (!emailRegex.test(value)) {
-                errorElement.textContent = 'Please enter a valid email address';
-                field.classList.add('error');
-            }
-            break;
-        case 'service':
-            if (!value) {
-                errorElement.textContent = 'Service selection is required';
-                field.classList.add('error');
-            }
-            break;
-        case 'message':
-            if (!value) {
-                errorElement.textContent = 'Project details are required';
-                field.classList.add('error');
-            } else if (value.length < 10) {
-                errorElement.textContent = 'Please provide more details (at least 10 characters)';
-                field.classList.add('error');
-            }
-            break;
-    }
-}
-
-// Toast system - OPTIMIZED
-function showToast(message, type = 'success') {
-    const toastContainer = document.getElementById('toastContainer');
-    if (!toastContainer) return;
-    
-    // Remove existing toasts
-    toastContainer.querySelectorAll('.toast').forEach(toast => toast.remove());
-    
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    
-    const icons = {
-        success: 'check',
-        error: 'exclamation-circle',
-        info: 'info-circle'
-    };
-    
-    toast.innerHTML = `
-        <div class="toast-icon">
-            <i class="fas fa-${icons[type] || 'info-circle'}"></i>
-        </div>
-        <div class="toast-message">${message}</div>
-        <button class="toast-close" aria-label="Close notification">
-            <i class="fas fa-times"></i>
-        </button>
-    `;
-    
-    toastContainer.appendChild(toast);
-    
-    // Add event listener for close button
-    toast.querySelector('.toast-close').addEventListener('click', () => {
-        toast.remove();
-    });
-    
-    setTimeout(() => toast.classList.add('show'), 10);
-    
-    // Auto-remove after 6 seconds
-    setTimeout(() => {
-        if (toast.parentElement) {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }
-    }, 6000);
-}
-
-// Time and date functions - OPTIMIZED
-function updateTime() {
-    const timeElement = document.getElementById('currentTime');
-    if (timeElement) {
-        const now = new Date();
-        timeElement.textContent = now.toLocaleTimeString('en-ZA', {
-            timeZone: 'Africa/Johannesburg',
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
-}
-
-function updateCurrentYear() {
-    const yearElement = document.getElementById('currentYear');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    }
-}
-
-// Active nav link - OPTIMIZED with Intersection Observer
-function initActiveNavObserver() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const currentSection = entry.target.getAttribute('id');
-                
-                navLinks.forEach(link => {
-                    const isActive = link.getAttribute('href') === `#${currentSection}`;
-                    link.classList.toggle('active', isActive);
-                    link.toggleAttribute('aria-current', isActive);
-                });
-            }
-        });
-    }, { threshold: 0.5 });
-
-    sections.forEach(section => observer.observe(section));
-}
-
-// Contact interactions for copy functionality
-function initContactInteractions() {
-    const contactLinks = document.querySelectorAll('.contact-detail-text a[href^="mailto:"], .contact-detail-text a[href^="tel:"]');
-    
-    contactLinks.forEach(link => {
-        // Create tooltip
-        const tooltip = document.createElement('div');
-        tooltip.className = 'copy-tooltip';
-        tooltip.textContent = 'Click to copy';
-        link.parentElement.style.position = 'relative';
-        link.parentElement.appendChild(tooltip);
-        
-        // Show tooltip on hover
-        link.addEventListener('mouseenter', () => tooltip.classList.add('show'));
-        link.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
-        
-        // Copy to clipboard on click
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const textToCopy = link.textContent.trim();
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                tooltip.textContent = 'Copied!';
-                tooltip.classList.add('show');
-                
-                setTimeout(() => {
-                    tooltip.textContent = 'Click to copy';
-                    tooltip.classList.remove('show');
-                    // Open the link after copy
-                    window.location.href = link.getAttribute('href');
-                }, 1500);
-            }).catch(() => {
-                // Fallback: just open the link
-                window.location.href = link.getAttribute('href');
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            this.updateThemeIcons(lightIcon, darkIcon, newTheme);
+            this.showToast(`Switched to ${newTheme} mode`, 'info');
+            
+            // Update particles for new theme
+            this.updateParticlesForTheme(newTheme);
+        });
+
+        // Remove blue highlight on click
+        themeToggle.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+        });
+    }
+
+    updateThemeIcons(lightIcon, darkIcon, theme) {
+        if (theme === 'light') {
+            lightIcon.classList.add('active');
+            darkIcon.classList.remove('active');
+        } else {
+            lightIcon.classList.remove('active');
+            darkIcon.classList.add('active');
+        }
+    }
+
+    // Navigation
+    setupNavigation() {
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        // Mobile menu toggle
+        hamburger.addEventListener('click', () => {
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.setAttribute('aria-hidden', isExpanded);
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking links
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
             });
         });
-    });
-}
 
-// Initialize everything - OPTIMIZED
-function init() {
-    // Set initial theme
-    initTheme();
-    
-    // Initialize components
-    createParticles();
-    initIntersectionObserver();
-    initSmoothScroll();
-    initFormValidation();
-    initActiveNavObserver();
-    initContactInteractions();
-    
-    // Start animations
-    setTimeout(type, 1000);
-    
-    // Initialize time
-    updateTime();
-    updateCurrentYear();
-    setInterval(updateTime, 30000); // Update every 30 seconds instead of 1
-    
-    // Event listeners with optimizations
-    window.addEventListener('scroll', throttle(handleNavbarScroll, 100));
-    window.addEventListener('scroll', throttle(updateScrollProgress, 16));
-    
-    // Resume button
-    const resumeBtn = document.getElementById('resumeBtn');
-    if (resumeBtn) {
-        resumeBtn.addEventListener('click', requestResume);
+        // Update active nav link on scroll
+        this.setupActiveNavigation();
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+        });
     }
+
+    setupActiveNavigation() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const currentId = entry.target.getAttribute('id');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${currentId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+    }
+
+    // Scroll Animations
+    setupScrollAnimations() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                    
+                    // Add staggered animation for multiple items
+                    if (entry.target.classList.contains('skill-card') || 
+                        entry.target.classList.contains('project-card') ||
+                        entry.target.classList.contains('timeline-item')) {
+                        const index = Array.from(entry.target.parentElement.children).indexOf(entry.target);
+                        entry.target.style.transitionDelay = `${index * 0.1}s`;
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should animate on scroll
+        document.querySelectorAll('.timeline-item, .skill-card, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const scrollY = window.scrollY;
+            
+            if (scrollY > 100) {
+                navbar.style.background = 'rgba(245, 248, 247, 0.95)';
+                if (document.documentElement.getAttribute('data-theme') === 'dark') {
+                    navbar.style.background = 'rgba(19, 32, 27, 0.95)';
+                }
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.background = 'var(--bg-primary)';
+                navbar.style.backdropFilter = 'blur(0px)';
+            }
+        });
+    }
+
+    // Scroll Progress
+    setupScrollProgress() {
+        const scrollProgress = document.getElementById('scrollProgress');
+        
+        const updateProgress = () => {
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollProgress.style.width = `${Math.min(scrolled, 100)}%`;
+        };
+
+        // Throttle scroll events for performance
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateProgress();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial update
+        updateProgress();
+    }
+
+    // Smooth Scrolling
+    setupSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                
+                if (target) {
+                    const targetPosition = target.offsetTop - 80; // Account for fixed header
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update URL without page jump
+                    history.pushState(null, null, anchor.getAttribute('href'));
+                }
+            });
+        });
+    }
+
+    // Form Handling
+    setupForm() {
+        const form = document.getElementById('contactForm');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (this.validateForm()) {
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                // Show loading state
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+
+                try {
+                    // Submit to FormSubmit.co
+                    await this.submitToFormSubmit(form);
+                    
+                    // Show success message instead of redirecting
+                    this.showToast('Message sent successfully! I\'ll get back to you within 24 hours.', 'success');
+                    form.reset();
+                    
+                    // Track form submission in analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submission', {
+                            'event_category': 'Contact',
+                            'event_label': 'Portfolio Contact Form'
+                        });
+                    }
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    this.showToast('Failed to send message. Please try again or email me directly at dev@thokozane.co.za', 'error');
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+        });
+
+        // Real-time validation
+        const inputs = form.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                this.validateField(input);
+            });
+            
+            input.addEventListener('input', () => {
+                this.clearError(input);
+            });
+        });
+
+        // Add character counter for message textarea
+        const messageTextarea = document.getElementById('message');
+        if (messageTextarea) {
+            messageTextarea.addEventListener('input', () => {
+                this.updateCharacterCount(messageTextarea);
+            });
+        }
+    }
+
+    validateForm() {
+        const form = document.getElementById('contactForm');
+        const inputs = form.querySelectorAll('input, textarea, select');
+        let isValid = true;
+
+        inputs.forEach(input => {
+            if (!this.validateField(input)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    validateField(field) {
+        const value = field.value.trim();
+        const errorElement = document.getElementById(field.id + 'Error');
+
+        if (field.hasAttribute('required') && !value) {
+            this.showError(field, `${field.labels[0].textContent} is required`);
+            return false;
+        }
+
+        if (field.type === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                this.showError(field, 'Please enter a valid email address');
+                return false;
+            }
+        }
+
+        if (field.id === 'message' && value.length < 10) {
+            this.showError(field, 'Please provide more details about your project (minimum 10 characters)');
+            return false;
+        }
+
+        this.clearError(field);
+        return true;
+    }
+
+    showError(field, message) {
+        const errorElement = document.getElementById(field.id + 'Error');
+        errorElement.textContent = message;
+        field.style.borderColor = '#e74c3c';
+        field.focus();
+    }
+
+    clearError(field) {
+        const errorElement = document.getElementById(field.id + 'Error');
+        errorElement.textContent = '';
+        field.style.borderColor = '';
+    }
+
+    updateCharacterCount(textarea) {
+        const maxLength = 1000;
+        const currentLength = textarea.value.length;
+        
+        // Create or update character count display
+        let counter = textarea.parentNode.querySelector('.char-counter');
+        if (!counter) {
+            counter = document.createElement('div');
+            counter.className = 'char-counter';
+            counter.style.fontSize = '0.8rem';
+            counter.style.color = 'var(--text-secondary)';
+            counter.style.marginTop = '0.25rem';
+            textarea.parentNode.appendChild(counter);
+        }
+        
+        counter.textContent = `${currentLength}/${maxLength} characters`;
+        
+        if (currentLength > maxLength * 0.8) {
+            counter.style.color = '#e74c3c';
+        } else {
+            counter.style.color = 'var(--text-secondary)';
+        }
+    }
+
+    async submitToFormSubmit(form) {
+        const formData = new FormData(form);
+        
+        // Add additional hidden fields for FormSubmit.co
+        formData.append('_subject', 'New Project Inquiry from Portfolio');
+        formData.append('_template', 'table');
+        formData.append('_captcha', 'false');
+        formData.append('_replyto', formData.get('email'));
+        
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Form submission failed');
+        }
+
+        return response;
+    }
+
+    // Resume Button Functionality with Popup Form
+    setupResumeButton() {
+        const resumeBtn = document.getElementById('resumeBtn');
+        if (!resumeBtn) return;
+        
+        resumeBtn.addEventListener('click', () => {
+            this.showResumeRequestForm();
+        });
+    }
+
+    // Resume Request Popup Form
+    showResumeRequestForm() {
+        // Create modal overlay
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'modal-overlay';
+        modalOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        `;
+
+        // Create modal content
+        const modalContent = document.createElement('div');
+        modalContent.className = 'resume-request-modal';
+        modalContent.style.cssText = `
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        `;
+
+        modalContent.innerHTML = `
+            <button class="modal-close-btn" aria-label="Close resume request form" style="
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--text-secondary);
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            ">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <h2 style="margin-bottom: 1rem; color: var(--text-primary); text-align: center;">
+                Request My Resume
+            </h2>
+            
+            <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2rem;">
+                Please provide your details and I'll send my resume to your email.
+            </p>
+            
+            <form id="resumeRequestForm" class="resume-request-form">
+                <div class="form-group">
+                    <label for="requesterName">Full Name *</label>
+                    <input type="text" id="requesterName" name="name" class="form-control" required>
+                    <span class="error-message" id="requesterNameError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="requesterEmail">Email Address *</label>
+                    <input type="email" id="requesterEmail" name="email" class="form-control" required>
+                    <span class="error-message" id="requesterEmailError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" name="company" class="form-control" placeholder="Optional">
+                    <span class="error-message" id="companyNameError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="requestReason">Reason for Request *</label>
+                    <select id="requestReason" name="reason" class="form-control" required>
+                        <option value="">Select a reason</option>
+                        <option value="job_opportunity">Job Opportunity</option>
+                        <option value="freelance_project">Freelance Project</option>
+                        <option value="collaboration">Collaboration</option>
+                        <option value="recruitment">Recruitment</option>
+                        <option value="networking">Networking</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <span class="error-message" id="requestReasonError"></span>
+                </div>
+                
+                <div class="form-group" id="otherReasonGroup" style="display: none;">
+                    <label for="otherReason">Please specify</label>
+                    <input type="text" id="otherReason" name="other_reason" class="form-control" placeholder="Please specify your reason">
+                    <span class="error-message" id="otherReasonError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additionalNotes">Additional Notes</label>
+                    <textarea id="additionalNotes" name="notes" class="form-control" placeholder="Any additional information you'd like to share..." rows="3"></textarea>
+                    <span class="error-message" id="additionalNotesError"></span>
+                </div>
+                
+                <div class="form-actions" style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary" id="cancelResumeRequest" style="flex: 1;">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Request
+                    </button>
+                </div>
+            </form>
+        `;
+
+        modalOverlay.appendChild(modalContent);
+        document.body.appendChild(modalOverlay);
+        document.body.style.overflow = 'hidden';
+
+        // Animate in
+        setTimeout(() => {
+            modalOverlay.style.opacity = '1';
+            modalContent.style.transform = 'scale(1)';
+        }, 10);
+
+        // Setup event listeners for the modal
+        this.setupResumeModalEvents(modalOverlay, modalContent);
+    }
+
+    setupResumeModalEvents(modalOverlay, modalContent) {
+        // Close button
+        const closeBtn = modalContent.querySelector('.modal-close-btn');
+        const cancelBtn = modalContent.querySelector('#cancelResumeRequest');
+        const form = modalContent.querySelector('#resumeRequestForm');
+        const reasonSelect = modalContent.querySelector('#requestReason');
+        const otherReasonGroup = modalContent.querySelector('#otherReasonGroup');
+
+        // Close modal function
+        const closeModal = () => {
+            modalOverlay.style.opacity = '0';
+            modalContent.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                if (modalOverlay.parentNode) {
+                    modalOverlay.parentNode.removeChild(modalOverlay);
+                }
+                document.body.style.overflow = '';
+            }, 300);
+        };
+
+        // Close events
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Escape key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.body.contains(modalOverlay)) {
+                closeModal();
+            }
+        });
+
+        // Show/hide other reason field
+        reasonSelect.addEventListener('change', () => {
+            if (reasonSelect.value === 'other') {
+                otherReasonGroup.style.display = 'block';
+            } else {
+                otherReasonGroup.style.display = 'none';
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (this.validateResumeRequestForm(form)) {
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                // Show loading state
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+
+                try {
+                    await this.submitResumeRequest(form);
+                    closeModal();
+                    this.showToast('Resume request sent successfully! I\'ll email my resume to you shortly.', 'success');
+                } catch (error) {
+                    console.error('Resume request error:', error);
+                    this.showToast('Failed to send resume request. Please try again or email me directly.', 'error');
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+        });
+
+        // Real-time validation
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                this.validateResumeField(input);
+            });
+            
+            input.addEventListener('input', () => {
+                this.clearResumeError(input);
+            });
+        });
+    }
+
+    validateResumeRequestForm(form) {
+        const inputs = form.querySelectorAll('input[required], select[required]');
+        let isValid = true;
+
+        inputs.forEach(input => {
+            if (!this.validateResumeField(input)) {
+                isValid = false;
+            }
+        });
+
+        // Validate email format
+        const emailInput = form.querySelector('#requesterEmail');
+        if (emailInput.value && !this.isValidEmail(emailInput.value)) {
+            this.showResumeError(emailInput, 'Please enter a valid email address');
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    validateResumeField(field) {
+        const value = field.value.trim();
+        const errorElement = document.getElementById(field.id + 'Error');
+
+        if (field.hasAttribute('required') && !value) {
+            this.showResumeError(field, 'This field is required');
+            return false;
+        }
+
+        this.clearResumeError(field);
+        return true;
+    }
+
+    showResumeError(field, message) {
+        const errorElement = document.getElementById(field.id + 'Error');
+        errorElement.textContent = message;
+        field.style.borderColor = '#e74c3c';
+    }
+
+    clearResumeError(field) {
+        const errorElement = document.getElementById(field.id + 'Error');
+        errorElement.textContent = '';
+        field.style.borderColor = '';
+    }
+
+    isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    async submitResumeRequest(form) {
+        const formData = new FormData(form);
+        
+        // Add additional fields for FormSubmit.co
+        formData.append('_subject', 'Resume Request from Portfolio');
+        formData.append('_template', 'table');
+        formData.append('_captcha', 'false');
+        formData.append('_replyto', formData.get('email'));
+        
+        // Send to FormSubmit.co (you can use the same email or a different one)
+        const response = await fetch('https://formsubmit.co/dev@thokozane.co.za', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Resume request submission failed');
+        }
+
+        // Track in analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'resume_request', {
+                'event_category': 'Engagement',
+                'event_label': 'Resume Request Form'
+            });
+        }
+
+        return response;
+    }
+
+    // Location and Time
+    setupLocationTime() {
+        const currentTimeElement = document.getElementById('currentTime');
+        
+        const updateTime = () => {
+            const now = new Date();
+            const options = {
+                timeZone: 'Africa/Johannesburg',
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            const timeString = now.toLocaleTimeString('en-ZA', options);
+            
+            if (currentTimeElement) {
+                currentTimeElement.textContent = timeString;
+                currentTimeElement.setAttribute('aria-label', `Current time in South Africa: ${timeString}`);
+            }
+        };
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    }
+
+    // Typing Animation
+    setupTypingAnimation() {
+        const typingText = document.getElementById('typingText');
+        if (!typingText) return;
+
+        const texts = [
+            'Fullstack Web Developer',
+            'UI/UX Enthusiast',
+            'Problem Solver',
+            'Tech Innovator'
+        ];
+        
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingDelay = 100;
+        let erasingDelay = 50;
+        let newTextDelay = 2000;
+
+        const type = () => {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingDelay = erasingDelay;
+            } else {
+                typingText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingDelay = 100;
+            }
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typingDelay = newTextDelay;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typingDelay = 500;
+            }
+
+            setTimeout(type, typingDelay);
+        };
+
+        // Start typing animation after a short delay
+        setTimeout(type, 1000);
+    }
+
+    // Floating Particles
+    setupParticles() {
+        const particlesContainer = document.getElementById('floatingParticles');
+        if (!particlesContainer) return;
+
+        const particleCount = 15;
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+
+        for (let i = 0; i < particleCount; i++) {
+            this.createParticle(particlesContainer, i, currentTheme);
+        }
+    }
+
+    createParticle(container, index, theme) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        const size = Math.random() * 60 + 20;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const duration = Math.random() * 10 + 10;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.opacity = Math.random() * 0.3 + 0.1;
+        
+        // Set particle color based on theme
+        if (theme === 'dark') {
+            particle.style.background = 'var(--color-acapulco-400)';
+        } else {
+            particle.style.background = 'var(--color-acapulco-500)';
+        }
+        
+        container.appendChild(particle);
+    }
+
+    updateParticlesForTheme(theme) {
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(particle => {
+            if (theme === 'dark') {
+                particle.style.background = 'var(--color-acapulco-400)';
+            } else {
+                particle.style.background = 'var(--color-acapulco-500)';
+            }
+        });
+    }
+
+    // Auto-updating Copyright
+    setupCopyright() {
+        const yearElement = document.getElementById('currentYear');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+    }
+
+    // Toast System
+    setupToastSystem() {
+        this.toastContainer = document.getElementById('toastContainer');
+        if (!this.toastContainer) {
+            this.toastContainer = document.createElement('div');
+            this.toastContainer.id = 'toastContainer';
+            this.toastContainer.className = 'toast-container';
+            this.toastContainer.setAttribute('aria-live', 'polite');
+            this.toastContainer.setAttribute('aria-atomic', 'true');
+            document.body.appendChild(this.toastContainer);
+        }
+    }
+
+    showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icon = type === 'success' ? 'fa-check-circle' : 
+                    type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+        
+        toast.innerHTML = `
+            <i class="fas ${icon}"></i>
+            <span>${message}</span>
+        `;
+
+        this.toastContainer.appendChild(toast);
+
+        // Trigger animation
+        setTimeout(() => toast.classList.add('show'), 100);
+
+        // Remove toast after delay
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 300);
+        }, 5000);
+
+        // Accessibility: Announce toast to screen readers
+        this.announceToScreenReader(message, type);
+    }
+
+    announceToScreenReader(message, type) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = `${type} notification: ${message}`;
+        
+        document.body.appendChild(announcement);
+        setTimeout(() => {
+            document.body.removeChild(announcement);
+        }, 1000);
+    }
+
+    // Additional Animations
+    setupAnimations() {
+        // Add floating animation to elements with delays
+        const floatingElements = document.querySelectorAll('.animate-float');
+        floatingElements.forEach((el, index) => {
+            el.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        // Add hover effects to interactive elements
+        this.setupHoverEffects();
+    }
+
+    setupHoverEffects() {
+        // Add subtle hover effects to cards
+        const cards = document.querySelectorAll('.skill-card, .project-card, .timeline-content');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    }
+
+    // Performance Optimizations
+    setupPerformanceOptimizations() {
+        // Lazy load images
+        this.lazyLoadImages();
+        
+        // Preload critical resources
+        this.preloadCriticalResources();
+        
+        // Setup service worker if available
+        this.setupServiceWorker();
+    }
+
+    lazyLoadImages() {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        } else {
+            // Fallback for browsers without IntersectionObserver
+            images.forEach(img => {
+                img.src = img.dataset.src;
+            });
+        }
+    }
+
+    preloadCriticalResources() {
+        // Preload critical images
+        const criticalImages = [
+            // Add paths to critical images here
+        ];
+        
+        criticalImages.forEach(src => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.href = src;
+            link.as = 'image';
+            document.head.appendChild(link);
+        });
+    }
+
+    setupServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    }
+
+    // Error Handling
+    setupErrorHandling() {
+        window.addEventListener('error', (e) => {
+            console.error('Global error:', e.error);
+            this.showToast('Something went wrong. Please refresh the page.', 'error');
+        });
+
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled promise rejection:', e.reason);
+            this.showToast('Something went wrong. Please try again.', 'error');
+        });
+    }
+}
+
+// Initialize the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
-    // Close mobile menu handlers
-    document.addEventListener('click', (e) => {
-        if (mobileMenu?.classList.contains('active') && 
-            !e.target.closest('.mobile-menu') && 
-            !e.target.closest('.hamburger')) {
-            toggleMobileMenu();
+    if (prefersReducedMotion) {
+        // Disable animations for users who prefer reduced motion
+        document.documentElement.style.setProperty('--transition', 'none');
+        document.querySelectorAll('*').forEach(el => {
+            el.style.animation = 'none';
+        });
+    }
+
+    try {
+        const app = new PortfolioApp();
+        window.portfolioApp = app; // Make available globally for debugging
+        
+        // Track page view in analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                'page_title': document.title,
+                'page_location': window.location.href
+            });
         }
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
-            toggleMobileMenu();
-        }
-    });
-}
-
-// Load when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
-
-// Cleanup on page hide/unload
-window.addEventListener('beforeunload', () => {
-    stopTypingAnimation();
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    } catch (error) {
+        console.error('Failed to initialize portfolio app:', error);
+    }
 });
+
+// Export for module usage if needed
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PortfolioApp;
+}
+
+// Add utility functions
+const PortfolioUtils = {
+    // Debounce function for performance
+    debounce: (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    },
+
+    // Throttle function for performance
+    throttle: (func, limit) => {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    },
+
+    // Format phone number
+    formatPhoneNumber: (phone) => {
+        return phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+    }
+};
+
+// Make utils available globally
+window.PortfolioUtils = PortfolioUtils;

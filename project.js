@@ -162,3 +162,24 @@
                 hero.style.transform = `translateY(${scrolled * 0.5}px)`;
             }
         });
+
+        // Add this script to ensure bento images are visible
+        document.addEventListener('DOMContentLoaded', function() {
+            // Force bento images to be visible
+            const bentoImages = document.querySelectorAll('.bento-item img');
+            bentoImages.forEach(img => {
+                img.style.opacity = '1';
+                img.style.visibility = 'visible';
+                img.style.display = 'block';
+                img.style.zIndex = '1';
+            });
+            
+            // Check if images loaded properly
+            bentoImages.forEach(img => {
+                if (!img.complete || img.naturalHeight === 0) {
+                    console.warn('Image failed to load:', img.src);
+                    // Add fallback background
+                    img.style.background = 'linear-gradient(135deg, var(--chart-1), var(--chart-2))';
+                }
+            });
+        });
