@@ -212,10 +212,12 @@ function initTypingEffect() {
     if (!typingText) return;
 
     const texts = [
-        'Fullstack Web Developer',
-        'UI/UX Enthusiast',
-        'Problem Solver',
-        'Digital Craftsman'
+        'Say No To GBV',
+        'Stop GBV',
+        //'Fullstack Web Developer',
+        //'UI/UX Enthusiast',
+        //'Problem Solver',
+        //'Digital Craftsman'
     ];
     let textIndex = 0;
     let charIndex = 0;
