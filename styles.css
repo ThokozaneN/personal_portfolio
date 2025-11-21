@@ -21,7 +21,7 @@ p, h1, h2, h3, h4, h5, h6, span, a, li, .about-text {
 
 :root {
     /* Light theme colors */
-    --primary-color: #9D00FF;
+    --primary-color: #6366f1;
     --primary-dark: #4f46e5;
     --secondary-color: #f8fafc;
     --accent-color: #06d6a0;
@@ -33,7 +33,7 @@ p, h1, h2, h3, h4, h5, h6, span, a, li, .about-text {
     --border-color: #e2e8f0;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --gradient: linear-gradient(135deg, #9D00FF 0%, #764ba2 100%);
+    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --gradient-alt: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     --transition: all 0.3s ease;
 }
