@@ -3,273 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thokozane Nxumalo | Freelance Web Developer & Digital Marketing Expert</title>
-    <meta name="description" content="Professional freelance web developer and digital marketing expert specializing in modern web solutions, interactive experiences, and SEO optimization.">
-    <meta name="keywords" content="web developer, digital marketing, freelance, frontend developer, SEO expert, GSAP animations, modern web design, Thokozane Nxumalo">
-    <meta name="author" content="Thokozane Nxumalo">
-    
-    <!-- SEO Meta Tags -->
-    <meta property="og:title" content="Thokozane Nxumalo | Web Developer & Digital Marketing Expert">
-    <meta property="og:description" content="Professional freelance web developer and digital marketing expert creating cutting-edge digital experiences.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://thokozane.co.za">
-    <meta property="og:image" content="https://thokozane.co.za/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Thokozane Nxumalo | Web Developer & Digital Marketing Expert">
-    <meta name="twitter:description" content="Professional freelance web developer and digital marketing expert creating cutting-edge digital experiences.">
-    
-    <!-- Professional fonts & Font Awesome for icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/EasePack.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <title>Website Under Maintenance | Thokozane</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #222222;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .maintenance-container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .maintenance-icon {
+            font-size: 64px;
+            color: #222222;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .maintenance-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #222222;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+        
+        .maintenance-subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            color: #666666;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+        
+        .progress-container {
+            margin: 40px 0;
+        }
+        
+        .progress-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #444444;
+            text-align: left;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .progress-percentage {
+            color: #222222;
+        }
+        
+        .loading-bar {
+            width: 100%;
+            height: 3px;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            position: relative;
+            border-radius: 2px;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 60%;
+            background-color: #222222;
+            position: relative;
+            border-radius: 2px;
+            animation: progressExpand 2s ease-out forwards;
+        }
+        
+        @keyframes progressExpand {
+            0% { width: 0%; }
+            100% { width: 60%; }
+        }
+        
+        .shining-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.8) 50%, 
+                transparent 100%);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(350%); }
+        }
+        
+        .progress-text {
+            font-size: 14px;
+            color: #666666;
+            margin-top: 10px;
+            text-align: left;
+        }
+        
+        .estimated-time {
+            font-size: 14px;
+            color: #666666;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .contact-info {
+            font-size: 14px;
+            color: #666666;
+            margin-top: 20px;
+        }
+        
+        .contact-link {
+            color: #222222;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            color: #444444;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #222222;
+            text-decoration: none;
+            position: fixed;
+            top: 25px;
+            left: 40px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .maintenance-icon {
+                font-size: 48px;
+            }
+            
+            .maintenance-title {
+                font-size: 28px;
+            }
+            
+            .maintenance-subtitle {
+                font-size: 16px;
+            }
+            
+            .logo {
+                left: 20px;
+                top: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .maintenance-icon {
+                font-size: 40px;
+            }
+            
+            .maintenance-title {
+                font-size: 24px;
+            }
+            
+            .maintenance-subtitle {
+                font-size: 15px;
+            }
+            
+            .logo {
+                left: 15px;
+                top: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="gradient-bg-preloader"></div>
-        <div class="preloader-content">
-            <div class="preloader-text">
-                <span>You</span>
-                <span>Imagine</span>
-                <span>–</span>
-                <span>I</span>
-                <span>Develop</span>
+    <!-- Logo -->
+    <a href="#" class="logo">&lt;/&gt;</a>
+    
+    <!-- Maintenance Content -->
+    <div class="maintenance-container">
+        <div class="maintenance-icon">
+            <i class="fas fa-tools"></i>
+        </div>
+        
+        <h1 class="maintenance-title">Website Under Maintenance</h1>
+        
+        <p class="maintenance-subtitle">
+            We're currently performing scheduled maintenance to improve your experience. 
+            The site will be back shortly.
+        </p>
+        
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>Update Progress</span>
+                <span class="progress-percentage">60%</span>
             </div>
-            <div class="loading-bar-container">
-                <div class="loading-bar"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header class="header" id="header">
-        <a href="#" class="logo">
-            <span class="logo-text">TK</span>
-            <span class="logo-dot"></span>
-        </a>
-        <!-- Desktop Navigation -->
-        <nav class="desktop-nav">
-            <a href="#work" class="nav-link">Work</a>
-            <a href="#services" class="nav-link">Services</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </nav>
-        <!-- Hamburger Menu -->
-        <button class="hamburger-menu" id="hamburgerMenu">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-        </button>
-    </header>
-
-    <!-- Mobile Navigation with Social Icons -->
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="#work" class="nav-link">Work</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#contact" class="nav-link">Contact</a>
-        
-        <!-- Social Media Icons -->
-        <div class="mobile-social-icons">
-            <a href="https://www.facebook.com/yourprofile" target="_blank" class="social-icon" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://github.com/yourprofile" target="_blank" class="social-icon" aria-label="GitHub">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="social-icon" aria-label="LinkedIn">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <!-- Background Texts -->
-        <div class="hero-text-front">DEVELOPMENT</div>
-        <div class="hero-text-behind">MARKETING</div>
-        
-        <!-- Profile Image -->
-        <div class="profile-image-container">
-            <img src="images/me.png" 
-                 alt="Thokozane Nxumalo - Professional Web Developer and Digital Marketing Expert"
-                 class="profile-image">
-        </div>
-        
-        <!-- Location Info -->
-        <div class="location-info">
-            <div class="location-main">Secunda, South Africa | <span id="liveTime">Loading time...</span></div>
-            <div class="location-sub">Freelance Web Developer & Digital Marketing Expert</div>
-        </div>
-        
-        <!-- Hero Content -->
-        <div class="hero-content">
-            <!-- Empty container for future content if needed -->
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section" id="about">
-        <!-- Background Elements -->
-        <div class="about-bg-elements">
-            <div class="bg-circle circle-1"></div>
-            <div class="bg-circle circle-2"></div>
-            <div class="bg-grid"></div>
-        </div>
-        
-        <!-- Main Content -->
-        <div class="about-container">
-            <!-- Full Width One Line Header -->
-            <div class="about-header">
-                <div class="header-content">
-                    <h2 class="about-title">
-                        <span class="title-word title-word-1">Simple</span>
-                        <span class="title-word title-word-2">About</span>
-                    </h2>
-                    <div class="subtitle-line">
-                        <span class="subtitle-item">Hassle Free</span>
-                        <span class="subtitle-divider">/</span>
-                        <span class="subtitle-item">Code Quality</span>
-                        <span class="subtitle-divider">/</span>
-                        <span class="subtitle-item">Support</span>
-                    </div>
+            
+            <div class="loading-bar">
+                <div class="progress">
+                    <div class="shining-effect"></div>
                 </div>
             </div>
             
-            <!-- Horizontal Cards Container -->
-            <div class="horizontal-cards-container">
-                <!-- Card 1: Experience -->
-                <div class="horizontal-card card-1">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <h3 class="card-title">Experience</h3>
-                        </div>
-                        <div class="card-main">
-                            <div class="card-counter">
-                                <span class="counter-number" data-count="5">0</span>
-                                <span class="counter-label">Years</span>
-                            </div>
-                            <div class="card-tags">
-                                <span class="tag">JavaScript</span>
-                                <span class="tag">React</span>
-                                <span class="tag">Node.js</span>
-                                <span class="tag">Python</span>
-                                <span class="tag">GSAP</span>
-                                <span class="tag">SEO</span>
-                            </div>
-                        </div>
-                        <div class="card-glow"></div>
-                    </div>
-                </div>
-                
-                <!-- Card 2: Projects -->
-                <div class="horizontal-card card-2">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                </svg>
-                            </div>
-                            <h3 class="card-title">Projects</h3>
-                        </div>
-                        <div class="card-main">
-                            <div class="card-counter">
-                                <span class="counter-number" data-count="120">0</span>
-                                <span class="counter-label">Completed</span>
-                            </div>
-                            <div class="card-tags">
-                                <span class="tag">Web Apps</span>
-                                <span class="tag">E-commerce</span>
-                                <span class="tag">Landing Pages</span>
-                                <span class="tag">Dashboards</span>
-                                <span class="tag">Branding</span>
-                                <span class="tag">SEO</span>
-                            </div>
-                        </div>
-                        <div class="card-glow"></div>
-                    </div>
-                </div>
-                
-                <!-- Card 3: Skills -->
-                <div class="horizontal-card card-3">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                </svg>
-                            </div>
-                            <h3 class="card-title">Skills</h3>
-                        </div>
-                        <div class="card-main">
-                            <div class="skills-list">
-                                <div class="skill-item">
-                                    <span class="skill-name">Frontend</span>
-                                    <span class="skill-percent">95%</span>
-                                </div>
-                                <div class="skill-item">
-                                    <span class="skill-name">Backend</span>
-                                    <span class="skill-percent">85%</span>
-                                </div>
-                                <div class="skill-item">
-                                    <span class="skill-name">Marketing</span>
-                                    <span class="skill-percent">90%</span>
-                                </div>
-                                <div class="skill-item">
-                                    <span class="skill-name">Design</span>
-                                    <span class="skill-percent">80%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-glow"></div>
-                    </div>
-                </div>
-                
-                <!-- Card 4: Vision -->
-                <div class="horizontal-card card-4">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                                </svg>
-                            </div>
-                            <h3 class="card-title">Vision</h3>
-                        </div>
-                        <div class="card-main">
-                            <div class="vision-content">
-                                <p class="vision-text">
-                                    Digital experiences that <span class="highlight">inspire</span> & <span class="highlight">convert</span>
-                                </p>
-                                <div class="vision-stats">
-                                    <div class="stat">
-                                        <div class="stat-number">100%</div>
-                                        <div class="stat-label">Success</div>
-                                    </div>
-                                    <div class="stat">
-                                        <div class="stat-number">24/7</div>
-                                        <div class="stat-label">Support</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-glow"></div>
-                    </div>
-                </div>
+            <div class="progress-text">
+                Optimizing performance and adding new features...
             </div>
         </div>
-    </section>
+        
+        <div class="estimated-time">
+            Estimated completion: <strong>2-3 hours</strong>
+        </div>
+        
+        <div class="contact-info">
+            Need immediate assistance? 
+            <a href="mailto:dev@thokozane.co.za" class="contact-link">dev@thokozane.co.za</a>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <!-- Optional: Simulate progress updates -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let progress = 60;
+            const progressElement = document.querySelector('.progress');
+            const percentageElement = document.querySelector('.progress-percentage');
+            
+            // Simulate progress updates every 30 seconds
+            const progressInterval = setInterval(() => {
+                if (progress < 100) {
+                    progress += Math.floor(Math.random() * 5) + 1;
+                    if (progress > 100) progress = 100;
+                    
+                    // Update progress bar with animation
+                    gsap.to(progressElement, {
+                        width: `${progress}%`,
+                        duration: 1,
+                        ease: 'power2.out'
+                    });
+                    
+                    // Update percentage text
+                    percentageElement.textContent = `${progress}%`;
+                    
+                    // Update progress text
+                    const progressText = document.querySelector('.progress-text');
+                    if (progress < 80) {
+                        progressText.textContent = 'Optimizing performance and adding new features...';
+                    } else if (progress < 95) {
+                        progressText.textContent = 'Finalizing updates and running tests...';
+                    } else {
+                        progressText.textContent = 'Almost complete! Running final checks...';
+                    }
+                    
+                    // If reached 100%, show completion message
+                    if (progress === 100) {
+                        clearInterval(progressInterval);
+                        setTimeout(() => {
+                            const title = document.querySelector('.maintenance-title');
+                            const subtitle = document.querySelector('.maintenance-subtitle');
+                            const estimatedTime = document.querySelector('.estimated-time');
+                            
+                            title.textContent = 'Maintenance Complete!';
+                            subtitle.textContent = 'The website is now fully updated and optimized.';
+                            estimatedTime.innerHTML = 'Site will refresh automatically in <strong id="countdown">10</strong> seconds...';
+                            
+                            // Countdown to redirect
+                            let countdown = 10;
+                            const countdownElement = document.getElementById('countdown');
+                            const countdownInterval = setInterval(() => {
+                                countdown--;
+                                countdownElement.textContent = countdown;
+                                
+                                if (countdown <= 0) {
+                                    clearInterval(countdownInterval);
+                                    // Redirect to main site
+                                    window.location.href = 'index.html';
+                                }
+                            }, 1000);
+                        }, 2000);
+                    }
+                }
+            }, 30000);
+            
+            // Optional: Add GSAP for smooth animations if available
+            if (typeof gsap !== 'undefined') {
+                gsap.from('.maintenance-container', {
+                    duration: 1,
+                    y: 30,
+                    opacity: 0,
+                    ease: 'power3.out'
+                });
+            }
+        });
+    </script>
 </body>
 </html>
