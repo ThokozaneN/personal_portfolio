@@ -158,7 +158,7 @@ body {
 }
 
 .header.scrolled {
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(255, 255, 255, 0.158);
     backdrop-filter: blur(15px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
     padding: 1rem 3rem;
@@ -772,7 +772,7 @@ body {
     transform: scale(0);
 }
 
-/* ========== HORIZONTAL CARDS 2x2 GRID LAYOUT ========== */
+/* ========== HORIZONTAL CARDS 2x2 GRID LAYOUT (DESKTOP) ========== */
 .horizontal-cards-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -787,16 +787,12 @@ body {
 
 /* Horizontal Cards - Grid Items */
 .horizontal-card {
-    flex: none;
     width: 100%;
     height: 100%;
     min-height: 320px;
-    scroll-snap-align: none;
     position: relative;
     opacity: 0;
     transform: translateY(50px);
-    grid-column: span 1;
-    grid-row: span 1;
 }
 
 /* First row: Card 1 & Card 2 */
@@ -1095,6 +1091,25 @@ body {
     letter-spacing: 1.5px;
 }
 
+/* ========== MOBILE HERO IMAGE FIX ========== */
+@media (max-width: 768px) {
+    .profile-image {
+        object-position: 70% center;
+        transform: scale(1.05);
+        filter: grayscale(15%) contrast(105%);
+        opacity: 1;
+    }
+
+    .profile-image-container {
+        opacity: 1;
+    }
+
+    /* Remove any initial grayscale/opacity animations that might cause the grayed effect */
+    .hero.loaded .profile-image {
+        filter: grayscale(15%) contrast(105%);
+    }
+}
+
 /* ========== RESPONSIVE DESIGN ========== */
 
 @media (max-width: 1200px) {
@@ -1177,49 +1192,93 @@ body {
         color: rgba(139, 92, 246, 0.3);
     }
     
-    /* About Section Tablet */
+    /* ========== HORIZONTAL SCROLL FOR MOBILE/TABLET ========== */
     .horizontal-cards-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, auto);
-        gap: 2rem;
-        padding: 2rem 2rem 4rem;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        gap: 1.5rem;
+        padding: 2rem 1.5rem 3rem;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        /* Hide scrollbar but keep functionality */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
     }
-    
-    /* Stack cards vertically on tablet */
-    .card-1,
-    .card-2,
-    .card-3,
-    .card-4 {
-        grid-column: 1;
+
+    .horizontal-cards-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
     }
-    
-    .card-1 { grid-row: 1; }
-    .card-2 { grid-row: 2; }
-    .card-3 { grid-row: 3; }
-    .card-4 { grid-row: 4; }
-    
+
     .horizontal-card {
-        min-height: 280px;
+        flex: 0 0 auto;
+        width: calc(100vw - 3rem);
+        max-width: 400px;
+        height: 350px;
+        min-height: 350px;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        opacity: 0;
+        transform: translateX(100px);
+        margin-right: 1.5rem;
+        /* Remove grid positioning */
+        grid-column: unset;
+        grid-row: unset;
+        /* Remove hover transforms for mobile */
+        transition: transform 0.3s ease, opacity 0.3s ease;
     }
-    
-    .card-content {
-        padding: 1.8rem;
+
+    /* Last card shouldn't have right margin */
+    .horizontal-card:last-child {
+        margin-right: 1.5rem;
     }
-    
-    .card-header {
-        margin-bottom: 1rem;
+
+    /* Show scroll hint on mobile */
+    .scroll-hint {
+        position: absolute;
+        bottom: 1rem;
+        right: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+        font-family: 'Inter', sans-serif;
+        opacity: 0;
+        animation: fadeInHint 0.5s ease 2s forwards;
+        z-index: 10;
     }
-    
-    .counter-number {
-        font-size: 2.8rem;
+
+    .scroll-hint i {
+        animation: bounceRight 1.5s infinite;
     }
-    
-    .vision-text {
-        font-size: 1.1rem;
+
+    @keyframes fadeInHint {
+        to {
+            opacity: 1;
+        }
     }
-    
-    .about-header {
-        padding: 6rem 3rem 3rem;
+
+    @keyframes bounceRight {
+        0%, 100% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(5px);
+        }
+    }
+
+    /* Tablet specific adjustments */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .horizontal-card {
+            width: calc(50vw - 3rem);
+            max-width: 450px;
+        }
     }
 }
 
@@ -1394,6 +1453,7 @@ body {
     
     .horizontal-card {
         min-height: 250px;
+        height: 320px;
     }
     
     .card-title {
