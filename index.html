@@ -3,403 +3,1412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Under Maintenance | Coming Back Better!</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Thokozane Nxumalo | Freelance Web Developer & Digital Marketing Expert</title>
+    <meta name="description" content="Professional freelance web developer and digital marketing expert specializing in modern web solutions, interactive experiences, and SEO optimization.">
+    <meta name="keywords" content="web developer, digital marketing, freelance, frontend developer, SEO expert, GSAP animations, modern web design, Thokozane Nxumalo">
+    <meta name="author" content="Thokozane Nxumalo">
+    
+    <!-- SEO Meta Tags -->
+    <meta property="og:title" content="Thokozane Nxumalo | Web Developer & Digital Marketing Expert">
+    <meta property="og:description" content="Professional freelance web developer and digital marketing expert creating cutting-edge digital experiences.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thokozanexumalo.com">
+    <meta property="og:image" content="https://thokozanexumalo.com/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thokozane Nxumalo | Web Developer & Digital Marketing Expert">
+    <meta name="twitter:description" content="Professional freelance web developer and digital marketing expert creating cutting-edge digital experiences.">
+    
+    <!-- Professional fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/EasePack.min.js"></script>
     <style>
+        :root {
+            --color-primary: #10b981;      /* Emerald Green */
+            --color-secondary: #8b5cf6;    /* Violet */
+            --color-accent: #f59e0b;       /* Amber */
+            --color-dark: #111827;         /* Dark Slate */
+            --color-light: #f9fafb;        /* Light Gray */
+            --color-text: #374151;         /* Text Color */
+            --color-teal: #0d9488;         /* Teal */
+            
+            /* Enhanced Log Cabin Color Palette */
+            --color-log-cabin-50: #f5f5f0;
+            --color-log-cabin-100: #eaeadd;
+            --color-log-cabin-200: #d4d6c0;
+            --color-log-cabin-300: #babd99;
+            --color-log-cabin-400: #9fa477;
+            --color-log-cabin-500: #83885a;
+            --color-log-cabin-600: #656b45;
+            --color-log-cabin-700: #4e5338;
+            --color-log-cabin-800: #404430;
+            --color-log-cabin-900: #383b2c;
+            --color-log-cabin-950: #272a1c;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-light);
+            color: var(--color-text);
             overflow-x: hidden;
-        }
-        
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .container {
-            max-width: 800px;
-            padding: 40px;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            margin: 20px;
-            position: relative;
+            line-height: 1.6;
+            height: 100vh;
             overflow: hidden;
+            cursor: default;
         }
-        
-        .container::before {
+
+        /* ========== PRELOADER ========== */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--color-log-cabin-900);
+        }
+
+        /* Enhanced animated gradient background */
+        .gradient-bg-preloader {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg, 
+                var(--color-log-cabin-800) 0%,
+                var(--color-log-cabin-700) 25%,
+                var(--color-log-cabin-600) 50%,
+                var(--color-log-cabin-700) 75%,
+                var(--color-log-cabin-800) 100%
+            );
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            opacity: 1;
+        }
+
+        .preloader-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        /* Preloader text on one line with proper font weight */
+        .preloader-text {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600; /* Increased from 500 for better visibility */
+            color: var(--color-log-cabin-100);
+            margin-bottom: 2.5rem;
+            text-shadow: 0 4px 20px rgba(39, 42, 28, 0.3);
+            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+        }
+
+        .preloader-text span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Loading bar centered properly */
+        .loading-bar-container {
+            width: 400px;
+            max-width: 90%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 2.5rem auto 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-log-cabin-300), var(--color-log-cabin-100));
+            border-radius: 3px;
+            position: relative;
+            transition: width 0.3s ease;
+        }
+
+        .loading-bar::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-            animation: float 20s linear infinite;
-            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
         }
-        
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-30px, -30px) rotate(360deg); }
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: #FFA500;
-        }
-        
-        .message {
-            font-size: 1.3rem;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            color: #f0f0f0;
-        }
-        
-        .maintenance-icon {
-            font-size: 5rem;
-            color: #FFD700;
-            margin: 30px 0;
-            animation: wrenchSpin 3s infinite;
-        }
-        
-        @keyframes wrenchSpin {
-            0% { transform: rotate(0deg); }
-            20% { transform: rotate(-30deg); }
-            40% { transform: rotate(30deg); }
-            60% { transform: rotate(-15deg); }
-            80% { transform: rotate(15deg); }
-            100% { transform: rotate(0deg); }
-        }
-        
-        .funny-message {
-            font-style: italic;
-            font-size: 1.2rem;
-            color: #90EE90;
-            margin: 20px 0;
-            padding: 15px;
-            border-left: 4px solid #90EE90;
-            background: rgba(144, 238, 144, 0.1);
-            border-radius: 0 10px 10px 0;
-        }
-        
-        .progress-container {
+
+        /* ========== HEADER & NAVIGATION ========== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin: 40px 0;
-            overflow: hidden;
-            height: 30px;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            width: 65%;
-            background: linear-gradient(90deg, #FFD700, #FFA500);
-            border-radius: 10px;
-            position: relative;
-            animation: progressAnimation 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes progressAnimation {
-            0% { width: 65%; }
-            100% { width: 70%; }
-        }
-        
-        .progress-text {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .counter {
+            padding: 2rem 4rem;
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        
-        .counter-item {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 20px;
-            border-radius: 15px;
-            min-width: 150px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .counter-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #FFD700;
-            display: block;
-        }
-        
-        .counter-label {
-            font-size: 1rem;
-            margin-top: 5px;
-            color: #ddd;
-        }
-        
-        .social-links {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-        }
-        
-        .social-icon {
-            display: inline-flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+            z-index: 100;
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem 4rem;
+        }
+
+        /* Logo and hamburger on same level */
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--color-teal);
+            text-decoration: none;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+            overflow: hidden;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .logo:hover::before {
+            left: 100%;
+        }
+
+        .logo-text {
             font-size: 1.8rem;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-teal);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: flex;
+            gap: 3rem;
+            opacity: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-link {
             color: white;
             text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
+            overflow: hidden;
         }
-        
-        .social-icon:hover {
-            background: rgba(255, 215, 0, 0.8);
-            transform: translateY(-5px) scale(1.1);
-            color: #333;
+
+        .header.scrolled .nav-link {
+            color: var(--color-dark);
         }
-        
-        .contact-info {
-            margin-top: 30px;
-            font-size: 1.1rem;
-            color: #ddd;
-        }
-        
-        .funny-worker {
+
+        .nav-link::before {
+            content: '';
             position: absolute;
-            font-size: 3rem;
-            opacity: 0.7;
-            z-index: -1;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-teal), var(--color-secondary));
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
         }
-        
-        .worker1 {
-            top: 10%;
-            left: 5%;
-            animation: floatUpDown 4s infinite ease-in-out;
+
+        .nav-link:hover {
+            color: var(--color-teal);
         }
-        
-        .worker2 {
-            bottom: 10%;
-            right: 5%;
-            animation: floatUpDown 5s infinite ease-in-out reverse;
+
+        .nav-link:hover::before {
+            transform: translateX(0);
         }
-        
-        @keyframes floatUpDown {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+
+        /* Hamburger Menu - Aligned with logo */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 32px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 101;
+            opacity: 0;
+            position: relative;
+            margin-left: auto;
         }
-        
-        footer {
-            margin-top: 40px;
+
+        .hamburger-line {
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px;
+        }
+
+        .header.scrolled .hamburger-line {
+            background-color: var(--color-teal);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: translateY(10.5px) rotate(45deg);
+            background-color: var(--color-teal);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: translateY(-10.5px) rotate(-45deg);
+            background-color: var(--color-teal);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(30px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            z-index: 99;
+            transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -10px 0 60px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+            opacity: 1;
+        }
+
+        .mobile-nav .nav-link {
+            font-size: 1.8rem;
+            padding: 1rem 3rem;
+            opacity: 0;
+            transform: translateX(80px);
+            position: relative;
+            color: var(--color-dark);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Profile Image Container - ALWAYS FULL WIDTH */
+        .profile-image-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .profile-image {
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            filter: grayscale(15%) contrast(105%);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Background Texts */
+        .hero-text-front, .hero-text-behind {
+            position: absolute;
+            font-weight: 900;
+            line-height: 0.8;
+            pointer-events: none;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+            z-index: 2;
+            opacity: 1;
+        }
+
+        /* DEVELOPMENT - Positioned on the RIGHT side, IN FRONT */
+        .hero-text-front {
+            font-size: clamp(8rem, 25vw, 20rem);
+            color: rgba(13, 148, 136, 0.15);
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            text-shadow: 
+                0 0 60px rgba(13, 148, 136, 0.2),
+                0 0 120px rgba(13, 148, 136, 0.1);
+            z-index: 3;
+        }
+
+        /* MARKETING - Positioned on the LEFT side, BEHIND */
+        .hero-text-behind {
+            font-size: clamp(10rem, 30vw, 24rem);
+            color: rgba(139, 92, 246, 0.1);
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
+
+        /* Hero Content - Centered overlay */
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            width: 100%;
+            padding: 0 4rem;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+        }
+
+        /* Location Info */
+        .location-info {
+            position: absolute;
+            bottom: 4rem;
+            left: 4rem;
+            z-index: 30;
+            opacity: 0;
+            width: 380px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1.8rem;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .location-main {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+        }
+
+        .location-time {
+            font-family: 'Inter', monospace;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-teal);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .location-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
             color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.9;
         }
-        
+
+        /* Hero Text Content */
+        .hero-text-content {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 0;
+            opacity: 0;
+            letter-spacing: -2px;
+            color: white;
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.3),
+                0 4px 30px rgba(0, 0, 0, 0.2),
+                0 6px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .title-line {
+            display: block;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .title-text {
+            display: block;
+            transform: translateY(120%);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px); 
+            }
+            25% { 
+                transform: translateY(-10px) translateX(5px); 
+            }
+            75% { 
+                transform: translateY(5px) translateX(-5px); 
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1200px) {
+            .hero-content {
+                padding: 0 3rem;
+            }
+            
+            .hero-text-front {
+                font-size: clamp(6rem, 22vw, 16rem);
+                right: 5%;
+            }
+            
+            .hero-text-behind {
+                font-size: clamp(8rem, 26vw, 18rem);
+                left: 5%;
+            }
+
+            .profile-image {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .hero-content {
+                padding: 0 2rem;
+            }
+            
+            .location-info {
+                width: 320px;
+                left: 2rem;
+                bottom: 2rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(2.5rem, 12vw, 6rem);
+            }
+            
+            .hero-text-front {
+                font-size: clamp(5rem, 25vw, 14rem);
+                right: 2%;
+            }
+            
+            .hero-text-behind {
+                font-size: clamp(6rem, 28vw, 16rem);
+                left: 2%;
+            }
+            
+            /* Adjust preloader for tablet */
+            .preloader-text {
+                font-size: clamp(2rem, 5vw, 3rem);
+                gap: 0.3rem;
+            }
+            
+            .loading-bar-container {
+                width: 350px;
+                height: 5px;
+            }
+
+            .profile-image {
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .subtitle { font-size: 1.5rem; }
-            .message { font-size: 1.1rem; }
-            .container { padding: 30px 20px; }
-            .counter-item { min-width: 120px; padding: 15px; }
+            .header {
+                padding: 1.5rem 2rem;
+            }
+            
+            .header.scrolled {
+                padding: 1.2rem 2rem;
+            }
+            
+            .hamburger-menu {
+                top: 1.5rem;
+                right: 2rem;
+            }
+            
+            .hero-content {
+                padding: 0 1.5rem;
+            }
+            
+            .hero-text-front {
+                font-size: clamp(4rem, 30vw, 12rem);
+                right: 0;
+                opacity: 0.2;
+                color: rgba(13, 148, 136, 0.2);
+            }
+            
+            .hero-text-behind {
+                font-size: clamp(5rem, 35vw, 14rem);
+                left: 0;
+                opacity: 0.15;
+                color: rgba(139, 92, 246, 0.15);
+            }
+            
+            .location-info {
+                width: calc(100% - 4rem);
+                left: 2rem;
+                bottom: 2rem;
+                padding: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(2.5rem, 15vw, 5rem);
+                letter-spacing: -1px;
+            }
+            
+            /* Adjust preloader for mobile */
+            .preloader-text {
+                font-size: clamp(1.8rem, 6vw, 2.5rem);
+                gap: 0.2rem;
+                white-space: normal;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .loading-bar-container {
+                width: 300px;
+                height: 4px;
+                margin-top: 2rem;
+            }
+
+            .profile-image {
+                width: 100%;
+                left: 50%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .preloader-text {
+                font-size: clamp(1.6rem, 5vw, 2.2rem);
+                letter-spacing: 1px;
+            }
+            
+            .loading-bar-container {
+                width: 280px;
+                height: 4px;
+            }
+            
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .location-info {
+                width: calc(100% - 2rem);
+                left: 1rem;
+                bottom: 1rem;
+                padding: 1.2rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(2.2rem, 18vw, 4rem);
+            }
+            
+            .hero-text-front {
+                font-size: clamp(3rem, 35vw, 10rem);
+                opacity: 0.25;
+            }
+            
+            .hero-text-behind {
+                font-size: clamp(4rem, 40vw, 12rem);
+                opacity: 0.2;
+            }
+
+            .profile-image {
+                width: 100%;
+                left: 50%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .preloader-text {
+                font-size: clamp(1.4rem, 4.5vw, 2rem);
+                gap: 0.1rem;
+            }
+            
+            .mobile-nav {
+                max-width: 100%;
+            }
+            
+            .mobile-nav .nav-link {
+                font-size: 1.5rem;
+                padding: 0.8rem 2rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 20vw, 3.5rem);
+                line-height: 1;
+            }
+            
+            .location-info {
+                padding: 1rem;
+                width: calc(100% - 2rem);
+                left: 1rem;
+                bottom: 1rem;
+            }
+            
+            .location-main {
+                font-size: 1rem;
+            }
+            
+            .location-time {
+                font-size: 0.9rem;
+            }
+            
+            .location-sub {
+                font-size: 0.75rem;
+            }
+            
+            .hero-text-front {
+                font-size: clamp(2.5rem, 40vw, 8rem);
+                opacity: 0.3;
+            }
+            
+            .hero-text-behind {
+                font-size: clamp(3rem, 45vw, 10rem);
+                opacity: 0.25;
+            }
+            
+            .loading-bar-container {
+                width: 250px;
+                height: 3px;
+            }
+
+            .profile-image {
+                width: 100%;
+                left: 50%;
+            }
+        }
+
+        /* Small height devices */
+        @media (max-height: 700px) {
+            .hero-title {
+                font-size: clamp(2rem, 12vw, 4rem);
+            }
+            
+            .location-info {
+                padding: 1.2rem;
+                bottom: 1.5rem;
+            }
+            
+            .preloader-text {
+                font-size: clamp(1.8rem, 4vw, 2.5rem);
+                margin-bottom: 2rem;
+            }
+            
+            .loading-bar-container {
+                margin-top: 2rem;
+            }
+
+            .profile-image {
+                width: 100%;
+                left: 50%;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .hero-title {
+                font-size: clamp(1.8rem, 10vw, 3.5rem);
+            }
+            
+            .location-info {
+                padding: 1rem;
+                bottom: 1rem;
+            }
+            
+            .preloader-text {
+                font-size: clamp(1.6rem, 3.5vw, 2rem);
+                margin-bottom: 1.5rem;
+            }
+            
+            .loading-bar-container {
+                margin-top: 1.5rem;
+                height: 3px;
+            }
+
+            .profile-image {
+                width: 100%;
+                left: 50%;
+            }
+        }
+
+        /* Ultra-wide screens */
+        @media (min-width: 2000px) {
+            .hero-title {
+                font-size: clamp(4rem, 8vw, 10rem);
+            }
+            
+            .preloader-text {
+                font-size: clamp(3rem, 4vw, 5rem);
+            }
+            
+            .loading-bar-container {
+                width: 600px;
+                height: 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="funny-worker worker1">
-        <i class="fas fa-hard-hat"></i>
-    </div>
-    
-    <div class="funny-worker worker2">
-        <i class="fas fa-tools"></i>
-    </div>
-    
-    <div class="container">
-        <h1><i class="fas fa-exclamation-triangle"></i> MAINTENANCE MODE</h1>
-        
-        <div class="subtitle">We're giving our site a much-needed makeover!</div>
-        
-        <div class="maintenance-icon">
-            <i class="fas fa-wrench"></i>
-        </div>
-        
-        <div class="message">
-            Our digital workshop is buzzing with activity! We're hammering out bugs, polishing features, 
-            and making everything sparkle. Please bear with us while we work our magic.
-        </div>
-        
-        <div class="funny-message">
-            "Our hamsters are running extra fast on the wheel to power up the updates!"
-        </div>
-        
-        <div class="progress-container">
-            <div class="progress-bar">
-                <div class="progress-text">65% Complete - Hammering the last nails!</div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="gradient-bg-preloader"></div>
+        <div class="preloader-content">
+            <div class="preloader-text">
+                <span>You</span>
+                <span>Imagine</span>
+                <span>–</span>
+                <span>I</span>
+                <span>Develop</span>
             </div>
-        </div>
-        
-        <div class="counter">
-            <div class="counter-item">
-                <span class="counter-value" id="coffee-count">247</span>
-                <span class="counter-label">Cups of Coffee</span>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
             </div>
-            <div class="counter-item">
-                <span class="counter-value" id="bug-count">42</span>
-                <span class="counter-label">Bugs Squashed</span>
-            </div>
-            <div class="counter-item">
-                <span class="counter-value" id="line-count">5,281</span>
-                <span class="counter-label">Lines of Code</span>
-            </div>
-        </div>
-        
-        <div class="funny-message">
-            "Don't worry, we're not just staring at the screen. We're strategically waiting for code to compile."
-        </div>
-        
-        <div class="contact-info">
-            <p>If you need to reach us urgently, please send an email to <strong>dev@thokozane.co.za</strong></p>
-            <p>We'll be back online before you can say "responsive design"!</p>
-        </div>
-        
-        <div class="social-links">
-            <a href="#" class="social-icon">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="#" class="social-icon">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="#" class="social-icon">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="#" class="social-icon">
-                <i class="fab fa-instagram"></i>
-            </a>
         </div>
     </div>
-    
-    <footer>
-        &copy; <span id="current-year"></span> Thokozane Nxumalo. All rights reserved. Maintenance in progress.
-    </footer>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <a href="#" class="logo">
+            <span class="logo-text">TN</span>
+            <span class="logo-dot"></span>
+        </a>
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+        <!-- Hamburger Menu - Now properly aligned -->
+        <button class="hamburger-menu" id="hamburgerMenu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <!-- Background Texts -->
+        <div class="hero-text-front">DEVELOPMENT</div>
+        <div class="hero-text-behind">MARKETING</div>
+        
+        <!-- Profile Image -->
+        <div class="profile-image-container">
+            <img src="me.png" 
+                 alt="Thokozane Nxumalo - Professional Web Developer and Digital Marketing Expert"
+                 class="profile-image">
+        </div>
+        
+        <!-- Location Info -->
+        <div class="location-info">
+            <div class="location-main">Secunda, South Africa | <span id="liveTime">Loading time...</span></div>
+            <div class="location-sub">Freelance Web Developer & Digital Marketing Expert</div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="hero-text-content">
+                <h1 class="hero-title">
+                    <span class="title-line">
+                        <span class="title-text">Thokozane</span>
+                    </span>
+                    <span class="title-line">
+                        <span class="title-text">Nxumalo</span>
+                    </span>
+                </h1>
+            </div>
+        </div>
+    </section>
 
     <script>
-        // Animated counters
-        function animateCounter(id, start, end, duration) {
-            let obj = document.getElementById(id);
-            let startTime = null;
-            
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                const progress = Math.min((timestamp - startTime) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                obj.innerHTML = value.toLocaleString();
-                
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            }
-            
-            window.requestAnimationFrame(step);
-        }
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
         
-        // Start counters after page loads
-        window.addEventListener('load', function() {
-            // Set current year in footer
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-            
-            // Animate counters
-            setTimeout(() => animateCounter('coffee-count', 0, 247, 2000), 500);
-            setTimeout(() => animateCounter('bug-count', 0, 42, 1500), 1000);
-            setTimeout(() => animateCounter('line-count', 0, 5281, 2500), 1500);
-            
-            // Random funny messages
-            const funnyMessages = [
-                "Our hamsters are running extra fast on the wheel to power up the updates!",
-                "Don't worry, we're not just staring at the screen. We're strategically waiting for code to compile.",
-                "We're currently defragging the internet. It's a big job!",
-                "Our code is getting a spa treatment. It deserves some pampering!",
-                "The developers are currently in a meeting debating whether to use tabs or spaces.",
-                "We're performing quantum debugging. It's both fixed and broken until you look at it.",
-                "Our website is getting a digital haircut. It'll look fabulous when we're done!"
-            ];
-            
-            const funnyElements = document.querySelectorAll('.funny-message');
-            let currentMessageIndex = 0;
-            
-            // Change funny messages every 10 seconds
-            setInterval(() => {
-                funnyElements.forEach(el => {
-                    el.textContent = `"${funnyMessages[currentMessageIndex]}"`;
-                });
-                
-                currentMessageIndex = (currentMessageIndex + 1) % funnyMessages.length;
-            }, 10000);
+        // Enhanced Preloader Animation
+        const preloader = document.getElementById('preloader');
+        const preloaderText = document.querySelectorAll('.preloader-text span');
+        const loadingBar = document.querySelector('.loading-bar');
+        
+        // Animate preloader text with enhanced stagger
+        const textTimeline = gsap.timeline();
+        
+        // Initial text animation with bounce effect
+        preloaderText.forEach((span, i) => {
+            textTimeline.fromTo(span,
+                { 
+                    opacity: 0, 
+                    y: 30,
+                    scale: 0.8,
+                    filter: "blur(10px)"
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    duration: 1,
+                    ease: "back.out(1.7)",
+                    delay: i * 0.08
+                },
+                i * 0.08
+            );
         });
         
-        // Add floating particles
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.querySelector('.container');
+        // Loading bar animation
+        let currentPercentage = 0;
+        const targetPercentage = 100;
+        const totalDuration = 5000; // 5 seconds total
+        const updateInterval = 30; // Update every 30ms
+        
+        function updateLoadingBar() {
+            const increment = (targetPercentage / totalDuration) * updateInterval;
+            const easing = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            const progress = currentPercentage / targetPercentage;
+            const easedProgress = easing(progress);
             
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.innerHTML = '<i class="fas fa-cog"></i>';
-                particle.style.position = 'absolute';
-                particle.style.color = 'rgba(255, 255, 255, 0.1)';
-                particle.style.fontSize = Math.random() * 20 + 10 + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.zIndex = '-1';
-                particle.style.animation = `float ${Math.random() * 20 + 10}s linear infinite`;
-                container.appendChild(particle);
+            currentPercentage = Math.min(currentPercentage + increment, targetPercentage);
+            const displayPercentage = Math.floor(easedProgress * targetPercentage);
+            
+            loadingBar.style.width = `${displayPercentage}%`;
+            
+            if (currentPercentage < targetPercentage) {
+                setTimeout(updateLoadingBar, updateInterval);
+            } else {
+                // Complete loading sequence
+                completePreloader();
             }
+        }
+        
+        function completePreloader() {
+            // Final animations before hiding preloader
+            gsap.to(preloaderText, {
+                opacity: 0,
+                y: -20,
+                scale: 0.9,
+                duration: 0.6,
+                stagger: 0.05,
+                ease: "power3.in"
+            });
+            
+            gsap.to(['.loading-bar', '.loading-bar-container'], {
+                opacity: 0,
+                y: 10,
+                duration: 0.5,
+                ease: "power2.in",
+                onComplete: () => {
+                    // Hide preloader
+                    gsap.to(preloader, {
+                        opacity: 0,
+                        duration: 0.7,
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            preloader.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                            initHeroAnimations();
+                        }
+                    });
+                }
+            });
+        }
+        
+        // Start loading animation after initial text animation
+        setTimeout(updateLoadingBar, 1000);
+        
+        // Mobile Menu Functionality
+        function initMobileMenu() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileNavLinks = mobileNav.querySelectorAll('.nav-link');
+            
+            hamburgerMenu.addEventListener('click', () => {
+                hamburgerMenu.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+                
+                if (mobileNav.classList.contains('active')) {
+                    // Animate mobile nav links in
+                    gsap.to(mobileNav, {
+                        opacity: 1,
+                        duration: 0.3
+                    });
+                    
+                    mobileNavLinks.forEach((link, i) => {
+                        gsap.to(link, {
+                            x: 0,
+                            opacity: 1,
+                            duration: 0.6,
+                            delay: i * 0.1,
+                            ease: "back.out(1.7)"
+                        });
+                    });
+                } else {
+                    // Animate mobile nav links out
+                    mobileNavLinks.forEach((link, i) => {
+                        gsap.to(link, {
+                            x: 80,
+                            opacity: 0,
+                            duration: 0.4,
+                            delay: i * 0.05,
+                            ease: "power3.in"
+                        });
+                    });
+                    
+                    gsap.to(mobileNav, {
+                        opacity: 0,
+                        duration: 0.3,
+                        delay: 0.3
+                    });
+                }
+            });
+            
+            // Close menu when clicking on a link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerMenu.classList.remove('active');
+                    
+                    mobileNavLinks.forEach((link, i) => {
+                        gsap.to(link, {
+                            x: 80,
+                            opacity: 0,
+                            duration: 0.3,
+                            delay: i * 0.05,
+                            ease: "power3.in"
+                        });
+                    });
+                    
+                    gsap.to(mobileNav, {
+                        opacity: 0,
+                        duration: 0.3,
+                        delay: 0.3,
+                        onComplete: () => {
+                            mobileNav.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        }
+        
+        function initHeroAnimations() {
+            // Check if mobile view
+            const isMobile = window.innerWidth <= 1024;
+            
+            // Animate header elements
+            gsap.to('.header', {
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out"
+            });
+            
+            // Logo animation with bounce
+            gsap.to('.logo', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.8,
+                ease: "back.out(1.7)",
+                delay: 0.3
+            });
+            
+            // Desktop navigation animation
+            if (!isMobile) {
+                const navLinks = document.querySelectorAll('.desktop-nav .nav-link');
+                gsap.to(navLinks, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    delay: 0.5,
+                    ease: "power3.out"
+                });
+            } else {
+                // Hamburger menu animation for mobile
+                gsap.to('.hamburger-menu', {
+                    opacity: 1,
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: "power3.out"
+                });
+            }
+            
+            // Profile image animation
+            const profileImageContainer = document.querySelector('.profile-image-container');
+            gsap.to(profileImageContainer, {
+                opacity: 1,
+                x: 0,
+                duration: 1.5,
+                ease: "power3.out",
+                delay: 0.4
+            });
+            
+            // Background text animations
+            const textFront = document.querySelector('.hero-text-front');
+            const textBehind = document.querySelector('.hero-text-behind');
+            
+            // DEVELOPMENT text animation - IN FRONT
+            gsap.fromTo(textFront,
+                { 
+                    opacity: 0, 
+                    scale: 0.8,
+                    x: 100,
+                    y: 30 
+                },
+                {
+                    opacity: isMobile ? 0.25 : 0.15,
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                    duration: 2,
+                    ease: "power4.out",
+                    delay: 0.6
+                }
+            );
+            
+            // MARKETING text animation - BEHIND
+            gsap.fromTo(textBehind,
+                { 
+                    opacity: 0, 
+                    scale: 0.7,
+                    x: -100,
+                    y: -30 
+                },
+                {
+                    opacity: isMobile ? 0.2 : 0.1,
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                    duration: 2.2,
+                    ease: "power4.out",
+                    delay: 0.8
+                }
+            );
+            
+            // Hero content animation
+            gsap.to('.hero-content', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                delay: 0.9,
+                ease: "power3.out"
+            });
+            
+            // Location info animation
+            gsap.fromTo('.location-info',
+                { 
+                    opacity: 0, 
+                    x: -40,
+                    y: 20,
+                    rotate: -5 
+                },
+                {
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    rotate: 0,
+                    duration: 1.2,
+                    delay: 1,
+                    ease: "back.out(1.7)"
+                }
+            );
+            
+            // Hero title animation
+            const titleLines = document.querySelectorAll('.title-text');
+            titleLines.forEach((line, i) => {
+                gsap.to(line, {
+                    y: 0,
+                    duration: 1.2,
+                    delay: 1 + (i * 0.3),
+                    ease: "power4.out"
+                });
+            });
+            
+            // Initialize mobile menu
+            initMobileMenu();
+            
+            // Enhanced Scroll Animations
+            // DEVELOPMENT text scroll effect - moves left on scroll
+            gsap.to(textFront, {
+                x: -200,
+                scale: 1.2,
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1.5,
+                    ease: "none"
+                }
+            });
+            
+            // MARKETING text scroll effect - moves right on scroll
+            gsap.to(textBehind, {
+                x: 150,
+                scale: 0.9,
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1.2,
+                    ease: "none"
+                }
+            });
+            
+            // Profile image scroll effect
+            gsap.to('.profile-image', {
+                scale: 1.2,
+                y: 50,
+                filter: "grayscale(30%) contrast(110%)",
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1,
+                    ease: "none"
+                }
+            });
+            
+            // Mouse movement parallax for desktop
+            if (!isMobile) {
+                document.addEventListener('mousemove', (e) => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 40;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 40;
+                    
+                    // DEVELOPMENT text moves with mouse
+                    gsap.to(textFront, {
+                        x: x * 0.5,
+                        y: y * 0.5,
+                        duration: 1.5,
+                        ease: "power2.out"
+                    });
+                    
+                    // MARKETING text moves opposite direction
+                    gsap.to(textBehind, {
+                        x: -x * 0.3,
+                        y: -y * 0.3,
+                        duration: 1.8,
+                        ease: "power2.out"
+                    });
+                    
+                    // Image moves subtly
+                    gsap.to('.profile-image', {
+                        x: x * 0.1,
+                        y: y * 0.1,
+                        duration: 1.2,
+                        ease: "power2.out"
+                    });
+                });
+            }
+            
+            // Header scroll effect
+            const header = document.getElementById('header');
+            ScrollTrigger.create({
+                start: 50,
+                onUpdate: (self) => {
+                    if (self.progress > 0) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                }
+            });
+            
+            // Hero title scroll effect
+            gsap.to('.hero-title', {
+                y: -30,
+                opacity: 0.9,
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        }
+        
+        // Function to update live time
+        function updateLiveTime() {
+            const now = new Date();
+            const options = { 
+                timeZone: 'Africa/Johannesburg',
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            const johannesburgTime = now.toLocaleTimeString('en-US', options);
+            
+            const liveTimeElement = document.getElementById('liveTime');
+            if (liveTimeElement) {
+                liveTimeElement.textContent = `${johannesburgTime}`;
+            }
+        }
+        
+        // Update time initially and every second
+        updateLiveTime();
+        setInterval(updateLiveTime, 1000);
+        
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 250);
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>
 </html>
-
