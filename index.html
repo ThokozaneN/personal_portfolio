@@ -18,867 +18,14 @@
     <meta name="twitter:title" content="Thokozane Nxumalo | Web Developer & Digital Marketing Expert">
     <meta name="twitter:description" content="Professional freelance web developer and digital marketing expert creating cutting-edge digital experiences.">
     
-    <!-- Professional fonts -->
+    <!-- Professional fonts & Font Awesome for icons -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/EasePack.min.js"></script>
-    <style>
-        :root {
-            --color-primary: #10b981;      /* Emerald Green */
-            --color-secondary: #8b5cf6;    /* Violet */
-            --color-accent: #f59e0b;       /* Amber */
-            --color-dark: #111827;         /* Dark Slate */
-            --color-light: #f9fafb;        /* Light Gray */
-            --color-text: #374151;         /* Text Color */
-            --color-teal: #0d9488;         /* Teal */
-            
-            /* Enhanced Log Cabin Color Palette */
-            --color-log-cabin-50: #f5f5f0;
-            --color-log-cabin-100: #eaeadd;
-            --color-log-cabin-200: #d4d6c0;
-            --color-log-cabin-300: #babd99;
-            --color-log-cabin-400: #9fa477;
-            --color-log-cabin-500: #83885a;
-            --color-log-cabin-600: #656b45;
-            --color-log-cabin-700: #4e5338;
-            --color-log-cabin-800: #404430;
-            --color-log-cabin-900: #383b2c;
-            --color-log-cabin-950: #272a1c;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-light);
-            color: var(--color-text);
-            overflow-x: hidden;
-            line-height: 1.6;
-            height: 100vh;
-            overflow: hidden;
-            cursor: default;
-        }
-
-        /* ========== PRELOADER ========== */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            flex-direction: column;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--color-log-cabin-900);
-        }
-
-        /* Enhanced animated gradient background */
-        .gradient-bg-preloader {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                135deg, 
-                var(--color-log-cabin-800) 0%,
-                var(--color-log-cabin-700) 25%,
-                var(--color-log-cabin-600) 50%,
-                var(--color-log-cabin-700) 75%,
-                var(--color-log-cabin-800) 100%
-            );
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            opacity: 1;
-        }
-
-        .preloader-content {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            width: 90%;
-            max-width: 800px;
-        }
-
-        /* Preloader text on one line with proper font weight */
-        .preloader-text {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 600; /* Increased from 500 for better visibility */
-            color: var(--color-log-cabin-100);
-            margin-bottom: 2.5rem;
-            text-shadow: 0 4px 20px rgba(39, 42, 28, 0.3);
-            letter-spacing: 2px;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: nowrap;
-            white-space: nowrap;
-        }
-
-        .preloader-text span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        /* Loading bar centered properly */
-        .loading-bar-container {
-            width: 400px;
-            max-width: 90%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            margin: 2.5rem auto 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .loading-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-log-cabin-300), var(--color-log-cabin-100));
-            border-radius: 3px;
-            position: relative;
-            transition: width 0.3s ease;
-        }
-
-        .loading-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        /* ========== HEADER & NAVIGATION ========== */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 2rem 4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: transparent;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-        }
-
-        .header.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-            padding: 1.5rem 4rem;
-        }
-
-        /* Logo and hamburger on same level */
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--color-teal);
-            text-decoration: none;
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            padding: 0.5rem 1rem;
-            overflow: hidden;
-        }
-
-        .logo::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .logo:hover::before {
-            left: 100%;
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 900;
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--color-teal);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Desktop Navigation */
-        .desktop-nav {
-            display: flex;
-            gap: 3rem;
-            opacity: 1;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            position: relative;
-            padding: 0.5rem 0;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .header.scrolled .nav-link {
-            color: var(--color-dark);
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--color-teal), var(--color-secondary));
-            transform: translateX(-100%);
-            transition: transform 0.4s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--color-teal);
-        }
-
-        .nav-link:hover::before {
-            transform: translateX(0);
-        }
-
-        /* Hamburger Menu - Aligned with logo */
-        .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 32px;
-            height: 24px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 101;
-            opacity: 0;
-            position: relative;
-            margin-left: auto;
-        }
-
-        .hamburger-line {
-            width: 100%;
-            height: 3px;
-            background-color: white;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 3px;
-        }
-
-        .header.scrolled .hamburger-line {
-            background-color: var(--color-teal);
-        }
-
-        .hamburger-menu.active .hamburger-line:nth-child(1) {
-            transform: translateY(10.5px) rotate(45deg);
-            background-color: var(--color-teal);
-        }
-
-        .hamburger-menu.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-
-        .hamburger-menu.active .hamburger-line:nth-child(3) {
-            transform: translateY(-10.5px) rotate(-45deg);
-            background-color: var(--color-teal);
-        }
-
-        /* Mobile Navigation */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(30px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            z-index: 99;
-            transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -10px 0 60px rgba(0, 0, 0, 0.15);
-            opacity: 0;
-        }
-
-        .mobile-nav.active {
-            right: 0;
-            opacity: 1;
-        }
-
-        .mobile-nav .nav-link {
-            font-size: 1.8rem;
-            padding: 1rem 3rem;
-            opacity: 0;
-            transform: translateX(80px);
-            position: relative;
-            color: var(--color-dark);
-        }
-
-        /* ========== HERO SECTION ========== */
-        .hero {
-            min-height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Profile Image Container - ALWAYS FULL WIDTH */
-        .profile-image-container {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            opacity: 0;
-            z-index: 1;
-        }
-
-        .profile-image {
-            width: 50%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-            filter: grayscale(15%) contrast(105%);
-            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Background Texts */
-        .hero-text-front, .hero-text-behind {
-            position: absolute;
-            font-weight: 900;
-            line-height: 0.8;
-            pointer-events: none;
-            white-space: nowrap;
-            font-family: 'Montserrat', sans-serif;
-            z-index: 2;
-            opacity: 1;
-        }
-
-        /* DEVELOPMENT - Positioned on the RIGHT side, IN FRONT */
-        .hero-text-front {
-            font-size: clamp(8rem, 25vw, 20rem);
-            color: rgba(13, 148, 136, 0.15);
-            top: 50%;
-            right: 10%;
-            transform: translateY(-50%);
-            text-shadow: 
-                0 0 60px rgba(13, 148, 136, 0.2),
-                0 0 120px rgba(13, 148, 136, 0.1);
-            z-index: 3;
-        }
-
-        /* MARKETING - Positioned on the LEFT side, BEHIND */
-        .hero-text-behind {
-            font-size: clamp(10rem, 30vw, 24rem);
-            color: rgba(139, 92, 246, 0.1);
-            top: 50%;
-            left: 10%;
-            transform: translateY(-50%);
-            z-index: 1;
-            mix-blend-mode: overlay;
-        }
-
-        /* Hero Content - Centered overlay */
-        .hero-content {
-            position: relative;
-            z-index: 4;
-            width: 100%;
-            padding: 0 4rem;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-        }
-
-        /* Location Info */
-        .location-info {
-            position: absolute;
-            bottom: 4rem;
-            left: 4rem;
-            z-index: 30;
-            opacity: 0;
-            width: 380px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 1.8rem;
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: 
-                0 12px 40px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .location-main {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.4rem;
-            line-height: 1.5;
-        }
-
-        .location-time {
-            font-family: 'Inter', monospace;
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--color-teal);
-            margin-bottom: 0.8rem;
-            letter-spacing: 1px;
-        }
-
-        .location-sub {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            opacity: 0.9;
-        }
-
-        /* Hero Text Content */
-        .hero-text-content {
-            position: relative;
-            z-index: 5;
-            width: 100%;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(3rem, 10vw, 7rem);
-            font-weight: 900;
-            line-height: 0.9;
-            margin-bottom: 0;
-            opacity: 0;
-            letter-spacing: -2px;
-            color: white;
-            text-shadow: 
-                0 2px 10px rgba(0, 0, 0, 0.3),
-                0 4px 30px rgba(0, 0, 0, 0.2),
-                0 6px 50px rgba(0, 0, 0, 0.1);
-        }
-
-        .title-line {
-            display: block;
-            overflow: hidden;
-            margin-bottom: 0;
-        }
-
-        .title-text {
-            display: block;
-            transform: translateY(120%);
-        }
-
-        /* ========== ANIMATIONS ========== */
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { 
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 0.6;
-                transform: scale(1.1);
-            }
-        }
-
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { 
-                transform: translateY(0px) translateX(0px); 
-            }
-            25% { 
-                transform: translateY(-10px) translateX(5px); 
-            }
-            75% { 
-                transform: translateY(5px) translateX(-5px); 
-            }
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* ========== RESPONSIVE DESIGN ========== */
-        @media (max-width: 1200px) {
-            .hero-content {
-                padding: 0 3rem;
-            }
-            
-            .hero-text-front {
-                font-size: clamp(6rem, 22vw, 16rem);
-                right: 5%;
-            }
-            
-            .hero-text-behind {
-                font-size: clamp(8rem, 26vw, 18rem);
-                left: 5%;
-            }
-
-            .profile-image {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .desktop-nav {
-                display: none;
-            }
-            
-            .hamburger-menu {
-                display: flex;
-            }
-            
-            .hero-content {
-                padding: 0 2rem;
-            }
-            
-            .location-info {
-                width: 320px;
-                left: 2rem;
-                bottom: 2rem;
-            }
-            
-            .hero-title {
-                font-size: clamp(2.5rem, 12vw, 6rem);
-            }
-            
-            .hero-text-front {
-                font-size: clamp(5rem, 25vw, 14rem);
-                right: 2%;
-            }
-            
-            .hero-text-behind {
-                font-size: clamp(6rem, 28vw, 16rem);
-                left: 2%;
-            }
-            
-            /* Adjust preloader for tablet */
-            .preloader-text {
-                font-size: clamp(2rem, 5vw, 3rem);
-                gap: 0.3rem;
-            }
-            
-            .loading-bar-container {
-                width: 350px;
-                height: 5px;
-            }
-
-            .profile-image {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 1.5rem 2rem;
-            }
-            
-            .header.scrolled {
-                padding: 1.2rem 2rem;
-            }
-            
-            .hamburger-menu {
-                top: 1.5rem;
-                right: 2rem;
-            }
-            
-            .hero-content {
-                padding: 0 1.5rem;
-            }
-            
-            .hero-text-front {
-                font-size: clamp(4rem, 30vw, 12rem);
-                right: 0;
-                opacity: 0.2;
-                color: rgba(13, 148, 136, 0.2);
-            }
-            
-            .hero-text-behind {
-                font-size: clamp(5rem, 35vw, 14rem);
-                left: 0;
-                opacity: 0.15;
-                color: rgba(139, 92, 246, 0.15);
-            }
-            
-            .location-info {
-                width: calc(100% - 4rem);
-                left: 2rem;
-                bottom: 2rem;
-                padding: 1.5rem;
-            }
-            
-            .hero-title {
-                font-size: clamp(2.5rem, 15vw, 5rem);
-                letter-spacing: -1px;
-            }
-            
-            /* Adjust preloader for mobile */
-            .preloader-text {
-                font-size: clamp(1.8rem, 6vw, 2.5rem);
-                gap: 0.2rem;
-                white-space: normal;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .loading-bar-container {
-                width: 300px;
-                height: 4px;
-                margin-top: 2rem;
-            }
-
-            .profile-image {
-                width: 100%;
-                left: 50%;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .preloader-text {
-                font-size: clamp(1.6rem, 5vw, 2.2rem);
-                letter-spacing: 1px;
-            }
-            
-            .loading-bar-container {
-                width: 280px;
-                height: 4px;
-            }
-            
-            .hero-content {
-                padding: 0 1rem;
-            }
-            
-            .location-info {
-                width: calc(100% - 2rem);
-                left: 1rem;
-                bottom: 1rem;
-                padding: 1.2rem;
-            }
-            
-            .hero-title {
-                font-size: clamp(2.2rem, 18vw, 4rem);
-            }
-            
-            .hero-text-front {
-                font-size: clamp(3rem, 35vw, 10rem);
-                opacity: 0.25;
-            }
-            
-            .hero-text-behind {
-                font-size: clamp(4rem, 40vw, 12rem);
-                opacity: 0.2;
-            }
-
-            .profile-image {
-                width: 100%;
-                left: 50%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .preloader-text {
-                font-size: clamp(1.4rem, 4.5vw, 2rem);
-                gap: 0.1rem;
-            }
-            
-            .mobile-nav {
-                max-width: 100%;
-            }
-            
-            .mobile-nav .nav-link {
-                font-size: 1.5rem;
-                padding: 0.8rem 2rem;
-            }
-            
-            .hero-title {
-                font-size: clamp(2rem, 20vw, 3.5rem);
-                line-height: 1;
-            }
-            
-            .location-info {
-                padding: 1rem;
-                width: calc(100% - 2rem);
-                left: 1rem;
-                bottom: 1rem;
-            }
-            
-            .location-main {
-                font-size: 1rem;
-            }
-            
-            .location-time {
-                font-size: 0.9rem;
-            }
-            
-            .location-sub {
-                font-size: 0.75rem;
-            }
-            
-            .hero-text-front {
-                font-size: clamp(2.5rem, 40vw, 8rem);
-                opacity: 0.3;
-            }
-            
-            .hero-text-behind {
-                font-size: clamp(3rem, 45vw, 10rem);
-                opacity: 0.25;
-            }
-            
-            .loading-bar-container {
-                width: 250px;
-                height: 3px;
-            }
-
-            .profile-image {
-                width: 100%;
-                left: 50%;
-            }
-        }
-
-        /* Small height devices */
-        @media (max-height: 700px) {
-            .hero-title {
-                font-size: clamp(2rem, 12vw, 4rem);
-            }
-            
-            .location-info {
-                padding: 1.2rem;
-                bottom: 1.5rem;
-            }
-            
-            .preloader-text {
-                font-size: clamp(1.8rem, 4vw, 2.5rem);
-                margin-bottom: 2rem;
-            }
-            
-            .loading-bar-container {
-                margin-top: 2rem;
-            }
-
-            .profile-image {
-                width: 100%;
-                left: 50%;
-            }
-        }
-
-        @media (max-height: 600px) {
-            .hero-title {
-                font-size: clamp(1.8rem, 10vw, 3.5rem);
-            }
-            
-            .location-info {
-                padding: 1rem;
-                bottom: 1rem;
-            }
-            
-            .preloader-text {
-                font-size: clamp(1.6rem, 3.5vw, 2rem);
-                margin-bottom: 1.5rem;
-            }
-            
-            .loading-bar-container {
-                margin-top: 1.5rem;
-                height: 3px;
-            }
-
-            .profile-image {
-                width: 100%;
-                left: 50%;
-            }
-        }
-
-        /* Ultra-wide screens */
-        @media (min-width: 2000px) {
-            .hero-title {
-                font-size: clamp(4rem, 8vw, 10rem);
-            }
-            
-            .preloader-text {
-                font-size: clamp(3rem, 4vw, 5rem);
-            }
-            
-            .loading-bar-container {
-                width: 600px;
-                height: 8px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Preloader -->
@@ -901,7 +48,7 @@
     <!-- Header -->
     <header class="header" id="header">
         <a href="#" class="logo">
-            <span class="logo-text">TN</span>
+            <span class="logo-text">TK</span>
             <span class="logo-dot"></span>
         </a>
         <!-- Desktop Navigation -->
@@ -911,7 +58,7 @@
             <a href="#about" class="nav-link">About</a>
             <a href="#contact" class="nav-link">Contact</a>
         </nav>
-        <!-- Hamburger Menu - Now properly aligned -->
+        <!-- Hamburger Menu -->
         <button class="hamburger-menu" id="hamburgerMenu">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -919,12 +66,25 @@
         </button>
     </header>
 
-    <!-- Mobile Navigation -->
+    <!-- Mobile Navigation with Social Icons -->
     <nav class="mobile-nav" id="mobileNav">
         <a href="#work" class="nav-link">Work</a>
         <a href="#services" class="nav-link">Services</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
+        
+        <!-- Social Media Icons -->
+        <div class="mobile-social-icons">
+            <a href="https://www.facebook.com/yourprofile" target="_blank" class="social-icon" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://github.com/yourprofile" target="_blank" class="social-icon" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="social-icon" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -948,467 +108,168 @@
         
         <!-- Hero Content -->
         <div class="hero-content">
-            <div class="hero-text-content">
-                <h1 class="hero-title">
-                    <span class="title-line">
-                        <span class="title-text">Thokozane</span>
-                    </span>
-                    <span class="title-line">
-                        <span class="title-text">Nxumalo</span>
-                    </span>
-                </h1>
+            <!-- Empty container for future content if needed -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <!-- Background Elements -->
+        <div class="about-bg-elements">
+            <div class="bg-circle circle-1"></div>
+            <div class="bg-circle circle-2"></div>
+            <div class="bg-grid"></div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="about-container">
+            <!-- Full Width One Line Header -->
+            <div class="about-header">
+                <div class="header-content">
+                    <h2 class="about-title">
+                        <span class="title-word title-word-1">Simple</span>
+                        <span class="title-word title-word-2">About</span>
+                    </h2>
+                    <div class="subtitle-line">
+                        <span class="subtitle-item">Hassle Free</span>
+                        <span class="subtitle-divider">/</span>
+                        <span class="subtitle-item">Code Quality</span>
+                        <span class="subtitle-divider">/</span>
+                        <span class="subtitle-item">Support</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Horizontal Cards Container -->
+            <div class="horizontal-cards-container">
+                <!-- Card 1: Experience -->
+                <div class="horizontal-card card-1">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="card-title">Experience</h3>
+                        </div>
+                        <div class="card-main">
+                            <div class="card-counter">
+                                <span class="counter-number" data-count="5">0</span>
+                                <span class="counter-label">Years</span>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">React</span>
+                                <span class="tag">Node.js</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">GSAP</span>
+                                <span class="tag">SEO</span>
+                            </div>
+                        </div>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+                
+                <!-- Card 2: Projects -->
+                <div class="horizontal-card card-2">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                            </div>
+                            <h3 class="card-title">Projects</h3>
+                        </div>
+                        <div class="card-main">
+                            <div class="card-counter">
+                                <span class="counter-number" data-count="120">0</span>
+                                <span class="counter-label">Completed</span>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">Web Apps</span>
+                                <span class="tag">E-commerce</span>
+                                <span class="tag">Landing Pages</span>
+                                <span class="tag">Dashboards</span>
+                                <span class="tag">Branding</span>
+                                <span class="tag">SEO</span>
+                            </div>
+                        </div>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+                
+                <!-- Card 3: Skills -->
+                <div class="horizontal-card card-3">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
+                            <h3 class="card-title">Skills</h3>
+                        </div>
+                        <div class="card-main">
+                            <div class="skills-list">
+                                <div class="skill-item">
+                                    <span class="skill-name">Frontend</span>
+                                    <span class="skill-percent">95%</span>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Backend</span>
+                                    <span class="skill-percent">85%</span>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Marketing</span>
+                                    <span class="skill-percent">90%</span>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Design</span>
+                                    <span class="skill-percent">80%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+                
+                <!-- Card 4: Vision -->
+                <div class="horizontal-card card-4">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                                </svg>
+                            </div>
+                            <h3 class="card-title">Vision</h3>
+                        </div>
+                        <div class="card-main">
+                            <div class="vision-content">
+                                <p class="vision-text">
+                                    Digital experiences that <span class="highlight">inspire</span> & <span class="highlight">convert</span>
+                                </p>
+                                <div class="vision-stats">
+                                    <div class="stat">
+                                        <div class="stat-number">100%</div>
+                                        <div class="stat-label">Success</div>
+                                    </div>
+                                    <div class="stat">
+                                        <div class="stat-number">24/7</div>
+                                        <div class="stat-label">Support</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <script>
-        // Register GSAP plugins
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Enhanced Preloader Animation
-        const preloader = document.getElementById('preloader');
-        const preloaderText = document.querySelectorAll('.preloader-text span');
-        const loadingBar = document.querySelector('.loading-bar');
-        
-        // Animate preloader text with enhanced stagger
-        const textTimeline = gsap.timeline();
-        
-        // Initial text animation with bounce effect
-        preloaderText.forEach((span, i) => {
-            textTimeline.fromTo(span,
-                { 
-                    opacity: 0, 
-                    y: 30,
-                    scale: 0.8,
-                    filter: "blur(10px)"
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    filter: "blur(0px)",
-                    duration: 1,
-                    ease: "back.out(1.7)",
-                    delay: i * 0.08
-                },
-                i * 0.08
-            );
-        });
-        
-        // Loading bar animation
-        let currentPercentage = 0;
-        const targetPercentage = 100;
-        const totalDuration = 5000; // 5 seconds total
-        const updateInterval = 30; // Update every 30ms
-        
-        function updateLoadingBar() {
-            const increment = (targetPercentage / totalDuration) * updateInterval;
-            const easing = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-            const progress = currentPercentage / targetPercentage;
-            const easedProgress = easing(progress);
-            
-            currentPercentage = Math.min(currentPercentage + increment, targetPercentage);
-            const displayPercentage = Math.floor(easedProgress * targetPercentage);
-            
-            loadingBar.style.width = `${displayPercentage}%`;
-            
-            if (currentPercentage < targetPercentage) {
-                setTimeout(updateLoadingBar, updateInterval);
-            } else {
-                // Complete loading sequence
-                completePreloader();
-            }
-        }
-        
-        function completePreloader() {
-            // Final animations before hiding preloader
-            gsap.to(preloaderText, {
-                opacity: 0,
-                y: -20,
-                scale: 0.9,
-                duration: 0.6,
-                stagger: 0.05,
-                ease: "power3.in"
-            });
-            
-            gsap.to(['.loading-bar', '.loading-bar-container'], {
-                opacity: 0,
-                y: 10,
-                duration: 0.5,
-                ease: "power2.in",
-                onComplete: () => {
-                    // Hide preloader
-                    gsap.to(preloader, {
-                        opacity: 0,
-                        duration: 0.7,
-                        ease: "power2.inOut",
-                        onComplete: () => {
-                            preloader.style.display = 'none';
-                            document.body.style.overflow = 'auto';
-                            initHeroAnimations();
-                        }
-                    });
-                }
-            });
-        }
-        
-        // Start loading animation after initial text animation
-        setTimeout(updateLoadingBar, 1000);
-        
-        // Mobile Menu Functionality
-        function initMobileMenu() {
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const mobileNav = document.getElementById('mobileNav');
-            const mobileNavLinks = mobileNav.querySelectorAll('.nav-link');
-            
-            hamburgerMenu.addEventListener('click', () => {
-                hamburgerMenu.classList.toggle('active');
-                mobileNav.classList.toggle('active');
-                
-                if (mobileNav.classList.contains('active')) {
-                    // Animate mobile nav links in
-                    gsap.to(mobileNav, {
-                        opacity: 1,
-                        duration: 0.3
-                    });
-                    
-                    mobileNavLinks.forEach((link, i) => {
-                        gsap.to(link, {
-                            x: 0,
-                            opacity: 1,
-                            duration: 0.6,
-                            delay: i * 0.1,
-                            ease: "back.out(1.7)"
-                        });
-                    });
-                } else {
-                    // Animate mobile nav links out
-                    mobileNavLinks.forEach((link, i) => {
-                        gsap.to(link, {
-                            x: 80,
-                            opacity: 0,
-                            duration: 0.4,
-                            delay: i * 0.05,
-                            ease: "power3.in"
-                        });
-                    });
-                    
-                    gsap.to(mobileNav, {
-                        opacity: 0,
-                        duration: 0.3,
-                        delay: 0.3
-                    });
-                }
-            });
-            
-            // Close menu when clicking on a link
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburgerMenu.classList.remove('active');
-                    
-                    mobileNavLinks.forEach((link, i) => {
-                        gsap.to(link, {
-                            x: 80,
-                            opacity: 0,
-                            duration: 0.3,
-                            delay: i * 0.05,
-                            ease: "power3.in"
-                        });
-                    });
-                    
-                    gsap.to(mobileNav, {
-                        opacity: 0,
-                        duration: 0.3,
-                        delay: 0.3,
-                        onComplete: () => {
-                            mobileNav.classList.remove('active');
-                        }
-                    });
-                });
-            });
-        }
-        
-        function initHeroAnimations() {
-            // Check if mobile view
-            const isMobile = window.innerWidth <= 1024;
-            
-            // Animate header elements
-            gsap.to('.header', {
-                opacity: 1,
-                duration: 1,
-                ease: "power3.out"
-            });
-            
-            // Logo animation with bounce
-            gsap.to('.logo', {
-                opacity: 1,
-                scale: 1,
-                duration: 0.8,
-                ease: "back.out(1.7)",
-                delay: 0.3
-            });
-            
-            // Desktop navigation animation
-            if (!isMobile) {
-                const navLinks = document.querySelectorAll('.desktop-nav .nav-link');
-                gsap.to(navLinks, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    delay: 0.5,
-                    ease: "power3.out"
-                });
-            } else {
-                // Hamburger menu animation for mobile
-                gsap.to('.hamburger-menu', {
-                    opacity: 1,
-                    duration: 0.8,
-                    delay: 0.5,
-                    ease: "power3.out"
-                });
-            }
-            
-            // Profile image animation
-            const profileImageContainer = document.querySelector('.profile-image-container');
-            gsap.to(profileImageContainer, {
-                opacity: 1,
-                x: 0,
-                duration: 1.5,
-                ease: "power3.out",
-                delay: 0.4
-            });
-            
-            // Background text animations
-            const textFront = document.querySelector('.hero-text-front');
-            const textBehind = document.querySelector('.hero-text-behind');
-            
-            // DEVELOPMENT text animation - IN FRONT
-            gsap.fromTo(textFront,
-                { 
-                    opacity: 0, 
-                    scale: 0.8,
-                    x: 100,
-                    y: 30 
-                },
-                {
-                    opacity: isMobile ? 0.25 : 0.15,
-                    scale: 1,
-                    x: 0,
-                    y: 0,
-                    duration: 2,
-                    ease: "power4.out",
-                    delay: 0.6
-                }
-            );
-            
-            // MARKETING text animation - BEHIND
-            gsap.fromTo(textBehind,
-                { 
-                    opacity: 0, 
-                    scale: 0.7,
-                    x: -100,
-                    y: -30 
-                },
-                {
-                    opacity: isMobile ? 0.2 : 0.1,
-                    scale: 1,
-                    x: 0,
-                    y: 0,
-                    duration: 2.2,
-                    ease: "power4.out",
-                    delay: 0.8
-                }
-            );
-            
-            // Hero content animation
-            gsap.to('.hero-content', {
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                delay: 0.9,
-                ease: "power3.out"
-            });
-            
-            // Location info animation
-            gsap.fromTo('.location-info',
-                { 
-                    opacity: 0, 
-                    x: -40,
-                    y: 20,
-                    rotate: -5 
-                },
-                {
-                    opacity: 1,
-                    x: 0,
-                    y: 0,
-                    rotate: 0,
-                    duration: 1.2,
-                    delay: 1,
-                    ease: "back.out(1.7)"
-                }
-            );
-            
-            // Hero title animation
-            const titleLines = document.querySelectorAll('.title-text');
-            titleLines.forEach((line, i) => {
-                gsap.to(line, {
-                    y: 0,
-                    duration: 1.2,
-                    delay: 1 + (i * 0.3),
-                    ease: "power4.out"
-                });
-            });
-            
-            // Initialize mobile menu
-            initMobileMenu();
-            
-            // Enhanced Scroll Animations
-            // DEVELOPMENT text scroll effect - moves left on scroll
-            gsap.to(textFront, {
-                x: -200,
-                scale: 1.2,
-                scrollTrigger: {
-                    trigger: '#hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1.5,
-                    ease: "none"
-                }
-            });
-            
-            // MARKETING text scroll effect - moves right on scroll
-            gsap.to(textBehind, {
-                x: 150,
-                scale: 0.9,
-                scrollTrigger: {
-                    trigger: '#hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1.2,
-                    ease: "none"
-                }
-            });
-            
-            // Profile image scroll effect
-            gsap.to('.profile-image', {
-                scale: 1.2,
-                y: 50,
-                filter: "grayscale(30%) contrast(110%)",
-                scrollTrigger: {
-                    trigger: '#hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1,
-                    ease: "none"
-                }
-            });
-            
-            // Mouse movement parallax for desktop
-            if (!isMobile) {
-                document.addEventListener('mousemove', (e) => {
-                    const x = (e.clientX / window.innerWidth - 0.5) * 40;
-                    const y = (e.clientY / window.innerHeight - 0.5) * 40;
-                    
-                    // DEVELOPMENT text moves with mouse
-                    gsap.to(textFront, {
-                        x: x * 0.5,
-                        y: y * 0.5,
-                        duration: 1.5,
-                        ease: "power2.out"
-                    });
-                    
-                    // MARKETING text moves opposite direction
-                    gsap.to(textBehind, {
-                        x: -x * 0.3,
-                        y: -y * 0.3,
-                        duration: 1.8,
-                        ease: "power2.out"
-                    });
-                    
-                    // Image moves subtly
-                    gsap.to('.profile-image', {
-                        x: x * 0.1,
-                        y: y * 0.1,
-                        duration: 1.2,
-                        ease: "power2.out"
-                    });
-                });
-            }
-            
-            // Header scroll effect
-            const header = document.getElementById('header');
-            ScrollTrigger.create({
-                start: 50,
-                onUpdate: (self) => {
-                    if (self.progress > 0) {
-                        header.classList.add('scrolled');
-                    } else {
-                        header.classList.remove('scrolled');
-                    }
-                }
-            });
-            
-            // Hero title scroll effect
-            gsap.to('.hero-title', {
-                y: -30,
-                opacity: 0.9,
-                scrollTrigger: {
-                    trigger: '#hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true
-                }
-            });
-        }
-        
-        // Function to update live time
-        function updateLiveTime() {
-            const now = new Date();
-            const options = { 
-                timeZone: 'Africa/Johannesburg',
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            };
-            const johannesburgTime = now.toLocaleTimeString('en-US', options);
-            
-            const liveTimeElement = document.getElementById('liveTime');
-            if (liveTimeElement) {
-                liveTimeElement.textContent = `${johannesburgTime}`;
-            }
-        }
-        
-        // Update time initially and every second
-        updateLiveTime();
-        setInterval(updateLiveTime, 1000);
-        
-        // Handle window resize
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 250);
-        });
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
