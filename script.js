@@ -6,6 +6,24 @@ const preloader = document.getElementById('preloader');
 const preloaderText = document.querySelectorAll('.preloader-text span');
 const loadingBar = document.querySelector('.loading-bar');
 
+// Set hero as loaded immediately after preloader to prevent grayed image
+function markHeroAsLoaded() {
+    document.querySelector('.hero')?.classList.add('loaded');
+    document.body.classList.add('loaded');
+    
+    // Force profile image to normal state
+    const profileImage = document.querySelector('.profile-image');
+    if (profileImage) {
+        profileImage.style.filter = 'grayscale(15%) contrast(105%)';
+        profileImage.style.opacity = '1';
+    }
+    
+    const profileImageContainer = document.querySelector('.profile-image-container');
+    if (profileImageContainer) {
+        profileImageContainer.style.opacity = '1';
+    }
+}
+
 // Animate preloader text with enhanced stagger
 const textTimeline = gsap.timeline();
 
@@ -57,6 +75,9 @@ function updateLoadingBar() {
 }
 
 function completePreloader() {
+    // Mark hero as loaded before hiding preloader
+    markHeroAsLoaded();
+    
     // Final animations before hiding preloader
     gsap.to(preloaderText, {
         opacity: 0,
@@ -194,7 +215,7 @@ function initParallaxEffects() {
             scrub: 1.2,
             pin: false,
             anticipatePin: 1,
-            markers: false, // Set to true for debugging
+            markers: false,
             onUpdate: (self) => {
                 const progress = self.progress;
                 
@@ -322,31 +343,34 @@ function initParallaxEffects() {
             );
         }
         
-        // About cards staggered parallax
-        aboutCards.forEach((card, index) => {
-            gsap.fromTo(card,
-                {
-                    y: 100 + (index * 20),
-                    opacity: 0,
-                    rotateX: 10,
-                    rotateY: index % 2 === 0 ? -5 : 5
-                },
-                {
-                    y: 0,
-                    opacity: 1,
-                    rotateX: 0,
-                    rotateY: 0,
-                    scrollTrigger: {
-                        trigger: aboutSection,
-                        start: 'top 70%',
-                        end: 'top 20%',
-                        scrub: 1,
-                        delay: index * 0.1,
-                        ease: "power2.out"
+        // About cards staggered parallax - UPDATED FOR HORIZONTAL SCROLL
+        if (window.innerWidth > 1024) {
+            // Desktop: vertical animation
+            aboutCards.forEach((card, index) => {
+                gsap.fromTo(card,
+                    {
+                        y: 100 + (index * 20),
+                        opacity: 0,
+                        rotateX: 10,
+                        rotateY: index % 2 === 0 ? -5 : 5
+                    },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        rotateX: 0,
+                        rotateY: 0,
+                        scrollTrigger: {
+                            trigger: aboutSection,
+                            start: 'top 70%',
+                            end: 'top 20%',
+                            scrub: 1,
+                            delay: index * 0.1,
+                            ease: "power2.out"
+                        }
                     }
-                }
-            );
-        });
+                );
+            });
+        }
     }
     
     // Additional parallax for about section background circles
@@ -383,6 +407,19 @@ function initParallaxEffects() {
 function initHeroAnimations() {
     // Check if mobile view
     const isMobile = window.innerWidth <= 1024;
+    
+    // Force hero image to be visible immediately
+    const profileImage = document.querySelector('.profile-image');
+    const profileImageContainer = document.querySelector('.profile-image-container');
+    
+    if (isMobile) {
+        // On mobile, set immediate visibility
+        gsap.set(profileImageContainer, { opacity: 1 });
+        gsap.set(profileImage, { 
+            opacity: 1,
+            filter: 'grayscale(15%) contrast(105%)'
+        });
+    }
     
     // Animate header elements
     gsap.to('.header', {
@@ -421,14 +458,13 @@ function initHeroAnimations() {
         });
     }
     
-    // Profile image animation
-    const profileImageContainer = document.querySelector('.profile-image-container');
+    // Profile image animation - smoother on mobile
     gsap.to(profileImageContainer, {
         opacity: 1,
         x: 0,
-        duration: 1.5,
+        duration: isMobile ? 0.5 : 1.5,
         ease: "power3.out",
-        delay: 0.4
+        delay: isMobile ? 0 : 0.4
     });
     
     // Background text animations
@@ -543,10 +579,10 @@ function initHeroAnimations() {
     });
     
     // Profile image scroll effect
-    gsap.to('.profile-image', {
-        scale: 1.2,
-        y: 50,
-        filter: "grayscale(30%) contrast(110%)",
+    gsap.to(profileImage, {
+        scale: isMobile ? 1.1 : 1.2,
+        y: isMobile ? 30 : 50,
+        filter: "grayscale(15%) contrast(105%)", // Keep normal filter on scroll
         scrollTrigger: {
             trigger: '#hero',
             start: 'top top',
@@ -579,7 +615,7 @@ function initHeroAnimations() {
             });
             
             // Image moves subtly
-            gsap.to('.profile-image', {
+            gsap.to(profileImage, {
                 x: x * 0.1,
                 y: y * 0.1,
                 duration: 1.2,
@@ -647,6 +683,7 @@ window.addEventListener('resize', () => {
             // Kill existing ScrollTriggers first
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
             initParallaxEffects();
+            initAboutSection(); // Reinit about section for layout changes
         }
     }, 250);
 });
@@ -668,7 +705,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// About Section Animations
+// About Section Animations with Horizontal Scroll
 function initAboutSection() {
     // Select elements
     const aboutSection = document.querySelector('.about-section');
@@ -678,158 +715,225 @@ function initAboutSection() {
     const cards = document.querySelectorAll('.horizontal-card');
     const counters = document.querySelectorAll('.counter-number');
     
-    // Create observer for section
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Animate title
-                gsap.to(titleTexts, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1.2,
-                    stagger: 0.4,
-                    ease: "power4.out",
-                    delay: 0.2
-                });
-                
-                // Animate subtitle items
-                gsap.to(subtitleItems, {
-                    y: 0,
+    // Check if mobile/tablet for horizontal scroll
+    const isMobile = window.innerWidth <= 1024;
+    
+    if (isMobile) {
+        // Mobile/Tablet: Horizontal scroll layout
+        const cardsContainer = document.querySelector('.horizontal-cards-container');
+        
+        // Add scroll hint for mobile
+        const scrollHint = document.createElement('div');
+        scrollHint.className = 'scroll-hint';
+        scrollHint.innerHTML = '<span>Swipe</span><i class="fas fa-arrow-right"></i>';
+        
+        // Insert scroll hint after last card
+        if (cardsContainer) {
+            cardsContainer.appendChild(scrollHint);
+            
+            // Add horizontal scroll animation
+            cards.forEach((card, index) => {
+                // Animate cards sliding in from right
+                gsap.to(card, {
+                    x: 0,
                     opacity: 1,
                     duration: 0.8,
-                    stagger: 0.3,
-                    delay: 0.8,
-                    ease: "back.out(1.7)"
+                    delay: index * 0.15,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: aboutSection,
+                        start: 'top 80%',
+                        end: 'top 40%',
+                        toggleActions: 'play none none none'
+                    }
                 });
                 
-                // Animate subtitle dividers
-                gsap.to(subtitleDividers, {
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.6,
-                    stagger: 0.2,
-                    delay: 1.2,
-                    ease: "back.out(1.7)"
+                // Add click/tap to scroll to next card
+                card.addEventListener('click', function() {
+                    const container = this.parentElement;
+                    const nextCard = this.nextElementSibling;
+                    
+                    if (nextCard && nextCard.classList.contains('horizontal-card')) {
+                        const scrollPosition = nextCard.offsetLeft - container.offsetLeft;
+                        
+                        gsap.to(container, {
+                            scrollLeft: scrollPosition,
+                            duration: 0.6,
+                            ease: "power2.out"
+                        });
+                    }
                 });
+            });
+            
+            // Add touch/swipe detection
+            let startX = 0;
+            let scrollLeft = 0;
+            let isDragging = false;
+            
+            cardsContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - cardsContainer.offsetLeft;
+                scrollLeft = cardsContainer.scrollLeft;
+                isDragging = true;
+            });
+            
+            cardsContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.touches[0].pageX - cardsContainer.offsetLeft;
+                const walk = (x - startX) * 1.5; // Scroll speed
+                cardsContainer.scrollLeft = scrollLeft - walk;
+            });
+            
+            cardsContainer.addEventListener('touchend', () => {
+                isDragging = false;
                 
-                // Animate cards with staggered delay - Updated for 2x2 grid
-                cards.forEach((card, index) => {
-                    gsap.to(card, {
+                // Snap to nearest card
+                const cardWidth = cards[0].offsetWidth + 24; // Width + gap
+                const currentScroll = cardsContainer.scrollLeft;
+                const nearestIndex = Math.round(currentScroll / cardWidth);
+                
+                gsap.to(cardsContainer, {
+                    scrollLeft: nearestIndex * cardWidth,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Hide scroll hint after first interaction
+            cardsContainer.addEventListener('scroll', () => {
+                gsap.to(scrollHint, {
+                    opacity: 0,
+                    duration: 0.3,
+                    onComplete: () => {
+                        scrollHint.style.display = 'none';
+                    }
+                });
+            }, { once: true });
+        }
+    } else {
+        // Desktop: Original vertical animation
+        // Create observer for section
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate title
+                    gsap.to(titleTexts, {
                         y: 0,
                         opacity: 1,
-                        duration: 1,
-                        delay: 1.5 + (index * 0.1), // Reduced delay for grid layout
-                        ease: "power3.out"
+                        duration: 1.2,
+                        stagger: 0.4,
+                        ease: "power4.out",
+                        delay: 0.2
                     });
-                });
-                
-                // Animate counters
-                counters.forEach(counter => {
-                    const target = parseInt(counter.getAttribute('data-count'));
-                    const duration = 2;
                     
-                    gsap.to(counter, {
-                        innerText: target,
-                        duration: duration,
-                        snap: { innerText: 1 },
-                        ease: "power2.out",
-                        delay: 2
+                    // Animate subtitle items
+                    gsap.to(subtitleItems, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        stagger: 0.3,
+                        delay: 0.8,
+                        ease: "back.out(1.7)"
                     });
-                });
-                
-                // Unobserve after animation
-                observer.unobserve(aboutSection);
-            }
+                    
+                    // Animate subtitle dividers
+                    gsap.to(subtitleDividers, {
+                        scale: 1,
+                        opacity: 1,
+                        duration: 0.6,
+                        stagger: 0.2,
+                        delay: 1.2,
+                        ease: "back.out(1.7)"
+                    });
+                    
+                    // Animate cards with staggered delay
+                    cards.forEach((card, index) => {
+                        gsap.to(card, {
+                            y: 0,
+                            opacity: 1,
+                            duration: 1,
+                            delay: 1.5 + (index * 0.1),
+                            ease: "power3.out"
+                        });
+                    });
+                    
+                    // Animate counters
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-count'));
+                        const duration = 2;
+                        
+                        gsap.to(counter, {
+                            innerText: target,
+                            duration: duration,
+                            snap: { innerText: 1 },
+                            ease: "power2.out",
+                            delay: 2
+                        });
+                    });
+                    
+                    // Unobserve after animation
+                    observer.unobserve(aboutSection);
+                }
+            });
+        }, { 
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
         });
-    }, { 
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
-    });
-    
-    // Start observing
-    if (aboutSection) {
-        observer.observe(aboutSection);
+        
+        // Start observing
+        if (aboutSection) {
+            observer.observe(aboutSection);
+        }
     }
     
-    // Card hover effects with parallax - Updated for grid layout
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+    // Card hover effects with parallax - Desktop only
+    if (!isMobile) {
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateY = ((x - centerX) / centerX) * 3;
+                const rotateX = ((centerY - y) / centerY) * 3;
+                
+                gsap.to(card.querySelector('.card-content'), {
+                    rotateY: rotateY,
+                    rotateX: -rotateX,
+                    transformPerspective: 1000,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
             
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateY = ((x - centerX) / centerX) * 3;
-            const rotateX = ((centerY - y) / centerY) * 3;
-            
-            gsap.to(card.querySelector('.card-content'), {
-                rotateY: rotateY,
-                rotateX: -rotateX,
-                transformPerspective: 1000,
-                duration: 0.3,
-                ease: "power2.out"
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card.querySelector('.card-content'), {
+                    rotateY: 0,
+                    rotateX: 0,
+                    duration: 0.6,
+                    ease: "power3.out"
+                });
             });
         });
         
-        card.addEventListener('mouseleave', () => {
-            gsap.to(card.querySelector('.card-content'), {
-                rotateY: 0,
-                rotateX: 0,
-                duration: 0.6,
-                ease: "power3.out"
+        // Interactive card scaling on click/tap
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Add a subtle scale effect on click
+                gsap.to(card.querySelector('.card-content'), {
+                    scale: 0.98,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: "power2.inOut"
+                });
             });
         });
-    });
-    
-    // Interactive card scaling on click/tap
-    cards.forEach(card => {
-        card.addEventListener('click', () => {
-            // Add a subtle scale effect on click
-            gsap.to(card.querySelector('.card-content'), {
-                scale: 0.98,
-                duration: 0.1,
-                yoyo: true,
-                repeat: 1,
-                ease: "power2.inOut"
-            });
-        });
-    });
-    
-    // Add keyboard navigation for cards
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Tab' && document.activeElement.classList.contains('horizontal-card')) {
-            gsap.to(document.activeElement.querySelector('.card-content'), {
-                scale: 1.02,
-                duration: 0.2,
-                ease: "power2.out"
-            });
-        }
-    });
-    
-    document.addEventListener('keyup', (e) => {
-        if (e.key === 'Tab' && document.activeElement.classList.contains('horizontal-card')) {
-            gsap.to(document.activeElement.querySelector('.card-content'), {
-                scale: 1,
-                duration: 0.2,
-                ease: "power2.out"
-            });
-        }
-    });
-}
-
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on a mobile device
-    const isMobile = window.innerWidth <= 768;
-    
-    // Initialize about section
-    initAboutSection();
-    
-    // Add touch support for mobile devices
-    if (isMobile) {
-        const cards = document.querySelectorAll('.horizontal-card');
+    } else {
+        // Mobile touch effects
         cards.forEach(card => {
             card.addEventListener('touchstart', () => {
                 gsap.to(card.querySelector('.card-content'), {
@@ -849,10 +953,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Add keyboard navigation for cards (desktop only)
+    if (!isMobile) {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && document.activeElement.classList.contains('horizontal-card')) {
+                gsap.to(document.activeElement.querySelector('.card-content'), {
+                    scale: 1.02,
+                    duration: 0.2,
+                    ease: "power2.out"
+                });
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Tab' && document.activeElement.classList.contains('horizontal-card')) {
+                gsap.to(document.activeElement.querySelector('.card-content'), {
+                    scale: 1,
+                    duration: 0.2,
+                    ease: "power2.out"
+                });
+            }
+        });
+    }
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Mark hero as loaded immediately to prevent grayed image
+    markHeroAsLoaded();
+    
+    // Initialize about section
+    initAboutSection();
+    
     // Performance optimization for animations
     if ('requestIdleCallback' in window) {
         requestIdleCallback(() => {
-            // Initialize any non-critical animations here
             console.log('Portfolio animations initialized');
         });
     } else {
@@ -868,6 +1003,9 @@ if (typeof gsap === 'undefined') {
     
     // Fallback animations using CSS
     document.addEventListener('DOMContentLoaded', function() {
+        // Mark hero as loaded
+        markHeroAsLoaded();
+        
         // Simple fallback for preloader
         setTimeout(() => {
             const preloader = document.getElementById('preloader');
