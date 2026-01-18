@@ -10,23 +10,23 @@
     
     <!-- Open Graph -->
     <meta property="og:title" content="Thokozane Nxumalo" />
-    <meta property="og:description" content="Web developer portfolio showcasing modern web experiences, GSAP animations, and conversion-focused design. 2026 SEO-ready." />
+    <meta property="og:description" content="Thokozane Nxumalo's portfolio showcasing modern web experiences, GSAP animations, and conversion-focused design. 2026 SEO-ready." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://thokozane.co.za/" />
-    <meta property="og:image" content="image/web-developer.png" />
+    <meta property="og:image" content="images/thokozane_nxumalo.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Thokozane Nxumalo" />
-    <meta name="twitter:description" content="Web developer portfolio showcasing modern web experiences, GSAP animations, and conversion-focused design. 2026 SEO-ready." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=630&fit=crop&auto=format" />
+    <meta name="twitter:description" content="Thokozane's portfolio showcasing modern web experiences, GSAP animations, and conversion-focused design. 2026 SEO-ready." />
+    <meta name="twitter:image" content="images/thokozane_nxumalo.png" />
 
     <!-- Canonical (update if needed) -->
     <link rel="canonical" href="https://thokozane.co.za/" />
 
     <!-- Favicon / Browser Icon -->
-    <link rel="icon" href="images/close.png width='64' height='64' rx='18' fill='%230b0f12'/%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23ffffff' stroke-opacity='0.9' stroke-width='3'/%3E%3Cpath d='M22 32l10-10v20L22 32z' fill='%23ffffff'/%3E%3Cpath d='M42 32l-10-10v20l10-10z' fill='%23ffffff'/%3E%3C/svg%3E" />
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230b0f12'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23ffffff' stroke-opacity='0.9' stroke-width='3'/%3E%3Cpath d='M22 32l10-10v20L22 32z' fill='%23ffffff'/%3E%3Cpath d='M42 32l-10-10v20l10-10z' fill='%23ffffff'/%3E%3C/svg%3E" />
+    <link rel="icon" href="images/close.png viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='32' cy='20' r='44' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ffffff' stop-opacity='0.22'/%3E%3Cstop offset='0.55' stop-color='%23ffffff' stop-opacity='0.06'/%3E%3Cstop offset='1' stop-color='%230b0f12' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='%230b0f12'/%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23ffffff' stroke-opacity='0.9' stroke-width='3'/%3E%3Cpath d='M22 32l10-10v20L22 32z' fill='%23ffffff'/%3E%3Cpath d='M42 32l-10-10v20l10-10z' fill='%23ffffff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="images/close.png viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230b0f12'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23ffffff' stroke-opacity='0.9' stroke-width='3'/%3E%3Cpath d='M22 32l10-10v20L22 32z' fill='%23ffffff'/%3E%3Cpath d='M42 32l-10-10v20l10-10z' fill='%23ffffff'/%3E%3C/svg%3E" />
     <link rel="manifest" href="./site.webmanifest" />
     <meta name="theme-color" content="#0b0f12" />
 
@@ -34,7 +34,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -42,7 +41,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Thokozane",
-      "jobTitle": "Creative Developer",
+      "jobTitle": "Web Developer",
       "url": "https://thokozane.co.za/",
       "email": "dev@thokozane.co.za",
       "address": {
@@ -53,7 +52,527 @@
       "sameAs": []
     }
     </script>
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
+
+        /* Removed scroll-behavior: smooth to prevent conflict with ScrollTrigger */
+        
+        .counter-value {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .tech-tag {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .image-card {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .skill-item {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-arrow {
+            transition: transform 0.4s ease;
+        }
+        
+        .skill-item.expanded .skill-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .skill-item.expanded .skill-arrow svg {
+            transform: rotate(180deg);
+        }
+        
+        .sub-skills {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .skill-item.expanded .sub-skills {
+            max-height: 300px;
+            opacity: 1;
+        }
+        
+        .image-overlay {
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+        }
+        
+        .pin-spacer-container {
+            height: 100%;
+            position: relative;
+        }
+        
+        .image-card-wrapper {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 0;
+            will-change: transform;
+        }
+        
+        /* Preloader Shimmer Effect */
+        .shimmer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.6) 50%,
+                transparent 100%
+            );
+            animation: shimmer 1s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        /* Hero Styles */
+        .imagine-text {
+            font-size: clamp(10rem, 25vw, 30rem);
+            line-height: 0.9;
+            color: rgba(0, 0, 0, 0.06);
+            font-weight: 800;
+            user-select: none;
+            white-space: nowrap;
+        }
+        
+        .develop-text {
+            font-size: clamp(10rem, 25vw, 30rem);
+            line-height: 0.9;
+            font-weight: 800;
+            color: #000;
+        }
+        
+        .profile-image {
+            height: 90vh;
+            max-height: 950px;
+            object-fit: contain;
+            object-position: bottom center;
+        }
+        
+        /* Hamburger Styles */
+        .nav-logo{
+            display:block;
+            image-rendering:-webkit-optimize-contrast;
+        }
+
+        /* Glass navbar */
+        .navbar {
+            background: rgba(255,255,255,0.22);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            transition: background 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .hamburger {
+            cursor: pointer;
+            padding: 10px;
+            transition: all 0.3s ease;
+            z-index: 60;
+            position: relative;
+        }
+        
+        .hamburger:hover .hamburger-line {
+            background-color: #666;
+        }
+        
+        .hamburger-line {
+            width: 28px;
+            height: 2px;
+            background-color: #000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+        
+        .hamburger-line:nth-child(1) {
+            width: 28px;
+        }
+        
+        .hamburger-line:nth-child(2) {
+            width: 20px;
+        }
+        
+        .hamburger-line:nth-child(3) {
+            width: 14px;
+        }
+        
+        .hamburger:hover .hamburger-line:nth-child(1) {
+            width: 14px;
+        }
+        
+        .hamburger:hover .hamburger-line:nth-child(2) {
+            width: 28px;
+        }
+        
+        .hamburger:hover .hamburger-line:nth-child(3) {
+            width: 20px;
+        }
+        
+        .hamburger.active .hamburger-line {
+            background-color: #000;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            width: 28px;
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            width: 28px;
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .hamburger.active:hover .hamburger-line {
+            background-color: #666;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            clip-path: circle(0% at calc(100% - 40px) 40px);
+            transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mobile-menu.active {
+            clip-path: circle(150% at calc(100% - 40px) 40px);
+        }
+        
+        /* Social Icons */
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: #666;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f5f5f5;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+        
+        .stroke-text {
+            -webkit-text-stroke: 2px rgba(255,255,255,0.3);
+            color: transparent;
+        }
+        
+        .animate-spin-slow {
+            animation: spin 20s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Projects hover overlay + details (desktop only) */
+        .project-overlay {
+            background: radial-gradient(1000px 700px at 50% 40%, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.72) 65%, rgba(0,0,0,0.85) 100%);
+            opacity: 1;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+
+        /* Default: always visible on touch/mobile */
+        .project-details {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            /* Desktop: hide details until hover */
+            .project-details {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            .project-panel:hover .project-details {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .project-panel:hover .project-overlay {
+                opacity: 0.92;
+            }
+        }
+
+        /* --- Creative Form base (minimal) --- */
+        .form-card {
+            border-radius: 28px;
+        }
+
+        /* Minimal form UI */
+        .mf-field {
+            width: 100%;
+            text-align: left;
+        }
+        .mf-label {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 10px;
+        }
+        .mf-input,
+        .mf-textarea {
+            width: 100%;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.14);
+            background: rgba(255,255,255,0.06);
+            padding: 14px 16px;
+            color: rgba(255,255,255,0.95);
+            outline: none;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+            transition: border-color 0.2s ease, box-shadow 0.25s ease, background 0.2s ease;
+        }
+        /* Ensure native select dropdown text stays readable (especially on dark bg) */
+        select.mf-input {
+            color: rgba(255,255,255,0.95);
+            background-color: rgba(255,255,255,0.06);
+        }
+        select.mf-input option {
+            color: rgba(0,0,0,0.92);
+            background-color: #ffffff;
+        }
+
+        .mf-input::placeholder,
+        .mf-textarea::placeholder { color: rgba(255,255,255,0.35); }
+        .mf-input:focus,
+        .mf-textarea:focus {
+            border-color: rgba(255,255,255,0.34);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+        }
+
+        .mf-chip {
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.92);
+            padding: 10px 14px;
+            font-size: 14px;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            user-select: none;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .mf-chip:hover { transform: translateY(-1px); }
+        }
+        #contact.save-money-bg .peer:checked + .mf-chip {
+            background: rgba(255,255,255,0.92);
+            color: rgba(0,0,0,0.92);
+            border-color: rgba(255,255,255,0.92);
+        }
+
+        .mf-send {
+            border-radius: 999px;
+            padding: 14px 26px;
+            background: rgba(255,255,255,0.92);
+            color: rgba(0,0,0,0.92);
+            border: 1px solid rgba(255,255,255,0.92);
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+        .mf-send:hover { transform: translateY(-1px); }
+
+        /* Autofill blend */
+        #contact.save-money-bg input.mf-input:-webkit-autofill,
+        #contact.save-money-bg input.mf-input:-webkit-autofill:hover,
+        #contact.save-money-bg input.mf-input:-webkit-autofill:focus,
+        #contact.save-money-bg textarea.mf-textarea:-webkit-autofill,
+        #contact.save-money-bg textarea.mf-textarea:-webkit-autofill:hover,
+        #contact.save-money-bg textarea.mf-textarea:-webkit-autofill:focus {
+            -webkit-text-fill-color: rgba(255,255,255,0.95);
+            caret-color: rgba(255,255,255,0.95);
+            transition: background-color 9999s ease-out 0s;
+            box-shadow: 0 0 0px 1000px transparent inset !important;
+            -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+            background-color: transparent !important;
+        }
+
+        .topic-pill {
+            border-radius: 999px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+            transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, color 0.22s ease;
+            user-select: none;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .topic-pill:hover { transform: translateY(-1px); }
+        }
+
+
+        /* Keep contact lines visually aligned */
+        .form-line {
+            text-wrap: balance;
+        }
+
+        /* Save Money / Contact section animated dark gradient (no red, no blue) */
+        .save-money-bg {
+            position: relative;
+            background: linear-gradient(120deg,
+                #0b0f12 0%,
+                #0f141a 20%,
+                #14121a 45%,
+                #0e1410 70%,
+                #0b0f12 100%
+            );
+            background-size: 300% 300%;
+            animation: gradientShift 18s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 40%; }
+            50% { background-position: 100% 60%; }
+            100% { background-position: 0% 40%; }
+        }
+
+        .save-money-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(900px 600px at 30% 30%, rgba(255,255,255,0.06), transparent 60%),
+                radial-gradient(900px 700px at 70% 70%, rgba(255,255,255,0.04), transparent 62%);
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        /* Contact section: switch to light-on-dark when using gradient */
+        #contact.save-money-bg {
+            color: rgba(255,255,255,0.92);
+        }
+        #contact.save-money-bg .contact-head,
+        #contact.save-money-bg .form-line,
+        #contact.save-money-bg label {
+            color: rgba(255,255,255,0.95) !important;
+        }
+        #contact.save-money-bg .contact-sub,
+        #contact.save-money-bg #cf-status {
+            color: rgba(255,255,255,0.68) !important;
+        }
+        #contact.save-money-bg .cf-input {
+            color: rgba(255,255,255,0.95);
+            caret-color: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.14);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        #contact.save-money-bg .cf-input:focus {
+            border-color: rgba(255,255,255,0.34);
+        }
+
+        /* Ensure autofill doesn’t paint a yellow/white block on dark background */
+        #contact.save-money-bg input.cf-input:-webkit-autofill,
+        #contact.save-money-bg input.cf-input:-webkit-autofill:hover,
+        #contact.save-money-bg input.cf-input:-webkit-autofill:focus {
+            -webkit-text-fill-color: rgba(255,255,255,0.95);
+            caret-color: rgba(255,255,255,0.95);
+            transition: background-color 9999s ease-out 0s;
+            box-shadow: 0 0 0px 1000px transparent inset !important;
+            -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+            background-color: transparent !important;
+        }
+        #contact.save-money-bg .cf-input::placeholder {
+            color: rgba(255,255,255,0.35);
+        }
+        #contact.save-money-bg .cf-underline,
+        #contact.save-money-bg .cf-textarea-underline {
+            background: rgba(255,255,255,0.35);
+        }
+        #contact.save-money-bg .cf-field:focus-within .cf-underline {
+            background: rgba(255,255,255,0.9);
+        }
+        #contact.save-money-bg .cf-textarea {
+            color: rgba(255,255,255,0.9);
+        }
+        #contact.save-money-bg .cf-textarea::placeholder {
+            color: rgba(255,255,255,0.35);
+        }
+        #contact.save-money-bg .cf-textarea:focus + .cf-textarea-underline,
+        #contact.save-money-bg .cf-textarea:focus-visible + .cf-textarea-underline {
+            background: rgba(255,255,255,0.9);
+        }
+
+        #contact.save-money-bg .topic-pill {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.92);
+            border: 1px solid rgba(255,255,255,0.10);
+        }
+        #contact.save-money-bg input.peer:checked + .topic-pill,
+        #contact.save-money-bg .peer:checked + .topic-pill {
+            background: rgba(255,255,255,0.92);
+            color: rgba(0,0,0,0.92);
+            border-color: rgba(255,255,255,0.92);
+        }
+
+        #contact.save-money-bg .send-btn {
+            background: rgba(255,255,255,0.92);
+            color: rgba(0,0,0,0.92);
+        }
+        #contact.save-money-bg .send-btn:hover {
+            transform: translateY(-1px) scale(1.03);
+        }
+
+        /* Mobile: put the form in a card while keeping the sentence/underline design */
+        .form-card {
+            width: 100%;
+        }
+
+        @media (max-width: 640px) {
+            .form-card {
+                background: rgba(255,255,255,0.06);
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 24px;
+                padding: 22px 16px;
+                backdrop-filter: blur(14px);
+                box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+            }
+            #contact.save-money-bg .contact-head {
+                text-shadow: 0 12px 40px rgba(0,0,0,0.35);
+            }
+        }
+    </style>
 </head>
 <body class="bg-white text-gray-900 overflow-hidden">
     
@@ -61,7 +580,7 @@
     <div id="preloader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
         <div class="flex flex-col items-center">
             <h2 class="text-lg md:text-xl font-bold text-black mb-6 tracking-[0.15em] uppercase text-center">
-                You Imagine <span class="text-gray-300 mx-1">-</span> I Develop
+                You Design <span class="text-gray-300 mx-1">-</span> I Develop
             </h2>
             <div class="w-48 h-0.5 bg-gray-200 rounded-full overflow-hidden">
                 <div id="loading-bar" class="h-full bg-black w-0 overflow-hidden relative">
@@ -78,11 +597,11 @@
         <nav class="navbar fixed top-0 left-0 right-0 z-50 px-6 lg:px-12 py-6">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
                 <!-- Logo -->
-                 <a href="#hero" class="logo opacity-0" aria-label="Back to top">
+                <a href="#hero" class="logo opacity-0" aria-label="Back to top">
                     <img
                         src="images/close.png"
                         alt="Logo"
-                        class="nav-logo w-15 h-15 object-contain"
+                        class="nav-logo w-10 h-10 object-contain"
                         loading="eager"
                         decoding="async"
                     />
@@ -161,19 +680,19 @@
         <div class="social-icons absolute bottom-8 right-6 lg:right-12 z-30 opacity-0">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- GitHub -->
-                <a href="https://github.com/ThokozaneN" class="social-icon text-black" aria-label="GitHub">
+                <a href="https://github.com/ThokozaneN" target="_blank" rel="noopener noreferrer" class="social-icon text-black" aria-label="GitHub">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
                     </svg>
                 </a>
                 <!-- LinkedIn -->
-                <a href="#" class="social-icon text-black" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="social-icon text-black" aria-label="LinkedIn">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                     </svg>
                 </a>
                 <!-- Instagram -->
-                <a href="https://www.instagram.com/_nxuthokozani/" class="social-icon text-black" aria-label="Instagram">
+                <a href="https://www.instagram.com/_nxuthokozani/" target="_blank" rel="noopener noreferrer" class="social-icon text-black" aria-label="Instagram">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
                     </svg>
@@ -199,7 +718,7 @@
                     <!-- Introduction Text -->
                     <div class="who-intro mb-16">
                         <p class="text-lg text-gray-600 leading-relaxed mb-6">
-                            I'm Thokozane Nxumalo, a creative developer and designer with a love for crafting digital experiences that leave lasting impressions. My journey in the digital world has been driven by curiosity and an unwavering commitment to excellence.
+                            I'm Thokozane Nxumalo, a passionate creative developer and designer with a love for crafting digital experiences that leave lasting impressions. My journey in the digital world has been driven by curiosity and an unwavering commitment to excellence.
                         </p>
                         <p class="text-base text-gray-500 leading-relaxed">
                             From pixel-perfect designs to seamless user interactions, I bring ideas to life through code and creativity. Every project is an opportunity to push boundaries and create something extraordinary.
@@ -240,8 +759,10 @@
                             <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">Python</span>
                             <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">GSAP</span>
                             <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">Three.js</span>
-                            <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">Base44</span>
+                            <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">Django</span>
+                            <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">Shopify</span>
                             <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">Tailwind</span>
+                            <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">Base44</span>
                             <span class="tech-tag px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-700 cursor-pointer hover:bg-black hover:text-white hover:border-black transition-all">Next.js</span>
                         </div>
                     </div>
@@ -264,7 +785,7 @@
                                 <div class="image-overlay absolute inset-0 flex flex-col justify-end p-8">
                                     <div class="card-content">
                                         <span id="card-label" class="text-indigo-400 text-sm tracking-wider uppercase mb-2 block">Creative Mind</span>
-                                        <h3 id="card-title" class="text-2xl font-bold mb-2">Thokozane Nxumalo</h3>
+                                        <h3 id="card-title" class="text-2xl font-bold mb-2">TK Nxumalo</h3>
                                         <p id="card-desc" class="text-gray-300 text-sm">Digital Creator & Developer</p>
                                     </div>
                                 </div>
@@ -324,6 +845,10 @@
                                         <span class="w-1 h-1 bg-black rounded-full"></span>
                                         <span class="text-gray-500 text-sm hover:text-black transition-colors">Backend APIs</span>
                                     </div>
+                                    <!--<div class="sub-skill-item flex items-center gap-3 py-1.5">
+                                        <span class="w-1 h-1 bg-black rounded-full"></span>
+                                        <span class="text-gray-500 text-sm hover:text-black transition-colors">Database Design</span>
+                                    </div>-->
                                     <div class="sub-skill-item flex items-center gap-3 py-1.5">
                                         <span class="w-1 h-1 bg-black rounded-full"></span>
                                         <span class="text-gray-500 text-sm hover:text-black transition-colors">E-commerce Solutions</span>
@@ -492,8 +1017,8 @@
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10 project-details">
                             <span class="text-indigo-400 tracking-[0.2em] uppercase text-sm mb-6 opacity-0 translate-y-10 project-anim-1">Featured Work</span>
                             <h3 class="text-5xl md:text-7xl lg:text-9xl font-bold mb-8 text-white opacity-0 translate-y-10 project-anim-1">MZANSI<br>FITS</h3>
-                            <p class="max-w-xl text-gray-300 text-lg mb-10 opacity-0 translate-y-10 project-anim-1">A simple fitness e-commerce store.</p>
-                            <p class="max-w-xl text-gray-300 text-lg mb-10 opacity-20">Photo by - Pixabay</p>
+                            <p class="max-w-xl text-gray-300 text-lg mb-10 opacity-0 translate-y-10 project-anim-1">An e-commerce store for local sportswear brands.</p>
+                            <p class="max-w-xl text-gray-500 mb-10 opacity-0 translate-y-10 project-anim-1 font-size-25">Photo by Pixabay</p>
                             <a href="https://thokozanen.github.io/mzansi-fits/" class="px-10 py-4 border border-white text-white hover:bg-white hover:text-black transition-colors rounded-full uppercase tracking-wider text-sm opacity-0 translate-y-10 project-anim-1">View Live Demo</a>
                         </div>
                     </div>
@@ -502,16 +1027,16 @@
                 <!-- Project 2 (Slides in) -->
                 <div id="project-2" class="project-panel absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden bg-gray-900 translate-x-full z-10 shadow-2xl">
                     <div class="relative w-full h-full">
-                        <img src="images/hustler.jpg" 
+                        <img src="images/glasses.jpg" 
                              class="w-full h-full object-cover opacity-70" 
                              alt="Project 2">
                         <div class="project-overlay absolute inset-0"></div>
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10 project-details">
-                            <span class="text-emerald-400 tracking-[0.2em] uppercase text-sm mb-6">Business Solution</span>
-                            <h3 class="text-5xl md:text-7xl lg:text-9xl font-bold mb-8 text-white">HUSTLERS'<br>PORTAL</h3>
-                            <p class="max-w-xl text-gray-300 text-lg mb-10">A business hub for selling, networking & growing.</p>
-                            <p class="max-w-xl text-gray-300 text-lg mb-10 opacity-20">Photo by - Chris Harvey</p>
-                            <a href="https://thokozanen.github.io/business-directory/" class="px-10 py-4 border border-white text-white hover:bg-white hover:text-black transition-colors rounded-full uppercase tracking-wider text-sm">View Live Demo</a>
+                            <span class="text-emerald-400 tracking-[0.2em] uppercase text-sm mb-6">Health Care</span>
+                            <h3 class="text-5xl md:text-7xl lg:text-9xl font-bold mb-8 text-white">Zaheer's<br>Optometrist</h3>
+                            <p class="max-w-xl text-gray-300 text-lg mb-10">A modern minimalistic website for an optometrist.</p>
+                            <p class="max-w-xl text-gray-500 mb-10 font-size-25">Photo by Pao Dayag</p>
+                            <a href="https://thokozanen.github.io/zaheers/" class="px-10 py-4 border border-white text-white hover:bg-white hover:text-black transition-colors rounded-full uppercase tracking-wider text-sm">View Live Demo</a>
                         </div>
                     </div>
                 </div>
@@ -526,8 +1051,8 @@
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10 project-details">
                             <span class="text-blue-400 tracking-[0.2em] uppercase text-sm mb-6">Security</span>
                             <h3 class="text-5xl md:text-7xl lg:text-9xl font-bold mb-8 text-white">SAFE<br>PULSE</h3>
-                            <p class="max-w-xl text-gray-300 text-lg mb-10">Automatic emergency alerts triggered by distress detection and live location tracking.</p>
-                            <p class="max-w-xl text-gray-300 text-lg mb-10 opacity-20">Photo by - Berna</p>
+                            <p class="max-w-xl text-gray-300 text-lg mb-10">An automatic emergency alerts triggered by distress detection and live location tracking app.</p>
+                            <p class="max-w-xl text-gray-500 mb-10 font-size-25">Photo by Berna</p>
                             <a href="https://studio.firebase.google.com/studio-5120857145" class="px-10 py-4 border border-white text-white hover:bg-white hover:text-black transition-colors rounded-full uppercase tracking-wider text-sm">View Live Demo</a>
                         </div>
                     </div>
@@ -690,8 +1215,8 @@
 
                 <!-- Form (below) -->
                 <div class="flex justify-center">
-                    <div class="form-card max-w-5xl">
-                        <form id="creative-form" action="https://formsubmit.co/dev@thokozane.co.za" method="POST" class="space-y-10 w-full text-center">
+                    <div class="form-card max-w-3xl w-full">
+                        <form id="creative-form" action="https://formsubmit.co/dev@thokozane.co.za" method="POST" class="space-y-6 w-full">
                             <!-- FormSubmit settings -->
                             <input type="hidden" name="_subject" value="New Inquiry (Portfolio)" />
                             <input type="hidden" name="_template" value="table" />
@@ -699,88 +1224,59 @@
                             <input type="hidden" name="_next" value="./#contact" />
                             <!-- Honeypot (spam trap) -->
                             <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-                            <!-- Line 1 -->
-                            <div class="form-line text-xl md:text-2xl lg:text-3xl font-semibold text-black leading-snug text-center flex flex-wrap items-baseline justify-center gap-x-3 gap-y-6">
-                                <span>Hi, <span class="text-gray-400">Thokozane</span>, my name is</span>
-                                <span class="cf-field w-[14ch] md:w-[18ch]">
-                                    <input id="cf-name" name="name" type="text" placeholder="Your name" required
-                                        class="cf-input w-full"
-                                        style="font-weight: 600;" />
-                                    <span class="cf-underline"></span>
-                                </span>
-                                <span>and I&apos;m from</span>
-                                <span class="cf-field w-[16ch] md:w-[20ch]">
-                                    <input id="cf-location" name="location" type="text" placeholder="Your location" required
-                                        class="cf-input w-full"
-                                        style="font-weight: 600;" />
-                                    <span class="cf-underline"></span>
-                                </span>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 form-line">
+                                <div class="mf-field">
+                                    <label class="mf-label" for="mf-name">Name</label>
+                                    <input id="mf-name" name="name" type="text" class="mf-input" placeholder="Your full name" required />
+                                </div>
+                                <div class="mf-field">
+                                    <label class="mf-label" for="mf-location">Location</label>
+                                    <input id="mf-location" name="location" type="text" class="mf-input" placeholder="City, Country" required />
+                                </div>
                             </div>
 
-                            <!-- Line 2: topic -->
-                            <div class="form-line text-xl md:text-2xl lg:text-3xl font-semibold text-black leading-snug text-center flex flex-wrap items-center justify-center gap-x-3 gap-y-6">
-                                <span>I&apos;d like us to discuss</span>
-                                <span class="inline-flex flex-wrap items-center justify-center gap-3">
+                            <div class="mf-field form-line">
+                                <span class="mf-label">Topic</span>
+                                <div class="flex flex-wrap justify-center md:justify-start gap-3">
                                     <label class="inline-flex items-center gap-2 cursor-pointer">
                                         <input type="radio" name="topic" value="Potential Project" class="peer sr-only" checked />
-                                        <span class="topic-pill px-4 py-2 rounded-full bg-gray-100 text-black peer-checked:bg-black peer-checked:text-white transition-colors">
-                                            Potential Project
-                                        </span>
+                                        <span class="mf-chip">Potential Project</span>
                                     </label>
                                     <label class="inline-flex items-center gap-2 cursor-pointer">
                                         <input type="radio" name="topic" value="Collaboration" class="peer sr-only" />
-                                        <span class="topic-pill px-4 py-2 rounded-full bg-gray-100 text-black peer-checked:bg-black peer-checked:text-white transition-colors">
-                                            Collaboration
-                                        </span>
+                                        <span class="mf-chip">Collaboration</span>
                                     </label>
                                     <label class="inline-flex items-center gap-2 cursor-pointer">
                                         <input type="radio" name="topic" value="Networking" class="peer sr-only" />
-                                        <span class="topic-pill px-4 py-2 rounded-full bg-gray-100 text-black peer-checked:bg-black peer-checked:text-white transition-colors">
-                                            Networking
-                                        </span>
+                                        <span class="mf-chip">Networking</span>
                                     </label>
-                                </span>
+                                </div>
                             </div>
 
-                            <!-- Line 3: contact method -->
-                            <div class="form-line text-xl md:text-2xl lg:text-3xl font-semibold text-black leading-snug text-center flex flex-wrap items-center justify-center gap-x-3 gap-y-6">
-                                <span>We can talk in details at</span>
-                                <span class="cf-field w-[18ch] md:w-[24ch]">
-                                    <input id="cf-email" name="email" type="email" placeholder="you@email.com" required
-                                        class="cf-input w-full"
-                                        style="font-weight: 600;" />
-                                    <span class="cf-underline"></span>
-                                </span>
-                                <span class="inline-flex flex-wrap items-center justify-center gap-3">
-                                    <label class="inline-flex items-center gap-2 cursor-pointer">
-                                        <input type="radio" name="channel" value="WhatsApp" class="peer sr-only" checked />
-                                        <span class="topic-pill px-4 py-2 rounded-full bg-gray-100 text-black peer-checked:bg-black peer-checked:text-white transition-colors">
-                                            WhatsApp
-                                        </span>
-                                    </label>
-                                    <label class="inline-flex items-center gap-2 cursor-pointer">
-                                        <input type="radio" name="channel" value="Call" class="peer sr-only" />
-                                        <span class="topic-pill px-4 py-2 rounded-full bg-gray-100 text-black peer-checked:bg-black peer-checked:text-white transition-colors">
-                                            Call
-                                        </span>
-                                    </label>
-                                </span>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 form-line">
+                                <div class="mf-field md:col-span-1">
+                                    <label class="mf-label" for="mf-channel">Preferred contact</label>
+                                    <select id="mf-channel" name="preferred_contact" class="mf-input">
+                                        <option value="Email" selected>Email</option>
+                                        <option value="WhatsApp">WhatsApp</option>
+                                        <option value="Call">Call</option>
+                                    </select>
+                                </div>
+                                <div class="mf-field md:col-span-2">
+                                    <label class="mf-label" id="mf-contact-label" for="mf-contact">Email</label>
+                                    <input id="mf-contact" name="email" type="email" class="mf-input" placeholder="you@email.com" required />
+                                </div>
                             </div>
 
-                            <!-- Line 4: message -->
-                            <div class="form-line -mt-2">
-                                <label for="cf-message" class="block text-xl md:text-2xl lg:text-3xl font-semibold text-black mb-1">In short,</label>
-                                <textarea id="cf-message" name="message" rows="4" placeholder="Tell me what you’re building, what’s not working, and what success looks like…" required
-                                    class="cf-textarea w-full text-lg md:text-xl text-gray-700 placeholder:text-gray-300 focus:outline-none resize-none text-center leading-snug"></textarea>
-                                <div class="cf-textarea-underline mt-0.5"></div>
+                            <div class="mf-field form-line">
+                                <label class="mf-label" for="mf-message">Message</label>
+                                <textarea id="mf-message" name="message" rows="5" class="mf-textarea" placeholder="In short, what are you trying to achieve?" required></textarea>
                             </div>
 
-                            <!-- Actions -->
-                            <div class="form-line flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-center sm:gap-8">
-                                <button type="submit" class="send-btn px-10 py-4 bg-black text-white rounded-full transition-transform duration-300 w-fit">
-                                    Send
-                                </button>
-                                <p id="cf-status" class="text-sm text-gray-500"></p>
+                            <div class="flex flex-col items-center md:items-start gap-3 form-line">
+                                <button type="submit" id="mf-send" class="mf-send w-fit">Send</button>
+                                <p id="cf-status" class="text-sm text-white/70"></p>
                             </div>
                         </form>
                     </div>
@@ -794,15 +1290,774 @@
         <div class="save-money-overlay" aria-hidden="true"></div>
         <div class="max-w-7xl mx-auto px-6 lg:px-12 relative">
             <p class="text-center text-xs tracking-wide text-white/60">
-                © <span id="year"></span> Thokozane. All rights reserved.
+                © <span id="year"></span> Thokozane Nxumalo. All rights reserved.
             </p>
         </div>
     </footer>
 
 
-    <script src="script.js"></script>
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initialize animations when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Set current year in footer
+            const yearEl = document.getElementById('year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+            
+            // Update local time
+            function updateTime() {
+                const now = new Date();
+                const options = { 
+                    timeZone: 'Africa/Johannesburg',
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: true 
+                };
+                const timeString = now.toLocaleTimeString('en-US', options);
+                document.getElementById('local-time').textContent = timeString;
+            }
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            // Hamburger Menu Toggle
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking links
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+            
+            // Preloader Animation
+            const preloaderTl = gsap.timeline({
+                onComplete: () => {
+                    document.body.classList.remove('overflow-hidden'); // Enable scrolling after preloader
+                    animateHero();
+                }
+            });
+
+            preloaderTl.to("#loading-bar", {
+                width: "100%",
+                duration: 1.8,
+                ease: "power2.inOut"
+            })
+            .to("#preloader", {
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                onComplete: () => {
+                    document.getElementById("preloader").style.display = "none";
+                }
+            });
+
+            // Hero Animation Function
+            function animateHero() {
+                const heroTl = gsap.timeline({ 
+                    defaults: { ease: "power3.out" },
+                    onComplete: initHeroScrollTriggers // Important: Init scroll triggers only AFTER entrance animation
+                });
+                
+                // Animate navbar elements
+                heroTl.to(".logo", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8
+                }, 0)
+                .to(".nav-item", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.1
+                }, 0.2)
+                .to(".hamburger", {
+                    opacity: 1,
+                    duration: 0.6
+                }, 0.2)
+                
+                // Animate "Imagine" background text first (appears behind)
+                .fromTo(".imagine-container",
+                    { opacity: 0, scale: 0.95 },
+                    { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }
+                , 0.2)
+                
+                // Animate profile image (slides in from left, covers "Imagine")
+                .fromTo(".profile-container", 
+                    { opacity: 0, x: -200 },
+                    { opacity: 1, x: 0, duration: 1.2, ease: "power3.out" }
+                , 0.4)
+                
+                // Animate "Develop" foreground text (appears in front)
+                .fromTo(".develop-container",
+                    { opacity: 0, clipPath: "inset(0 100% 0 0)" },
+                    { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 1, ease: "power3.inOut" }
+                , 0.8)
+
+                
+                // Animate location/time
+                .to(".location-time", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8
+                }, 1)
+                
+                // Animate social icons
+                .to(".social-icons", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8
+                }, 1.1);
+            }
+            
+            // Hero Scroll Animations - Initialize these separately
+            function initHeroScrollTriggers() {
+                // Animation starts when scrolling starts (scrubs based on hero position)
+                gsap.to(".imagine-container", {
+                    scrollTrigger: {
+                        trigger: "#hero",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    x: -100,
+                    opacity: 0
+                });
+                
+                gsap.to(".profile-container", {
+                    scrollTrigger: {
+                        trigger: "#hero",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    y: 50,
+                    x: -150,
+                    scale: 0.85,
+                    opacity: 0
+                });
+                
+                gsap.to(".develop-container", {
+                    scrollTrigger: {
+                        trigger: "#hero",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    x: 100,
+                    opacity: 0
+                });
+                
+                gsap.to(".location-time", {
+                    scrollTrigger: {
+                        trigger: "#hero",
+                        start: "top top",
+                        end: "60% top",
+                        scrub: true
+                    },
+                    opacity: 0,
+                    y: 20
+                });
+                
+                gsap.to(".social-icons", {
+                    scrollTrigger: {
+                        trigger: "#hero",
+                        start: "top top",
+                        end: "60% top",
+                        scrub: true
+                    },
+                    opacity: 0,
+                    y: 20
+                });
+            }
+            
+            // Navbar glass strength on scroll - This can run independently
+            ScrollTrigger.create({
+                trigger: "#hero",
+                start: "bottom top+=100", // Becomes active when hero bottom is near top
+                onEnter: () => {
+                    gsap.to(".navbar", {
+                        backgroundColor: "rgba(255,255,255,0.72)",
+                        backdropFilter: "blur(14px)",
+                        boxShadow: "0 16px 40px rgba(0,0,0,0.10)",
+                        borderColor: "rgba(0,0,0,0.08)",
+                        duration: 0.28,
+                        ease: "power2.out"
+                    });
+                },
+                onLeaveBack: () => {
+                    gsap.to(".navbar", {
+                        backgroundColor: "rgba(255,255,255,0.22)",
+                        backdropFilter: "blur(12px)",
+                        boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+                        borderColor: "rgba(0,0,0,0.06)",
+                        duration: 0.28,
+                        ease: "power2.out"
+                    });
+                }
+            });
+
+            // Hide navbar during Projects section; show again on Approach
+            // (keeps existing hero background behavior; this only manages overall visibility)
+            ScrollTrigger.create({
+                trigger: "#projects-section",
+                start: "top top+=1",
+                end: () => {
+                    const approach = document.querySelector('#approach-section');
+                    if (!approach) return "bottom bottom";
+                    return `bottom top+=1`;
+                },
+                onEnter: () => {
+                    gsap.to('.navbar', { opacity: 0, y: -12, duration: 0.25, ease: 'power2.out', pointerEvents: 'none' });
+                },
+                onEnterBack: () => {
+                    gsap.to('.navbar', { opacity: 0, y: -12, duration: 0.25, ease: 'power2.out', pointerEvents: 'none' });
+                },
+                onLeave: () => {
+                    gsap.to('.navbar', { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out', pointerEvents: 'auto' });
+                },
+                onLeaveBack: () => {
+                    gsap.to('.navbar', { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out', pointerEvents: 'auto' });
+                }
+            });
+
+            // Who Am I Section Animations
+            const whoAmISection = document.querySelector('#who-am-i');
+            
+            // Header animation
+            gsap.from('.who-header', {
+                scrollTrigger: {
+                    trigger: '.who-header',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            // Intro animation
+            gsap.from('.who-intro p', {
+                scrollTrigger: {
+                    trigger: '.who-intro',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            // Counter animations
+            const counterItems = document.querySelectorAll('.counter-item');
+            counterItems.forEach((item, index) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: '.counters-section',
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: index * 0.15,
+                    ease: 'power3.out'
+                });
+            });
+
+            // Animated counters
+            const counters = document.querySelectorAll('.counter-value');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                
+                ScrollTrigger.create({
+                    trigger: '.counters-section',
+                    start: 'top 80%',
+                    onEnter: () => {
+                        gsap.to(counter, {
+                            duration: 2,
+                            ease: 'power2.out',
+                            onUpdate: function() {
+                                counter.textContent = Math.floor(this.progress() * target);
+                            },
+                            onComplete: function() {
+                                counter.textContent = target;
+                            }
+                        });
+                    },
+                    once: true
+                });
+            });
+
+            // Tech tags animation
+            const techTags = document.querySelectorAll('.tech-tag');
+            techTags.forEach((tag, index) => {
+                gsap.from(tag, {
+                    scrollTrigger: {
+                        trigger: '.tech-section',
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    scale: 0,
+                    opacity: 0,
+                    duration: 0.5,
+                    delay: index * 0.05,
+                    ease: 'back.out(1.7)'
+                });
+            });
+
+            // Image Card Pin and Dynamic Content
+            const imageCard = document.querySelector('.image-card');
+            const pinnedCard = document.getElementById('pinned-card');
+            const images = [
+                document.getElementById('card-image-1'),
+                document.getElementById('card-image-2')
+            ];
+            const dots = [
+                document.getElementById('dot-1'),
+                document.getElementById('dot-2')
+            ];
+            const cardLabel = document.getElementById('card-label');
+            const cardTitle = document.getElementById('card-title');
+            const cardDesc = document.getElementById('card-desc');
+
+            const cardContent = [
+                { label: 'Creative Mind', title: 'Alex Morgan', desc: 'Digital Creator & Developer' },
+                { label: 'Your Expert', title: 'Skills & Services', desc: 'Delivering excellence in every project' }
+            ];
+
+            let currentImageIndex = 0;
+
+            function updateCardContent(index) {
+                if (index === currentImageIndex) return;
+                
+                // Update images
+                images.forEach((img, i) => {
+                    if (img) img.style.opacity = i === index ? '1' : '0';
+                });
+
+                // Update dots
+                dots.forEach((dot, i) => {
+                    if (dot) {
+                        dot.classList.toggle('bg-indigo-500', i === index);
+                        dot.classList.toggle('bg-gray-600', i !== index);
+                    }
+                });
+
+                // Update content with animation
+                if (cardLabel && cardTitle && cardDesc) {
+                    gsap.to([cardLabel, cardTitle, cardDesc], {
+                        y: -20,
+                        opacity: 0,
+                        duration: 0.3,
+                        onComplete: () => {
+                            cardLabel.textContent = cardContent[index].label;
+                            cardTitle.textContent = cardContent[index].title;
+                            cardDesc.textContent = cardContent[index].desc;
+                            gsap.fromTo([cardLabel, cardTitle, cardDesc], 
+                                { y: 20, opacity: 0 },
+                                { y: 0, opacity: 1, duration: 0.3, stagger: 0.05 }
+                            );
+                        }
+                    });
+                }
+
+                currentImageIndex = index;
+            }
+
+            // Create a wrapper for both sections for the pin effect
+            const whoSection = document.querySelector('#who-am-i');
+            const skillsSection = document.querySelector('#what-can-i-do');
+            
+            // GSAP Pin effect - pins the image card across both sections
+            if (pinnedCard && whoSection && skillsSection) {
+                ScrollTrigger.create({
+                    trigger: '#who-am-i',
+                    start: 'top top',
+                    endTrigger: '#what-can-i-do .skills-list',
+                    end: 'top center',
+                    pin: pinnedCard,
+                    pinSpacing: false,
+                    onUpdate: (self) => {
+                        const progress = self.progress;
+                        
+                        // Two images: first half shows image 1, second half shows image 2
+                        if (progress < 0.35) {
+                            updateCardContent(0);
+                        } else {
+                            updateCardContent(1);
+                        }
+
+                        // Subtle card rotation based on scroll (no fade)
+                        if (imageCard) {
+                            const rotateY = (progress - 0.5) * 6;
+                            const scale = 1 + Math.sin(progress * Math.PI) * 0.02;
+                            imageCard.style.transform = `perspective(1000px) rotateY(${rotateY}deg) scale(${scale})`;
+                        }
+                    }
+                });
+            }
+
+            // What Can I Do Section Animations
+            gsap.from('.skills-header', {
+                scrollTrigger: {
+                    trigger: '.skills-header',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            // Skill items entrance animation
+            const skillItems = document.querySelectorAll('.skill-item');
+            skillItems.forEach((item, index) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 90%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: 'power3.out'
+                });
+
+                // Click to expand/collapse
+                item.addEventListener('click', () => {
+                    const isExpanded = item.classList.contains('expanded');
+                    
+                    // Close all other items
+                    skillItems.forEach(i => {
+                        if (i !== item) {
+                            i.classList.remove('expanded');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('expanded');
+
+                    // Animate sub-skills
+                    const subSkills = item.querySelectorAll('.sub-skill-item');
+                    if (!isExpanded) {
+                        subSkills.forEach((skill, i) => {
+                            gsap.fromTo(skill, 
+                                { x: -15, opacity: 0 },
+                                { x: 0, opacity: 1, duration: 0.3, delay: i * 0.04, ease: 'power2.out' }
+                            );
+                        });
+                    }
+                });
+            });
+
+            // Projects Section Sequence Animation
+            const projectsTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#projects-section",
+                    start: "top top",
+                    end: "bottom bottom",
+                    pin: "#projects-pin",
+                    scrub: 1,
+                    anticipatePin: 1
+                }
+            });
+
+            projectsTl
+                // 1. Split the covers open (push slightly past 100% to guarantee full clearance)
+                .to("#split-top", { yPercent: -110, ease: "power2.inOut", duration: 1.2 })
+                .to("#split-bottom", { yPercent: 110, ease: "power2.inOut", duration: 1.2 }, "<")
+
+                // 1b. Ensure covers stay out of view after opening
+                .set(["#split-top", "#split-bottom"], { pointerEvents: "none" })
+                
+                // 2. Animate Project 1 Text In (Simultaneously with split end)
+                .to(".project-anim-1", {
+                    y: 0,
+                    opacity: 1,
+                    stagger: 0.1,
+                    duration: 0.7,
+                    ease: "power2.out"
+                }, "-=0.6")
+
+                // 3. Slide in Project 2 (slightly longer for smoother pacing)
+                .to("#project-2", {
+                    xPercent: -100, // Move left by 100% to enter viewport
+                    ease: "none", // Linear scrub for slide effect
+                    duration: 2.0
+                })
+
+                // 4. Slide in Project 3 (slow it down more so it doesn't rush)
+                .to("#project-3", {
+                    xPercent: -100,
+                    ease: "none",
+                    duration: 2.6
+                });
+
+            // Approach Section Animation
+            const approachContainer = document.querySelector("#approach-container");
+            const approachSection = document.querySelector("#approach-section");
+            
+            if (approachContainer && approachSection) {
+                // Calculate total scroll distance
+                // We want to scroll until the end of the container is visible
+                // So we move it left by (scrollWidth - window.innerWidth)
+                // Add some padding to the calculation
+                
+                const getScrollAmount = () => {
+                    let amount = approachContainer.scrollWidth - window.innerWidth;
+                    return -(amount);
+                };
+
+                const tween = gsap.to(approachContainer, {
+                    x: getScrollAmount,
+                    ease: "none"
+                });
+
+                ScrollTrigger.create({
+                    trigger: "#approach-section",
+                    start: "top top",
+                    end: () => `+=${getScrollAmount() * -1}`, // scroll distance matches horizontal width
+                    pin: true,
+                    animation: tween,
+                    scrub: 1,
+                    invalidateOnRefresh: true,
+                    onUpdate: (self) => {
+                        // Update Progress Bar
+                        const progress = self.progress;
+                        gsap.to("#approach-progress", {
+                            width: `${progress * 100}%`,
+                            duration: 0.1,
+                            ease: "none"
+                        });
+                        
+                        // Parallax Background Text (Moves slightly opposite to scroll)
+                        gsap.to("#approach-bg-text", {
+                            x: -100 * progress, // subtle movement
+                            duration: 0.5,
+                            ease: "power1.out"
+                        });
+                        
+                        // Reveal active step line
+                        const steps = document.querySelectorAll('.approach-step');
+                        steps.forEach((step, index) => {
+                            // Simple logic: if progress roughly matches step index
+                            // This adds a nice interactive "highlight" as you pass by
+                            const stepProgress = index / (steps.length - 1);
+                            const distance = Math.abs(progress - stepProgress);
+                            
+                            const line = step.querySelector('.border-t div');
+                            if (line) {
+                                if (distance < 0.15) {
+                                    line.style.transform = 'scaleX(1)';
+                                } else {
+                                    line.style.transform = 'scaleX(0)';
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Contact / Creative Form animations
+            if (document.querySelector('#contact')) {
+                gsap.from('.contact-head', {
+                    scrollTrigger: {
+                        trigger: '#contact',
+                        start: 'top 75%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.9,
+                    ease: 'power3.out'
+                });
+
+                gsap.from('.contact-sub', {
+                    scrollTrigger: {
+                        trigger: '#contact',
+                        start: 'top 72%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    y: 24,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power3.out'
+                });
+
+                gsap.utils.toArray('.form-line').forEach((line, i) => {
+                    gsap.from(line, {
+                        scrollTrigger: {
+                            trigger: line,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        },
+                        y: 24,
+                        opacity: 0,
+                        duration: 0.7,
+                        delay: Math.min(i * 0.05, 0.25),
+                        ease: 'power3.out'
+                    });
+                });
+            }
+
+            // --- Minimal Contact Form (FormSubmit) ---
+            const creativeForm = document.getElementById('creative-form');
+            const cfStatus = document.getElementById('cf-status');
+            const sendBtn = document.getElementById('mf-send');
+
+            const channelSelect = document.getElementById('mf-channel');
+            const contactLabel = document.getElementById('mf-contact-label');
+            const contactInput = document.getElementById('mf-contact');
+
+            const setSendBtnState = (state) => {
+                if (!sendBtn) return;
+                const states = {
+                    idle: { text: 'Send', clsAdd: ['bg-white/90','text-black'], clsRem: ['bg-emerald-500','bg-neutral-700'] },
+                    sending: { text: '…', clsAdd: ['bg-white/70','text-black'], clsRem: ['bg-emerald-500','bg-neutral-700'] },
+                    success: { text: '✓', clsAdd: ['bg-emerald-500','text-white'], clsRem: ['bg-white/90','bg-white/70','text-black','bg-neutral-700'] },
+                    fail: { text: '✕', clsAdd: ['bg-neutral-700','text-white'], clsRem: ['bg-white/90','bg-white/70','text-black','bg-emerald-500'] }
+                };
+                const s = states[state] || states.idle;
+                sendBtn.textContent = s.text;
+                s.clsRem.forEach(c => sendBtn.classList.remove(c));
+                s.clsAdd.forEach(c => sendBtn.classList.add(c));
+            };
+
+            const syncContactField = () => {
+                if (!channelSelect || !contactInput || !contactLabel) return;
+                const mode = channelSelect.value;
+                if (mode === 'Email') {
+                    contactLabel.textContent = 'Email';
+                    contactInput.type = 'email';
+                    contactInput.name = 'email';
+                    contactInput.placeholder = 'you@email.com';
+                    contactInput.inputMode = 'email';
+                } else if (mode === 'WhatsApp') {
+                    contactLabel.textContent = 'WhatsApp number';
+                    contactInput.type = 'tel';
+                    contactInput.name = 'whatsapp';
+                    contactInput.placeholder = '+27 00 000 0000';
+                    contactInput.inputMode = 'tel';
+                } else {
+                    contactLabel.textContent = 'Call number';
+                    contactInput.type = 'tel';
+                    contactInput.name = 'call';
+                    contactInput.placeholder = '+27 00 000 0000';
+                    contactInput.inputMode = 'tel';
+                }
+            };
+
+            if (channelSelect) {
+                syncContactField();
+                channelSelect.addEventListener('change', () => {
+                    contactInput.value = '';
+                    syncContactField();
+                    setSendBtnState('idle');
+                    contactInput.focus();
+                });
+            }
+
+            if (creativeForm) {
+                creativeForm.addEventListener('input', () => setSendBtnState('idle'));
+
+                creativeForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const honey = creativeForm.querySelector('input[name="_honey"]')?.value;
+                    if (honey && honey.trim().length) {
+                        setSendBtnState('success');
+                        if (cfStatus) cfStatus.textContent = 'Thanks — received.';
+                        return;
+                    }
+
+                    const topic = creativeForm.querySelector('input[name="topic"]:checked')?.value || '';
+                    const preferred = channelSelect?.value || '';
+                    const contactVal = contactInput?.value || '';
+
+                    // Update subject
+                    const subjEl = creativeForm.querySelector('input[name="_subject"]');
+                    if (subjEl) subjEl.value = `New Inquiry: ${topic}`;
+
+                    // Add meta for readability
+                    let metaEl = creativeForm.querySelector('input[name="meta"]');
+                    if (!metaEl) {
+                        metaEl = document.createElement('input');
+                        metaEl.type = 'hidden';
+                        metaEl.name = 'meta';
+                        creativeForm.appendChild(metaEl);
+                    }
+                    metaEl.value = `Topic: ${topic} | Preferred: ${preferred} | Contact: ${contactVal}`;
+
+                    const creativeMessages = [
+                        'Sending…',
+                        'Packaging your brief…',
+                        'Routing to my inbox…',
+                        'Delivering…'
+                    ];
+                    if (cfStatus) cfStatus.textContent = creativeMessages[Math.floor(Math.random() * creativeMessages.length)];
+                    setSendBtnState('sending');
+
+                    try {
+                        const action = creativeForm.getAttribute('action');
+                        const formData = new FormData(creativeForm);
+
+                        const res = await fetch(action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+
+                        if (res.ok) {
+                            setSendBtnState('success');
+                            if (cfStatus) cfStatus.textContent = 'Sent — I’ll get back to you shortly.';
+                            creativeForm.reset();
+                            syncContactField();
+                            setTimeout(() => setSendBtnState('idle'), 2200);
+                        } else {
+                            setSendBtnState('fail');
+                            if (cfStatus) cfStatus.textContent = 'Send failed — please try again in a moment.';
+                            setTimeout(() => setSendBtnState('idle'), 2400);
+                        }
+                    } catch (err) {
+                        setSendBtnState('fail');
+                        if (cfStatus) cfStatus.textContent = 'Network error — please check your connection and try again.';
+                        setTimeout(() => setSendBtnState('idle'), 2400);
+                    }
+                });
+            }
+
+            // Smooth scrolling for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    // Allow plain "#" links to behave normally (don’t break)
+                    if (!href || href === '#') return;
+
+                    const target = document.querySelector(href);
+                    if (!target) return;
+
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+        });
+    </script>
 </body>
 </html>
-
-
-
